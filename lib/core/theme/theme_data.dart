@@ -1,0 +1,120 @@
+part of "themes.dart";
+
+SystemUiOverlayStyle systemLightUiOverlayStyle = SystemUiOverlayStyle(
+  statusBarColor: Colors.transparent,
+  systemNavigationBarColor: AppThemeColors.light.background,
+  statusBarBrightness: Brightness.light,
+  statusBarIconBrightness: Brightness.dark,
+  systemNavigationBarIconBrightness: Brightness.dark,
+);
+
+SystemUiOverlayStyle systemDarkUiOverlayStyle = SystemUiOverlayStyle(
+  statusBarColor: Colors.transparent,
+  systemNavigationBarColor: AppThemeColors.dark.background,
+  statusBarBrightness: Brightness.dark,
+  statusBarIconBrightness: Brightness.light,
+  systemNavigationBarIconBrightness: Brightness.light,
+);
+
+final ThemeData lightTheme = ThemeData(
+  useMaterial3: true,
+  platform: TargetPlatform.iOS,
+  fontFamily: PConstants.font,
+  applyElevationOverlayColor: true,
+  extensions: <ThemeExtension<dynamic>>[AppThemeColors.light, ThemeTextStyles.light],
+  visualDensity: VisualDensity.standard,
+  materialTapTargetSize: MaterialTapTargetSize.padded,
+  primaryColor: colorLightScheme.primary,
+  colorScheme: colorLightScheme,
+  scaffoldBackgroundColor: AppThemeColors.light.background,
+  cardColor: colorLightScheme.surface,
+  canvasColor: colorLightScheme.surface,
+  shadowColor: AppThemeColors.light.base,
+  bottomSheetTheme: BottomSheetThemeData(
+    backgroundColor: AppThemeColors.light.background,
+    shape: RoundedRectangleBorder(borderRadius: PUtils.kBorderRadiusTop16),
+  ),
+  progressIndicatorTheme: ProgressIndicatorThemeData(color: colorLightScheme.primary, strokeCap: StrokeCap.round),
+  appBarTheme: AppBarTheme(
+    toolbarHeight: kToolbarHeight,
+    elevation: 0,
+    scrolledUnderElevation: 1,
+    systemOverlayStyle: systemLightUiOverlayStyle,
+    iconTheme: IconThemeData(color: colorLightScheme.primary),
+    shadowColor: AppThemeColors.light.white.withValues(alpha: 0.3),
+    titleTextStyle: ThemeTextStyles.light.appBarTitle,
+    toolbarTextStyle: ThemeTextStyles.light.appBarTitle,
+    backgroundColor: AppThemeColors.light.background,
+    surfaceTintColor: colorLightScheme.surface,
+  ),
+
+  listTileTheme: ListTileThemeData(
+    minVerticalPadding: 0,
+    tileColor: AppThemeColors.light.text500,
+    titleTextStyle: ThemeTextStyles.light.listTileTitle,
+    subtitleTextStyle: ThemeTextStyles.light.listTileSubtitle,
+    shape: RoundedRectangleBorder(borderRadius: PUtils.kBorderRadius12),
+  ),
+  dialogTheme: DialogThemeData(backgroundColor: colorLightScheme.surface),
+  sliderTheme: SliderThemeData(
+    activeTrackColor: colorLightScheme.secondary,
+    inactiveTrackColor: AppThemeColors.light.text500,
+    thumbColor: colorLightScheme.secondary,
+    trackHeight: 1,
+    valueIndicatorColor: colorLightScheme.secondary,
+  ),
+  dividerColor: AppThemeColors.light.line100,
+  dividerTheme: DividerThemeData(color: AppThemeColors.light.line100, thickness: 1, space: 8),
+);
+
+final ThemeData darkTheme = ThemeData(
+  useMaterial3: true,
+  platform: TargetPlatform.iOS,
+  fontFamily: PConstants.font,
+  applyElevationOverlayColor: true,
+  extensions: <ThemeExtension<dynamic>>[AppThemeColors.dark, ThemeTextStyles.dark],
+  visualDensity: VisualDensity.standard,
+  materialTapTargetSize: MaterialTapTargetSize.padded,
+  primaryColor: colorDarkScheme.primary,
+  colorScheme: colorDarkScheme,
+  scaffoldBackgroundColor: AppThemeColors.dark.background,
+  cardColor: colorDarkScheme.surface,
+  canvasColor: colorDarkScheme.surface,
+  shadowColor: AppThemeColors.dark.base,
+  bottomSheetTheme: BottomSheetThemeData(
+    backgroundColor: AppThemeColors.dark.background,
+    shape: RoundedRectangleBorder(borderRadius: PUtils.kBorderRadiusTop16),
+  ),
+  progressIndicatorTheme: ProgressIndicatorThemeData(color: colorDarkScheme.primary, strokeCap: StrokeCap.round),
+  appBarTheme: AppBarTheme(
+    toolbarHeight: kToolbarHeight,
+    elevation: 0,
+    scrolledUnderElevation: 1,
+    systemOverlayStyle: systemDarkUiOverlayStyle,
+    iconTheme: IconThemeData(color: colorDarkScheme.primary),
+    shadowColor: AppThemeColors.dark.white.withValues(alpha: 0.3),
+    titleTextStyle: ThemeTextStyles.dark.appBarTitle,
+    toolbarTextStyle: ThemeTextStyles.dark.appBarTitle,
+    backgroundColor: AppThemeColors.dark.background,
+    surfaceTintColor: colorDarkScheme.surface,
+  ),
+
+  listTileTheme: ListTileThemeData(
+    contentPadding: PUtils.kPaddingSymHor12,
+    minVerticalPadding: 0,
+    tileColor: AppThemeColors.dark.blue100,
+    titleTextStyle: ThemeTextStyles.dark.listTileTitle,
+    subtitleTextStyle: ThemeTextStyles.dark.listTileSubtitle,
+    shape: RoundedRectangleBorder(borderRadius: PUtils.kBorderRadius12),
+  ),
+  dialogTheme: DialogThemeData(backgroundColor: colorDarkScheme.surface),
+  sliderTheme: SliderThemeData(
+    activeTrackColor: colorDarkScheme.secondary,
+    inactiveTrackColor: AppThemeColors.dark.base,
+    thumbColor: colorDarkScheme.secondary,
+    trackHeight: 1,
+    valueIndicatorColor: colorDarkScheme.secondary,
+  ),
+  dividerColor: AppThemeColors.dark.line100,
+  dividerTheme: DividerThemeData(color: AppThemeColors.dark.line100, thickness: 1, space: 8),
+);
