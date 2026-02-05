@@ -1,8 +1,10 @@
 import 'package:elonchi/constants/constants.dart';
 import 'package:elonchi/core/extension/extension.dart';
+import 'package:elonchi/core/widgets/bottom_sheet.dart';
 import 'package:elonchi/features/profile/presentation/widgets/empty_user.dart';
 import 'package:elonchi/features/profile/presentation/widgets/login_button.dart';
 import 'package:elonchi/features/profile/presentation/widgets/profile_item.dart';
+import 'package:elonchi/features/profile/presentation/widgets/theme_sheet.dart';
 import 'package:elonchi/features/profile/presentation/widgets/top_part_profile.dart';
 import 'package:flutter/material.dart';
 
@@ -34,7 +36,9 @@ class _ProfilePageState extends State<ProfilePage> {
             ProfileItem(
               title: "theme.title".tr(),
               iconPath: PIcons.themeIcon,
-              onTap: () {},
+              onTap: () {
+                triggerBottomSheet(content: ThemeSheet());
+              },
               borderRadiusGeometry: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
             ),
             Container(height: 1, color: Color(0xffE2E8F0)),

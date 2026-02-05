@@ -50,7 +50,7 @@ final ThemeData lightTheme = ThemeData(
 
   listTileTheme: ListTileThemeData(
     minVerticalPadding: 0,
-    tileColor: AppThemeColors.light.text500,
+    tileColor: AppThemeColors.light.textStrong,
     titleTextStyle: ThemeTextStyles.light.listTileTitle,
     subtitleTextStyle: ThemeTextStyles.light.listTileSubtitle,
     shape: RoundedRectangleBorder(borderRadius: PUtils.kBorderRadius12),
@@ -58,13 +58,13 @@ final ThemeData lightTheme = ThemeData(
   dialogTheme: DialogThemeData(backgroundColor: colorLightScheme.surface),
   sliderTheme: SliderThemeData(
     activeTrackColor: colorLightScheme.secondary,
-    inactiveTrackColor: AppThemeColors.light.text500,
+    inactiveTrackColor: AppThemeColors.light.textStrong,
     thumbColor: colorLightScheme.secondary,
     trackHeight: 1,
     valueIndicatorColor: colorLightScheme.secondary,
   ),
-  dividerColor: AppThemeColors.light.line100,
-  dividerTheme: DividerThemeData(color: AppThemeColors.light.line100, thickness: 1, space: 8),
+  dividerColor: AppThemeColors.light.stroke,
+  dividerTheme: DividerThemeData(color: AppThemeColors.light.stroke, thickness: 1, space: 8),
 );
 
 final ThemeData darkTheme = ThemeData(
@@ -115,6 +115,6 @@ final ThemeData darkTheme = ThemeData(
     trackHeight: 1,
     valueIndicatorColor: colorDarkScheme.secondary,
   ),
-  dividerColor: AppThemeColors.dark.line100,
-  dividerTheme: DividerThemeData(color: AppThemeColors.dark.line100, thickness: 1, space: 8),
+  dividerColor: AppThemeColors.dark.stroke,
+  dividerTheme: DividerThemeData(color: AppThemeColors.dark.stroke, thickness: 1, space: 8),
 );

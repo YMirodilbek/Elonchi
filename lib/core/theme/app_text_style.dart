@@ -35,7 +35,7 @@ class ThemeTextStyles extends ThemeExtension<ThemeTextStyles> {
 
   static ThemeTextStyles light = ThemeTextStyles(
     elevatedButtonText: customTextStyle(
-      color: AppThemeColors.light.text900,
+      color: AppThemeColors.light.textSub,
       fontSize: 14,
       fontWeight: FontWeight.w500,
       height: 16 / 14,
@@ -45,31 +45,11 @@ class ThemeTextStyles extends ThemeExtension<ThemeTextStyles> {
       fontSize: 16,
       fontWeight: FontWeight.w500,
     ),
-    appBarTitle: customTextStyle(
-      color: colorLightScheme.primary,
-      fontSize: 16,
-      fontWeight: FontWeight.w700,
-    ),
-    authTitle: customTextStyle(
-      color: colorLightScheme.primary,
-      fontSize: 20,
-      fontWeight: FontWeight.w700,
-    ),
-    authDescription: customTextStyle(
-      color: AppThemeColors.light.blue100,
-      fontSize: 16,
-      fontWeight: FontWeight.w400,
-    ),
-    textFieldLabel: customTextStyle(
-      color: AppThemeColors.light.base,
-      fontSize: 14,
-      fontWeight: FontWeight.w400,
-    ),
-    textFieldError: customTextStyle(
-      color: colorLightScheme.error,
-      fontSize: 14,
-      fontWeight: FontWeight.w400,
-    ),
+    appBarTitle: customTextStyle(color: colorLightScheme.primary, fontSize: 16, fontWeight: FontWeight.w700),
+    authTitle: customTextStyle(color: colorLightScheme.primary, fontSize: 20, fontWeight: FontWeight.w700),
+    authDescription: customTextStyle(color: AppThemeColors.light.blue100, fontSize: 16, fontWeight: FontWeight.w400),
+    textFieldLabel: customTextStyle(color: AppThemeColors.light.base, fontSize: 14, fontWeight: FontWeight.w400),
+    textFieldError: customTextStyle(color: colorLightScheme.error, fontSize: 14, fontWeight: FontWeight.w400),
     textFieldHint: customTextStyle(
       color: AppThemeColors.light.text400,
       fontSize: 14,
@@ -77,18 +57,14 @@ class ThemeTextStyles extends ThemeExtension<ThemeTextStyles> {
       height: 16 / 14,
     ),
     textFieldMain: customTextStyle(
-      color: AppThemeColors.light.text900,
+      color: AppThemeColors.light.textSub,
       fontSize: 14,
       fontWeight: FontWeight.w400,
       height: 16 / 14,
     ),
-    dialogTitle: customTextStyle(
-      color: colorLightScheme.primary,
-      fontSize: 16,
-      fontWeight: FontWeight.w700,
-    ),
+    dialogTitle: customTextStyle(color: colorLightScheme.primary, fontSize: 16, fontWeight: FontWeight.w700),
     listTileTitle: customTextStyle(
-      color: AppThemeColors.light.text900,
+      color: AppThemeColors.light.textSub,
       fontSize: 14,
       fontWeight: FontWeight.w400,
       height: 16 / 14,
@@ -98,11 +74,7 @@ class ThemeTextStyles extends ThemeExtension<ThemeTextStyles> {
       fontSize: 12,
       fontWeight: FontWeight.w400,
     ),
-    selectedBottomBar: customTextStyle(
-      color: colorLightScheme.secondary,
-      fontSize: 10,
-      fontWeight: FontWeight.w600,
-    ),
+    selectedBottomBar: customTextStyle(color: colorLightScheme.secondary, fontSize: 10, fontWeight: FontWeight.w600),
     unselectedBottomBar: customTextStyle(
       color: AppThemeColors.light.background,
       fontSize: 10,
@@ -112,7 +84,7 @@ class ThemeTextStyles extends ThemeExtension<ThemeTextStyles> {
 
   static ThemeTextStyles dark = ThemeTextStyles(
     elevatedButtonText: customTextStyle(
-      color: AppThemeColors.dark.text900,
+      color: AppThemeColors.dark.textSub,
       fontSize: 14,
       fontWeight: FontWeight.w500,
       height: 16 / 14,
@@ -122,32 +94,16 @@ class ThemeTextStyles extends ThemeExtension<ThemeTextStyles> {
       fontSize: 16,
       fontWeight: FontWeight.w500,
     ),
-    appBarTitle: customTextStyle(
-      color: colorDarkScheme.primary,
-      fontSize: 16,
-      fontWeight: FontWeight.w700,
-    ),
-    authTitle: customTextStyle(
-      color: colorDarkScheme.primary,
-      fontSize: 20,
-      fontWeight: FontWeight.w700,
-    ),
-    authDescription: customTextStyle(
-      color: AppThemeColors.dark.background,
-      fontSize: 16,
-      fontWeight: FontWeight.w400,
-    ),
+    appBarTitle: customTextStyle(color: colorDarkScheme.primary, fontSize: 16, fontWeight: FontWeight.w700),
+    authTitle: customTextStyle(color: colorDarkScheme.primary, fontSize: 20, fontWeight: FontWeight.w700),
+    authDescription: customTextStyle(color: AppThemeColors.dark.background, fontSize: 16, fontWeight: FontWeight.w400),
     textFieldLabel: customTextStyle(
-      color: AppThemeColors.dark.text900,
+      color: AppThemeColors.dark.textSub,
       fontSize: 14,
       fontWeight: FontWeight.w400,
       height: 16 / 14,
     ),
-    textFieldError: customTextStyle(
-      color: colorDarkScheme.error,
-      fontSize: 14,
-      fontWeight: FontWeight.w400,
-    ),
+    textFieldError: customTextStyle(color: colorDarkScheme.error, fontSize: 14, fontWeight: FontWeight.w400),
     textFieldHint: customTextStyle(
       color: AppThemeColors.dark.text400,
       fontSize: 14,
@@ -155,37 +111,21 @@ class ThemeTextStyles extends ThemeExtension<ThemeTextStyles> {
       height: 16 / 14,
     ),
     textFieldMain: customTextStyle(
-      color: AppThemeColors.dark.text900,
+      color: AppThemeColors.dark.textSub,
       fontSize: 14,
       fontWeight: FontWeight.w400,
       height: 16 / 14,
     ),
-    dialogTitle: customTextStyle(
-      color: colorDarkScheme.primary,
-      fontSize: 16,
-      fontWeight: FontWeight.w700,
-    ),
+    dialogTitle: customTextStyle(color: colorDarkScheme.primary, fontSize: 16, fontWeight: FontWeight.w700),
     listTileTitle: customTextStyle(
-      color: AppThemeColors.dark.text900,
+      color: AppThemeColors.dark.textSub,
       fontSize: 14,
       fontWeight: FontWeight.w400,
       height: 16 / 14,
     ),
-    listTileSubtitle: customTextStyle(
-      color: AppThemeColors.dark.background,
-      fontSize: 12,
-      fontWeight: FontWeight.w400,
-    ),
-    selectedBottomBar: customTextStyle(
-      color: colorDarkScheme.secondary,
-      fontSize: 10,
-      fontWeight: FontWeight.w600,
-    ),
-    unselectedBottomBar: customTextStyle(
-      color: AppThemeColors.dark.black,
-      fontSize: 10,
-      fontWeight: FontWeight.w600,
-    ),
+    listTileSubtitle: customTextStyle(color: AppThemeColors.dark.background, fontSize: 12, fontWeight: FontWeight.w400),
+    selectedBottomBar: customTextStyle(color: colorDarkScheme.secondary, fontSize: 10, fontWeight: FontWeight.w600),
+    unselectedBottomBar: customTextStyle(color: AppThemeColors.dark.black, fontSize: 10, fontWeight: FontWeight.w600),
   );
 
   @override

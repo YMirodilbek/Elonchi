@@ -35,12 +35,12 @@ class AppThemeColors extends ThemeExtension<AppThemeColors> {
     required this.background,
     required this.white,
     required this.black,
-    required this.text900,
-    required this.text600,
-    required this.text500,
+    required this.textSub,
+    required this.textSoft,
+    required this.textStrong,
     required this.text400,
     required this.base,
-    required this.line100,
+    required this.stroke,
     required this.line200,
     required this.icon900,
     required this.icon500,
@@ -57,13 +57,13 @@ class AppThemeColors extends ThemeExtension<AppThemeColors> {
   final Color background;
   final Color white;
   final Color black;
-  final Color text900;
-  final Color text600;
-  final Color text500;
+  final Color textSub;
+  final Color textSoft;
+  final Color textStrong;
   final Color text400;
   final Color base;
   final Color base200;
-  final Color line100;
+  final Color stroke;
   final Color line200;
   final Color icon900;
   final Color icon500;
@@ -82,11 +82,11 @@ class AppThemeColors extends ThemeExtension<AppThemeColors> {
     background: Color(0xFFFFFFFF),
     white: Color(0xFFFFFFFF),
     black: Color(0xFF000000),
-    text900: Color(0xFF18181B),
-    text600: Color(0xFF52525B),
-    text500: Color(0xFF71717A),
+    textSub: Color(0xFF334155),
+    textSoft: Color(0xFF64748B),
+    textStrong: Color(0xFF05100C),
     base: Color(0XFF0D9B8A),
-    line100: Color(0xFFF4F4F5),
+    stroke: Color(0xFFE2E8F0),
     line200: Color(0xFFE4E4E7),
     icon900: Color(0xFF18181B),
     icon500: Color(0xFF71717A),
@@ -106,11 +106,11 @@ class AppThemeColors extends ThemeExtension<AppThemeColors> {
     background: Color(0xFF000000),
     white: Color(0xFFffffff),
     black: Color(0xFF000000),
-    text900: Color(0xFFFFFFFF),
-    text600: Color(0xFFB5B5BD),
-    text500: Color(0xFF8D8D94),
+    textSub: Color(0xFFCBD5E1),
+    textSoft: Color(0xFF94A3B8),
+    textStrong: Color(0xFFF8FAFC),
     base: Color(0XFF0D9B8A),
-    line100: Color(0xFF292929),
+    stroke: Color(0xFF27493D),
     line200: Color(0xFF323233),
     icon900: Color(0xFFFFFFFF),
     icon500: Color(0xFF94949C),
@@ -129,11 +129,11 @@ class AppThemeColors extends ThemeExtension<AppThemeColors> {
     Color? background,
     Color? white,
     Color? black,
-    Color? text900,
-    Color? text600,
-    Color? text500,
+    Color? textSub,
+    Color? textSoft,
+    Color? textStrong,
     Color? base,
-    Color? line100,
+    Color? stroke,
     Color? line200,
     Color? icon900,
     Color? icon500,
@@ -152,11 +152,11 @@ class AppThemeColors extends ThemeExtension<AppThemeColors> {
       background: background ?? this.background,
       white: white ?? this.white,
       black: black ?? this.black,
-      text900: text900 ?? this.text900,
-      text600: text600 ?? this.text600,
-      text500: text500 ?? this.text500,
+      textSub: textSub ?? this.textSub,
+      textSoft: textSoft ?? this.textSoft,
+      textStrong: textStrong ?? this.textStrong,
       base: base ?? this.base,
-      line100: line100 ?? this.line100,
+      stroke: stroke ?? this.stroke,
       line200: line200 ?? this.line200,
       icon900: icon900 ?? this.icon900,
       icon500: icon500 ?? this.icon500,
@@ -181,11 +181,11 @@ class AppThemeColors extends ThemeExtension<AppThemeColors> {
       background: Color.lerp(background, other.background, t)!,
       white: Color.lerp(white, other.white, t)!,
       black: Color.lerp(black, other.black, t)!,
-      text900: Color.lerp(text900, other.text900, t)!,
-      text600: Color.lerp(text600, other.text600, t)!,
-      text500: Color.lerp(text500, other.text500, t)!,
+      textSub: Color.lerp(textSub, other.textSub, t)!,
+      textSoft: Color.lerp(textSoft, other.textSoft, t)!,
+      textStrong: Color.lerp(textStrong, other.textStrong, t)!,
       base: Color.lerp(base, other.base, t)!,
-      line100: Color.lerp(line100, other.line100, t)!,
+      stroke: Color.lerp(stroke, other.stroke, t)!,
       line200: Color.lerp(line200, other.line200, t)!,
       icon900: Color.lerp(icon900, other.icon900, t)!,
       icon500: Color.lerp(icon500, other.icon500, t)!,

@@ -31,4 +31,30 @@ sealed class PIcons {
   static const languageSquareIcon = "assets/icons/language-square.svg";
   static const arrowRightIcon = "assets/icons/arrow-right.svg";
   static const favouriteProfileIcon = 'assets/icons/favourite_profile.svg';
+  static const lighthemeImg = "assets/images/light_theme.png";
+  static const darkThemeImg = "assets/images/dark_theme.png";
+  static const supportImg = "assets/images/support.png";
+  static const platformInfoImg = "assets/images/platform_info.png";
+  static const choseLangImg = "assets/images/choose_lan.png";
+}
+
+sealed class PKeys {
+  PKeys._();
+
+  static const String box = "sapi";
+  static const String onboarded = 'onboarded';
+  static const String accessToken = "access_token";
+  static const String refreshToken = "refresh_token";
+  static const String userId = "user_id";
+  static const String firstname = "firstname";
+  static const String lastname = "lastname";
+  static const String phone = "phone";
+  static const String password = "password";
+  static const String avatar = "avatar";
+  static const String locale = "locale";
+  static const String themeMode = "theme_mode";
+  static const String isCreator = 'is_creator';
+  static const String showLottie = 'showLottie';
+  static const String fcmToken = 'fcm_token';
+  static const String imageUrl = 'image_url';
 }
