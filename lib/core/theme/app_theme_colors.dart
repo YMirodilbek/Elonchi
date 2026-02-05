@@ -77,7 +77,7 @@ class AppThemeColors extends ThemeExtension<AppThemeColors> {
   final Color green500;
 
   static AppThemeColors light = AppThemeColors(
-    text400: Color(0xff616166),
+    text400: Color(0xff64748B),
     base200: Color(0xFFF4F4F4),
     background: Color(0xFFFFFFFF),
     white: Color(0xFFFFFFFF),
@@ -91,7 +91,7 @@ class AppThemeColors extends ThemeExtension<AppThemeColors> {
     icon900: Color(0xFF18181B),
     icon500: Color(0xFF71717A),
     icon400: Color(0xFFA1A1AA),
-    icon300: Color(0xFFD4D4D8),
+    icon300: Color(0xFFF4F8F8),
     violet100: Color(0xFFEDE9FE),
     violet600: Color(0xFF7C3AED),
     rose100: Color(0xFFFFE4E6),
@@ -101,7 +101,7 @@ class AppThemeColors extends ThemeExtension<AppThemeColors> {
   );
 
   static AppThemeColors dark = AppThemeColors(
-    text400: Color(0xff616166),
+    text400: Color(0xff94A3B8),
     base200: Color(0xFF111111),
     background: Color(0xFF000000),
     white: Color(0xFFffffff),
@@ -115,7 +115,7 @@ class AppThemeColors extends ThemeExtension<AppThemeColors> {
     icon900: Color(0xFFFFFFFF),
     icon500: Color(0xFF94949C),
     icon400: Color(0xFF727278),
-    icon300: Color(0xFF5D5D5E),
+    icon300: Color(0xFF0A1612),
     violet100: Color(0xFF251D45),
     violet600: Color(0xFF975FF7),
     rose100: Color(0xFF3A1215),
