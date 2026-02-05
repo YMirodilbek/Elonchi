@@ -1,3 +1,4 @@
+import 'package:elonchi/features/splash/presentation/pages/language_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -25,7 +26,12 @@ final GoRouter router = GoRouter(
       parentNavigatorKey: rootNavigatorKey,
       builder: (_, _) => const SplashPage(),
     ),
-
+    GoRoute(
+      path: Routes.languageScreen,
+      name: Routes.languageScreen,
+      parentNavigatorKey: rootNavigatorKey,
+      builder: (_, _) => const LanguagePage(),
+    ),
     StatefulShellRoute.indexedStack(
       parentNavigatorKey: rootNavigatorKey,
       builder: (_, GoRouterState state, StatefulNavigationShell navigationShell) {

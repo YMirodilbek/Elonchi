@@ -5,7 +5,8 @@ sealed class Routes {
 
   static const String splashScreen = '/splash_page';
   static const String home = '/home_page';
-  static const String race = '/race_page';
+  static const String race = '/sell_page';
   static const String profile = '/profile';
-  static const String ranking = '/ranking';
+  static const String ranking = '/messages';
+  static const String languageScreen = "/language_page";
 }

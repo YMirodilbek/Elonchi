@@ -15,7 +15,7 @@ class NavbarItem extends StatelessWidget {
     required this.active,
     required this.onTap,
     required this.iconPath,
-    this.padding = 24,
+    this.padding = 8,
     required this.label,
   });
 
@@ -37,14 +37,7 @@ class NavbarItem extends StatelessWidget {
                 colorFilter: ColorFilter.mode(targetColor, BlendMode.srcIn),
               ),
             ),
-            const SizedBox(height: 8),
-            AnimatedSwitcher(
-              duration: const Duration(milliseconds: 300),
-              child: active
-                  ? CircleAvatar(key: const ValueKey('active'), radius: 3, backgroundColor: context.color.base)
-                  : const SizedBox(key: ValueKey('inactive'), height: 6),
-            ),
-            const SizedBox(height: 2),
+            const SizedBox(height: 6),
             AnimatedDefaultTextStyle(
               duration: const Duration(milliseconds: 300),
               style: TextStyle(color: targetColor),

@@ -5,7 +5,7 @@ part of 'themes.dart';
 // light
 const colorLightScheme = ColorScheme(
   brightness: Brightness.light,
-  primary: Color(0XFF975FF7),
+  primary: Color(0XFF0D9B8A),
   onPrimary: Colors.white,
   surface: Colors.white,
   onSurface: Colors.black,
@@ -18,7 +18,7 @@ const colorLightScheme = ColorScheme(
 // dark
 const colorDarkScheme = ColorScheme(
   brightness: Brightness.dark,
-  primary: Color(0XFFBE4FED),
+  primary: Color(0XFF0D9B8A),
   onPrimary: Colors.white,
   surface: Colors.black,
   onSurface: Colors.white,
@@ -78,14 +78,14 @@ class AppThemeColors extends ThemeExtension<AppThemeColors> {
 
   static AppThemeColors light = AppThemeColors(
     text400: Color(0xff616166),
-    base200: Color(0xFF20CBF1),
+    base200: Color(0xFFF4F4F4),
     background: Color(0xFFFFFFFF),
     white: Color(0xFFFFFFFF),
     black: Color(0xFF000000),
     text900: Color(0xFF18181B),
     text600: Color(0xFF52525B),
     text500: Color(0xFF71717A),
-    base: Color(0XFFBE4FED),
+    base: Color(0XFF0D9B8A),
     line100: Color(0xFFF4F4F5),
     line200: Color(0xFFE4E4E7),
     icon900: Color(0xFF18181B),
@@ -102,14 +102,14 @@ class AppThemeColors extends ThemeExtension<AppThemeColors> {
 
   static AppThemeColors dark = AppThemeColors(
     text400: Color(0xff616166),
-    base200: Color(0xFF20CBF1),
+    base200: Color(0xFF111111),
     background: Color(0xFF000000),
     white: Color(0xFFffffff),
     black: Color(0xFF000000),
     text900: Color(0xFFFFFFFF),
     text600: Color(0xFFB5B5BD),
     text500: Color(0xFF8D8D94),
-    base: Color(0XFFBE4FED),
+    base: Color(0XFF0D9B8A),
     line100: Color(0xFF292929),
     line200: Color(0xFF323233),
     icon900: Color(0xFFFFFFFF),

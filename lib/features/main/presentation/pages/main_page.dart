@@ -20,14 +20,14 @@ class _MainPageState extends State<MainPage> {
       bottomNavigationBar: SafeArea(
         child: Container(
           decoration: BoxDecoration(
-            color: context.color.black,
-            border: Border(top: BorderSide(width: 1, color: Color(0xff292929))),
+            color: context.color.background,
+            border: Border(top: BorderSide(width: 1, color: context.color.icon300)),
           ),
           child: Row(
             children: [
               Expanded(
                 child: NavbarItem(
-                  label: 'Practice',
+                  label: 'Поиск',
                   iconPath: PIcons.homeIcon,
                   active: widget.navigationShell.currentIndex == 0,
                   onTap: () {
@@ -36,10 +36,11 @@ class _MainPageState extends State<MainPage> {
                   },
                 ),
               ),
+
               Expanded(
                 child: NavbarItem(
-                  label: 'Duels',
-                  iconPath: PIcons.raceIcon,
+                  iconPath: PIcons.messageIcon,
+                  label: 'Продать',
                   active: widget.navigationShell.currentIndex == 1,
                   onTap: () {
                     // AppMetrica.reportEvent('Home Button Clicked');
@@ -49,9 +50,8 @@ class _MainPageState extends State<MainPage> {
               ),
               Expanded(
                 child: NavbarItem(
-                  iconPath: PIcons.rankinIcon,
-                  label: 'Ranking',
-
+                  label: 'Сообщения',
+                  iconPath: PIcons.sellIcon,
                   active: widget.navigationShell.currentIndex == 2,
                   onTap: () {
                     // AppMetrica.reportEvent('Home Button Clicked');
@@ -62,8 +62,7 @@ class _MainPageState extends State<MainPage> {
               Expanded(
                 child: NavbarItem(
                   iconPath: PIcons.profileIcon,
-                  label: 'Profile',
-
+                  label: 'Войти',
                   active: widget.navigationShell.currentIndex == 3,
                   onTap: () {
                     // AppMetrica.reportEvent('Home Button Clicked');
