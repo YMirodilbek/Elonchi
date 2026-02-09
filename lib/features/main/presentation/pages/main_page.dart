@@ -21,7 +21,7 @@ class _MainPageState extends State<MainPage> {
         child: Container(
           decoration: BoxDecoration(
             color: context.color.background,
-            border: Border(top: BorderSide(width: 1, color: context.color.icon300)),
+            border: Border(top: BorderSide(width: 1, color: context.color.bgelevation)),
           ),
           child: Row(
             children: [

@@ -5,6 +5,7 @@ import 'package:elonchi/constants/constants.dart';
 import 'package:elonchi/core/connectivity/network_info.dart';
 import 'package:elonchi/core/local_source/local_source.dart';
 import 'package:elonchi/core/network/request_manager.dart';
+import 'package:elonchi/features/messages/all_massages/presentation/blocs/all_messages_bloc/all_messages_bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
@@ -30,7 +31,8 @@ Future<void> init() async {
     ..registerSingleton(InternetConnectionChecker.createInstance(checkInterval: const Duration(seconds: 3)))
     ..registerSingleton<NetworkInfo>(NetworkInfoImpl(sl()))
     ..registerSingleton<LocalSource>(LocalSource(_box))
-    ..registerSingleton<RequestManager>(RequestManager(dio: sl()));
+    ..registerSingleton<RequestManager>(RequestManager(dio: sl()))
+    ..registerFactory(() => AllMessagesBloc());
 
   sl<Dio>().options = BaseOptions(
     contentType: "application/json",

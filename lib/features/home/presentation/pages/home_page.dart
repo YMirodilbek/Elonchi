@@ -1,8 +1,10 @@
 import 'package:elonchi/features/home/presentation/widgets/product_item.dart';
 import 'package:elonchi/features/home/presentation/widgets/search_widget.dart';
 import 'package:elonchi/features/home/presentation/widgets/top_details.dart';
+import 'package:elonchi/router/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:elonchi/features/home/presentation/widgets/category_item.dart';
+import 'package:go_router/go_router.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -19,9 +21,21 @@ class _HomePageState extends State<HomePage> {
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [
-            TopDetailsHome(adress: 'Tashkent', onLikedTap: () {}, onHotSalesTap: () {}),
+            TopDetailsHome(
+              adress: 'Tashkent',
+              onLikedTap: () {
+                context.push(Routes.myWishes);
+              },
+              onHotSalesTap: () {
+                context.push(Routes.salesScreen);
+              },
+            ),
             const SizedBox(height: 16),
-            SearchWidget(onTap: () {}),
+            SearchWidget(
+              onTap: () {
+                context.push(Routes.searchScreen);
+              },
+            ),
             const SizedBox(height: 8),
             Image.asset("assets/images/banner.png"),
             const SizedBox(height: 8),
@@ -36,6 +50,27 @@ class _HomePageState extends State<HomePage> {
             ),
             const SizedBox(height: 12),
             Text("Недавные товары", style: TextStyle(fontSize: 16)),
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                Expanded(
+                  child: ProductItem(
+                    productImagePath: "assets/images/item_1.png",
+                    title: "500 000 сум",
+                    liked: false,
+                    description: "Apple magic mishka",
+                  ),
+                ),
+                Expanded(
+                  child: ProductItem(
+                    productImagePath: "assets/images/item_2.png",
+                    title: "1 200 000 сум",
+                    liked: false,
+                    description: "Magnitlik Shaxmat",
+                  ),
+                ),
+              ],
+            ),
             const SizedBox(height: 8),
             Row(
               children: [

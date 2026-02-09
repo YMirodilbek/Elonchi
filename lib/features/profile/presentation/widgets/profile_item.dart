@@ -23,7 +23,7 @@ class ProfileItem extends StatelessWidget {
     return WScaleAnimation(
       onTap: onTap,
       child: Container(
-        decoration: BoxDecoration(borderRadius: borderRadiusGeometry, color: context.color.icon300),
+        decoration: BoxDecoration(borderRadius: borderRadiusGeometry, color: context.color.bgelevation),
         padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 16),
         child: Row(
           children: [

@@ -6,7 +6,9 @@ import 'package:elonchi/features/profile/presentation/widgets/login_button.dart'
 import 'package:elonchi/features/profile/presentation/widgets/profile_item.dart';
 import 'package:elonchi/features/profile/presentation/widgets/theme_sheet.dart';
 import 'package:elonchi/features/profile/presentation/widgets/top_part_profile.dart';
+import 'package:elonchi/router/app_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -74,7 +76,11 @@ class _ProfilePageState extends State<ProfilePage> {
           ],
         ),
       ),
-      floatingActionButton: LoginButton(onTap: () {}),
+      floatingActionButton: LoginButton(
+        onTap: () {
+          context.push(Routes.authScreen);
+        },
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }

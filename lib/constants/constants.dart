@@ -36,6 +36,32 @@ sealed class PIcons {
   static const supportImg = "assets/images/support.png";
   static const platformInfoImg = "assets/images/platform_info.png";
   static const choseLangImg = "assets/images/choose_lan.png";
+  static const infoImg = 'assets/images/info.png';
+  static const likedImg = "assets/images/liked.png";
+  static const salesImg = "assets/images/sales.png";
+  static const callIcon = "assets/icons/call.svg";
+  static const deleteIcon = "assets/icons/delete.svg";
+  static const fileVideIcon = "assets/icons/file-video.svg";
+  static const imageAddIcon = "assets/icons/image-add-01.svg";
+  static const reportIcon = "assets/icons/report.svg";
+  static const sendIcon = "assets/icons/send.svg";
+  static const threeDots = "assets/icons/three_dots.svg";
+  static const userSquare = "assets/icons/user-square.svg";
+  static const arrowLeftIcon = "assets/icons/arrow-left.svg";
+  static const doubleTickICon = "assets/icons/tick-double.svg";
+  static const tickIcon = "assets/icons/tick-01.svg";
+  static const deleteTextIcon = "assets/icons/delete_text.svg";
+  static const filtersIcon = "assets/icons/filter-horizontal.svg";
+  static const menuIcon = "assets/icons/menu-11.svg";
+  static const arrorDown = "assets/icons/arrow-down-03-round.svg";
+  static const searchIcon = "assets/icons/search.svg";
+  static const cancelIcon = "assets/icons/cancel-01.svg";
+  static const menu2Icon = "assets/icons/menu-02.svg";
+  static const viewIcon = "assets/icons/view.svg";
+  static const addring = "assets/icons/add-ring.svg";
+  static const location5Icon = "assets/icons/location-05.svg";
+  static const checkinImg = "assets/images/checking_item.png";
+  static const wantFastImg = "assets/images/want_fast.png";
 }
 
 sealed class PKeys {

@@ -14,7 +14,7 @@ class SearchWidget extends StatelessWidget {
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(color: context.color.icon300, borderRadius: BorderRadius.circular(20)),
+        decoration: BoxDecoration(color: context.color.bgelevation, borderRadius: BorderRadius.circular(20)),
         child: Row(
           children: [
             SvgPicture.asset(PIcons.homeIcon, height: 24),

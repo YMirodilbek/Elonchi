@@ -1,0 +1,49 @@
+import 'package:elonchi/constants/constants.dart';
+import 'package:elonchi/core/extension/extension.dart';
+import 'package:elonchi/core/widgets/scale_animation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+
+class SearchSelectedCategories extends StatelessWidget {
+  const SearchSelectedCategories({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        WScaleAnimation(
+          onTap: () {},
+          child: Container(
+            padding: const EdgeInsets.symmetric(vertical: 9, horizontal: 16),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(16), color: context.color.textStrong),
+            child: Row(
+              children: [
+                Text('Все категории', style: TextStyle(color: context.color.white)),
+                const SizedBox(width: 8),
+                SvgPicture.asset(PIcons.menuIcon),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(width: 8),
+        WScaleAnimation(
+          onTap: () {},
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(width: 1, color: context.color.stroke),
+            ),
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+            child: Row(
+              children: [
+                SvgPicture.asset(PIcons.arrorDown),
+                const SizedBox(width: 8),
+                Text("Рекомендованное", style: TextStyle(color: context.color.textSub)),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}

@@ -10,7 +10,7 @@ class EmptyUser extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(24), color: context.color.icon300),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(24), color: context.color.bgelevation),
       child: Column(
         children: [
           CircleAvatar(

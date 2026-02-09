@@ -1,5 +1,6 @@
 import 'package:elonchi/constants/constants.dart';
 import 'package:elonchi/core/extension/extension.dart';
+import 'package:elonchi/core/theme/theme_provider.dart';
 import 'package:elonchi/core/widgets/scale_animation.dart';
 import 'package:flutter/material.dart';
 
@@ -8,6 +9,8 @@ class ThemeSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeManager = ThemeProvider.of(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -19,7 +22,9 @@ class ThemeSheet extends StatelessWidget {
         Text('Выберите, как будет выглядеть приложение'),
         const SizedBox(height: 20),
         WScaleAnimation(
-          onTap: () {},
+          onTap: () {
+            themeManager.setThemeMode(ThemeMode.light);
+          },
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 17, horizontal: 16),
             decoration: BoxDecoration(
@@ -57,7 +62,9 @@ class ThemeSheet extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         WScaleAnimation(
-          onTap: () {},
+          onTap: () {
+            themeManager.setThemeMode(ThemeMode.dark);
+          },
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 17, horizontal: 16),
             decoration: BoxDecoration(

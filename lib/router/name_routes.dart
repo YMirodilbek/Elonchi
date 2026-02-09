@@ -7,6 +7,15 @@ sealed class Routes {
   static const String home = '/home_page';
   static const String race = '/sell_page';
   static const String profile = '/profile';
-  static const String ranking = '/messages';
+  static const String messages = '/messages';
   static const String languageScreen = "/language_page";
+  static const String conversationScreen = '/conversation_page';
+  static const String myWishes = "/my_wishes_page";
+  static const String salesScreen = '/sales_page';
+  static const String singleItemScreen = "/single_item_page";
+  static const String searchScreen = "/search_page";
+  static const String filtersScreen = "/filters_page";
+  static const String categoriesScreen = "/categories_page";
+  static const String addItemScreen = "/add_item_page";
+  static const String authScreen = '/auth_page';
 }
