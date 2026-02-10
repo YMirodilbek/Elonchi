@@ -63,6 +63,7 @@ sealed class PIcons {
   static const location5Icon = "assets/icons/location-05.svg";
   static const checkinImg = "assets/images/checking_item.png";
   static const wantFastImg = "assets/images/want_fast.png";
+  static const logOutIcon = "assets/icons/logout-01.svg";
 }
 
 sealed class PKeys {
@@ -97,8 +98,8 @@ sealed class PUrls {
   static const String refress = '/admin-auth/token/refresh/';
   static const String login = "/api/register/";
   static const String confirmOtp = '/api/verifay/';
-  static const String postNickName = '/auth/login/set-username/';
-  static const String becomeCreator = '/user/become-creator/account/';
+  static const String getUser = "/api/get-user/";
+
   static const String uploadFile = '/files/create/';
   static const String registerFmc = '/api/fcm/register-device/';
 }

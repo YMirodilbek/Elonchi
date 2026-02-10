@@ -6,6 +6,7 @@ import 'package:elonchi/core/widgets/scale_animation.dart';
 import 'package:elonchi/features/auth/presentation/blocs/login_bloc/login_bloc.dart' as login_bloc;
 import 'package:elonchi/features/auth/presentation/blocs/otp_bloc/otp_bloc.dart';
 import 'package:elonchi/features/auth/presentation/widgets/pinput.dart';
+import 'package:elonchi/features/profile/presentation/blocs/profile_main/profile_bloc.dart';
 import 'package:elonchi/injector_container.dart';
 import 'package:elonchi/router/app_routes.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +41,7 @@ class _OtpConfirmPageState extends State<OtpConfirmPage> {
     return BlocListener<OtpBloc, OtpState>(
       listener: (context, state) {
         if (state.status == ApiStatus.success) {
+          sl<ProfileBloc>().add(ChangeLoggedIn());
           context.go(Routes.home);
         }
       },
@@ -73,6 +75,7 @@ class _OtpConfirmPageState extends State<OtpConfirmPage> {
                     const SizedBox(height: 20),
                     Center(
                       child: PinInput(
+                        error: otpState.hasError,
                         onCompleted: (code) {
                           bloc.add(ChangeCodeEvent(code: code));
                         },

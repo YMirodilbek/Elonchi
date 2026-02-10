@@ -11,6 +11,8 @@ import 'package:elonchi/features/home/presentation/pages/search_page.dart';
 import 'package:elonchi/features/messages/all_massages/presentation/blocs/all_messages_bloc/all_messages_bloc.dart';
 import 'package:elonchi/features/messages/all_massages/presentation/pages/messages.dart';
 import 'package:elonchi/features/messages/single_message/presentation/pages/conversation_page.dart';
+import 'package:elonchi/features/profile/presentation/blocs/profile_main/profile_bloc.dart';
+import 'package:elonchi/features/profile/presentation/pages/profile_edit_page.dart';
 import 'package:elonchi/features/sell/presentation/pages/add_item_page.dart';
 import 'package:elonchi/features/single_item/presentation/pages/single_item_page.dart';
 import 'package:elonchi/features/splash/presentation/pages/language_screen.dart';
@@ -107,20 +109,25 @@ final GoRouter router = GoRouter(
         );
       },
     ),
-
     GoRoute(
       path: Routes.addItemScreen,
       name: Routes.addItemScreen,
       parentNavigatorKey: rootNavigatorKey,
       builder: (_, _) => const AddItemPage(),
     ),
-
     GoRoute(
       path: Routes.conversationScreen,
       name: Routes.conversationScreen,
       parentNavigatorKey: rootNavigatorKey,
       builder: (_, _) => const ConversationPage(),
     ),
+    GoRoute(
+      path: Routes.editProfileScreen,
+      name: Routes.editProfileScreen,
+      parentNavigatorKey: rootNavigatorKey,
+      builder: (_, _) => const ProfileEditPage(),
+    ),
+
     StatefulShellRoute.indexedStack(
       parentNavigatorKey: rootNavigatorKey,
       builder: (_, GoRouterState state, StatefulNavigationShell navigationShell) {
@@ -151,7 +158,11 @@ final GoRouter router = GoRouter(
         StatefulShellBranch(
           initialLocation: Routes.profile,
           routes: <RouteBase>[
-            GoRoute(path: Routes.profile, name: Routes.profile, builder: (context, state) => const ProfilePage()),
+            GoRoute(
+              path: Routes.profile,
+              name: Routes.profile,
+              builder: (context, state) => BlocProvider.value(value: sl<ProfileBloc>(), child: const ProfilePage()),
+            ),
           ],
         ),
       ],

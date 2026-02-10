@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:elonchi/core/network/response_data.dart';
+import 'package:elonchi/core/utils/utils.dart';
 
 class RequestManager {
   final Dio dio;
@@ -40,7 +41,7 @@ class RequestManager {
         response: error.response?.data,
       );
     } catch (error, stacktrace) {
-      //   printError("Exception occurred: $error stacktrace: $stacktrace");
+      printError("Exception occurred: $error stacktrace: $stacktrace");
       return ResponseData(error: "Something went wrong");
     }
   }

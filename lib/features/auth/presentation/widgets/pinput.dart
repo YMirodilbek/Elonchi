@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 
 class PinInput extends StatefulWidget {
+  final bool error;
   final Function(String) onCompleted;
 
-  const PinInput({super.key, required this.onCompleted});
+  const PinInput({super.key, required this.onCompleted, required this.error});
 
   @override
   State<PinInput> createState() => _PinInputState();
@@ -28,10 +29,15 @@ class _PinInputState extends State<PinInput> {
       width: 10,
       height: 10,
       decoration: BoxDecoration(color: context.color.bgElevattion2, borderRadius: BorderRadius.circular(25)),
+      textStyle: TextStyle(),
     );
 
     final submittedPinTheme = PinTheme(
-      textStyle: TextStyle(fontSize: 24, color: context.color.textStrong, fontWeight: FontWeight.w700),
+      textStyle: TextStyle(
+        fontSize: 24,
+        color: widget.error ? context.color.errorColor : context.color.textStrong,
+        fontWeight: FontWeight.w700,
+      ),
 
       decoration: BoxDecoration(color: Colors.transparent, borderRadius: BorderRadius.circular(25)),
     );
