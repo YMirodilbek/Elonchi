@@ -1,4 +1,8 @@
-import 'package:elonchi/features/auth/presentation/pages/auth_page.dart';
+import 'package:elonchi/features/auth/domain/auth_repository.dart';
+import 'package:elonchi/features/auth/presentation/blocs/login_bloc/login_bloc.dart';
+import 'package:elonchi/features/auth/presentation/blocs/otp_bloc/otp_bloc.dart';
+import 'package:elonchi/features/auth/presentation/pages/login_page.dart';
+import 'package:elonchi/features/auth/presentation/pages/otp_confirm_page.dart';
 import 'package:elonchi/features/home/presentation/pages/categories_page.dart';
 import 'package:elonchi/features/home/presentation/pages/filters_page.dart';
 import 'package:elonchi/features/home/presentation/pages/hot_sales_page.dart';
@@ -83,8 +87,27 @@ final GoRouter router = GoRouter(
       path: Routes.authScreen,
       name: Routes.authScreen,
       parentNavigatorKey: rootNavigatorKey,
-      builder: (_, _) => const AuthPage(),
+      builder: (_, _) => BlocProvider(
+        create: (context) => LoginBloc(authRepository: sl<AuthRepository>()),
+        child: const AuthPage(),
+      ),
     ),
+    GoRoute(
+      path: Routes.otpConfirmScreen,
+      name: Routes.otpConfirmScreen,
+      parentNavigatorKey: rootNavigatorKey,
+      builder: (_, state) {
+        final extras = state.extra as Map<String, dynamic>?;
+        return BlocProvider(
+          create: (context) => sl<OtpBloc>(),
+          child: OtpConfirmPage(
+            number: extras?['number'] as String? ?? '',
+            initialSeconds: extras?['initialSeconds'] as int?,
+          ),
+        );
+      },
+    ),
+
     GoRoute(
       path: Routes.addItemScreen,
       name: Routes.addItemScreen,

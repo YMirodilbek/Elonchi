@@ -79,6 +79,10 @@ final class LocalSource {
     return box.get(PKeys.isCreator, defaultValue: false);
   }
 
+  Future<void> setloggedIn(String loggedIn) async {
+    await box.put(PKeys.loggedIn, loggedIn);
+  }
+
   // first name
 
   Future<void> setFirstName(String firstName) async {

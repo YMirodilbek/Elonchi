@@ -18,4 +18,5 @@ sealed class Routes {
   static const String categoriesScreen = "/categories_page";
   static const String addItemScreen = "/add_item_page";
   static const String authScreen = '/auth_page';
+  static const String otpConfirmScreen = '/otp_confirm_page';
 }

@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 
 // Custom phone formatter that handles cursor positioning better
 class UzbekPhoneFormatter extends TextInputFormatter {
-  static const String _mask = '## ### ## ##';
+  static const String _mask = '## ### ##-##';
 
   @override
   TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
@@ -68,17 +68,10 @@ class PhoneInputs extends StatefulWidget {
   final bool enabled;
   final double horMargin;
   final VoidCallback onTap;
-  final TextEditingController controller;
+
   final void Function(String value) onChanged;
 
-  const PhoneInputs({
-    super.key,
-    this.horMargin = 12,
-    this.enabled = true,
-    required this.controller,
-    required this.onTap,
-    required this.onChanged,
-  });
+  const PhoneInputs({super.key, this.horMargin = 0, this.enabled = true, required this.onTap, required this.onChanged});
 
   @override
   State<PhoneInputs> createState() => _PhoneInputsState();
@@ -96,35 +89,26 @@ class _PhoneInputsState extends State<PhoneInputs> {
   @override
   Widget build(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Container(
-          margin: EdgeInsets.only(left: widget.horMargin),
-          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(14)),
-          child: Row(
-            children: [
-              Text('+998', style: TextStyle(fontWeight: FontWeight.w400)),
-              const SizedBox(width: 4),
-              //    SvgPicture.asset(PIcons.iconDown),
-            ],
-          ),
+        Padding(
+          padding: const EdgeInsets.only(right: 8),
+          child: Text('+998', style: TextStyle(fontSize: 16, color: context.color.textStrong)),
         ),
-        const SizedBox(width: 4),
         Expanded(
           child: TextField(
             enabled: widget.enabled,
-            controller: widget.controller,
             onChanged: (value) {
-              // Get unmasked value (digits only)
-              final unmaskedValue = widget.controller.text.replaceAll(RegExp(r'[^0-9]'), '');
+              final unmaskedValue = value.replaceAll(RegExp(r'[^0-9]'), '');
               widget.onChanged(unmaskedValue);
             },
-
             keyboardType: TextInputType.number,
             inputFormatters: [_phoneFormatter],
-            style: const TextStyle(fontSize: 14, letterSpacing: 1.2),
+            style: const TextStyle(fontSize: 16),
             decoration: InputDecoration(
-              contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+              hintText: '00 000 00-00',
+              hintStyle: TextStyle(color: context.color.textSoft, fontSize: 16),
+              contentPadding: const EdgeInsets.symmetric(vertical: 14),
               focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: context.color.bgelevation, width: 1)),
               enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: context.color.bgelevation, width: 1)),
             ),

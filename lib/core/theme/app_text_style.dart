@@ -35,7 +35,7 @@ class ThemeTextStyles extends ThemeExtension<ThemeTextStyles> {
 
   static ThemeTextStyles light = ThemeTextStyles(
     elevatedButtonText: customTextStyle(
-      color: AppThemeColors.light.textSub,
+      color: AppThemeColors.light.textSoft,
       fontSize: 14,
       fontWeight: FontWeight.w500,
       height: 16 / 14,

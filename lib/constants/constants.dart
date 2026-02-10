@@ -1,8 +1,8 @@
 sealed class PConstants {
   PConstants._();
 
-  static const font = "Rubik";
-  static const baseUrl = "http://45.147.196.213:8080/";
+  static const font = "Inter";
+  static const baseUrl = "http://45.147.196.213:8080";
   static const playStore = "";
   // static const appStore = "https://apps.apple.com/app/telegram-messenger/id686449807";
 }
@@ -35,6 +35,7 @@ sealed class PIcons {
   static const darkThemeImg = "assets/images/dark_theme.png";
   static const supportImg = "assets/images/support.png";
   static const platformInfoImg = "assets/images/platform_info.png";
+  static const profileUnAuth = "assets/icons/profile_unauth.svg";
   static const choseLangImg = "assets/images/choose_lan.png";
   static const infoImg = 'assets/images/info.png';
   static const likedImg = "assets/images/liked.png";
@@ -72,6 +73,7 @@ sealed class PKeys {
   static const String accessToken = "access_token";
   static const String refreshToken = "refresh_token";
   static const String userId = "user_id";
+  static const String loggedIn = "logged_in";
   static const String firstname = "firstname";
   static const String lastname = "lastname";
   static const String phone = "phone";
@@ -83,4 +85,20 @@ sealed class PKeys {
   static const String showLottie = 'showLottie';
   static const String fcmToken = 'fcm_token';
   static const String imageUrl = 'image_url';
+}
+
+sealed class PUrls {
+  PUrls._();
+
+  // app
+  static const String fetchUser = '/user/get-me/';
+
+  // auth
+  static const String refress = '/admin-auth/token/refresh/';
+  static const String login = "/api/register/";
+  static const String confirmOtp = '/api/verifay/';
+  static const String postNickName = '/auth/login/set-username/';
+  static const String becomeCreator = '/user/become-creator/account/';
+  static const String uploadFile = '/files/create/';
+  static const String registerFmc = '/api/fcm/register-device/';
 }

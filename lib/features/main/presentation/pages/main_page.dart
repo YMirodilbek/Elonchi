@@ -1,3 +1,4 @@
+import 'package:elonchi/injector_container.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:elonchi/constants/constants.dart';
@@ -61,8 +62,8 @@ class _MainPageState extends State<MainPage> {
               ),
               Expanded(
                 child: NavbarItem(
-                  iconPath: PIcons.profileIcon,
-                  label: 'Войти',
+                  iconPath: localSource.isUserLoggedIn ? PIcons.profileIcon : PIcons.profileUnAuth,
+                  label: localSource.isUserLoggedIn ? "Профиль" : 'Войти',
                   active: widget.navigationShell.currentIndex == 3,
                   onTap: () {
                     // AppMetrica.reportEvent('Home Button Clicked');

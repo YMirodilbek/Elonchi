@@ -6,6 +6,7 @@ import 'package:elonchi/features/profile/presentation/widgets/login_button.dart'
 import 'package:elonchi/features/profile/presentation/widgets/profile_item.dart';
 import 'package:elonchi/features/profile/presentation/widgets/theme_sheet.dart';
 import 'package:elonchi/features/profile/presentation/widgets/top_part_profile.dart';
+import 'package:elonchi/injector_container.dart';
 import 'package:elonchi/router/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -76,11 +77,13 @@ class _ProfilePageState extends State<ProfilePage> {
           ],
         ),
       ),
-      floatingActionButton: LoginButton(
-        onTap: () {
-          context.push(Routes.authScreen);
-        },
-      ),
+      floatingActionButton: !localSource.isUserLoggedIn
+          ? LoginButton(
+              onTap: () {
+                context.push(Routes.authScreen);
+              },
+            )
+          : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }

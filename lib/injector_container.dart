@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -5,6 +6,9 @@ import 'package:elonchi/constants/constants.dart';
 import 'package:elonchi/core/connectivity/network_info.dart';
 import 'package:elonchi/core/local_source/local_source.dart';
 import 'package:elonchi/core/network/request_manager.dart';
+import 'package:elonchi/features/auth/domain/auth_repository.dart';
+import 'package:elonchi/features/auth/presentation/blocs/login_bloc/login_bloc.dart';
+import 'package:elonchi/features/auth/presentation/blocs/otp_bloc/otp_bloc.dart';
 import 'package:elonchi/features/messages/all_massages/presentation/blocs/all_messages_bloc/all_messages_bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
@@ -32,6 +36,9 @@ Future<void> init() async {
     ..registerSingleton<NetworkInfo>(NetworkInfoImpl(sl()))
     ..registerSingleton<LocalSource>(LocalSource(_box))
     ..registerSingleton<RequestManager>(RequestManager(dio: sl()))
+    ..registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(requestManager: sl()))
+    ..registerFactory(() => LoginBloc(authRepository: sl<AuthRepository>()))
+    ..registerFactory(() => OtpBloc(authRepository: sl<AuthRepository>(), localSource: sl<LocalSource>()))
     ..registerFactory(() => AllMessagesBloc());
 
   sl<Dio>().options = BaseOptions(
@@ -45,107 +52,122 @@ Future<void> init() async {
         : <String, dynamic>{},
   );
 
-  sl<Dio>().interceptors.addAll(<Interceptor>[
-    if (kDebugMode)
+  if (!const bool.fromEnvironment('dart.vm.product')) {
+    // Keep your existing pretty logger only in debug
+    sl<Dio>().interceptors.add(
       PrettyDioLogger(
         requestHeader: true,
         requestBody: true,
         responseBody: true,
         responseHeader: true,
         error: true,
-        request: true,
         compact: true,
         maxWidth: 90,
-        logPrint: (Object object) {
-          //log("$object");
-        },
       ),
-    InterceptorsWrapper(
-      onRequest: (options, handler) async {
-        return handler.next(options);
-      },
-      onResponse: (response, handler) async {
-        return handler.next(response);
-      },
-      onError: (error, handler) async {
-        // if (await networkInfo.isConnected == false) {
-        //   final RouteMatch lastMatch = router.routerDelegate.currentConfiguration.last;
-        //   final RouteMatchList matchList = lastMatch is ImperativeRouteMatch ? lastMatch.matches : router.routerDelegate.currentConfiguration;
-        //   final String location = matchList.uri.toString();
-        //   if (location.contains(Routes.noInternet)) {
-        //     return;
-        //   }
-        //
-        //   await router.push(Routes.noInternet);
-        //
-        //   return handler.reject(error);
-        // }
-        // CustomSneakBar.show(
-        //   status: SneakBarStatus.error,
-        //   message: (error.response?.data is Map &&
-        //           error.response?.data.containsKey('detail'))
-        //       ? error.response?.data['detail'].toString()
-        //       : error.response?.data.toString(),
-        // );
-        // if (error.response?.statusCode == 401 && localSource.isUserLoggedIn) {
-        //   await localSource.clearUserData();
-        //   sl<Dio>().options.headers.remove("Authorization");
-        //   rootNavigatorKey.currentContext?.go(Routes.signIn);
-        // }
+    );
+  }
 
-        // if (error.response?.statusCode == 401 && localSource.isUserLoggedIn) {
-        //   final result = await sl<AuthRepository>().refresh(
-        //     localSource.refreshToken,
-        //   );
-        //
-        //   result.fold(
-        //     (left) async {
-        //       await localSource.clearUserData();
-        //       rootNavigatorKey.currentContext?.go(Routes.signIn);
-        //
-        //       return handler.reject(error);
-        //     },
-        //     (right) async {
-        //       localSource.setAccessToken(right.accessToken ?? "");
-        //       sl<Dio>().options.headers["x-access-token"] = right.accessToken;
-        //
-        //       final newOptions = error.requestOptions;
-        //       final response = await sl<Dio>().request(
-        //         newOptions.path,
-        //         options: Options(
-        //           contentType: "application/json",
-        //           method: newOptions.method,
-        //           headers: <String, dynamic>{
-        //             "x-access-token": right.accessToken,
-        //           },
-        //         ),
-        //         data: newOptions.data,
-        //         queryParameters: newOptions.queryParameters,
-        //       );
-        //
-        //       return handler.resolve(response);
-        //     },
-        //   );
-        // } else {
-        //   return handler.next(error);
-        // }
-        return handler.next(error);
-      },
-    ),
-    // LogInterceptor(
-    //   error: kDebugMode,
-    //   request: kDebugMode,
-    //   requestBody: kDebugMode,
-    //   responseBody: kDebugMode,
-    //   requestHeader: kDebugMode,
-    //   responseHeader: kDebugMode,
-    //   logPrint: (Object object) {
-    //     if (kDebugMode) {
-    //       log("dio: $object");
-    //     }
-    //   },
-    // ),
-  ]);
+  // sl<Dio>().interceptors.addAll(<Interceptor>[
+  //   if (kDebugMode)
+  //     PrettyDioLogger(
+  //       requestHeader: true,
+  //       requestBody: true,
+  //       responseBody: true,
+  //       responseHeader: true,
+  //       error: true,
+  //       request: true,
+  //       compact: true,
+  //       maxWidth: 90,
+  //       logPrint: (Object object) {
+  //         //log("$object");
+  //       },
+  //     ),
+  //   InterceptorsWrapper(
+  //     onRequest: (options, handler) async {
+  //       return handler.next(options);
+  //     },
+  //     onResponse: (response, handler) async {
+  //       return handler.next(response);
+  //     },
+  //     onError: (error, handler) async {
+  //       // if (await networkInfo.isConnected == false) {
+  //       //   final RouteMatch lastMatch = router.routerDelegate.currentConfiguration.last;
+  //       //   final RouteMatchList matchList = lastMatch is ImperativeRouteMatch ? lastMatch.matches : router.routerDelegate.currentConfiguration;
+  //       //   final String location = matchList.uri.toString();
+  //       //   if (location.contains(Routes.noInternet)) {
+  //       //     return;
+  //       //   }
+  //       //
+  //       //   await router.push(Routes.noInternet);
+  //       //
+  //       //   return handler.reject(error);
+  //       // }
+  //       // CustomSneakBar.show(
+  //       //   status: SneakBarStatus.error,
+  //       //   message: (error.response?.data is Map &&
+  //       //           error.response?.data.containsKey('detail'))
+  //       //       ? error.response?.data['detail'].toString()
+  //       //       : error.response?.data.toString(),
+  //       // );
+  //       // if (error.response?.statusCode == 401 && localSource.isUserLoggedIn) {
+  //       //   await localSource.clearUserData();
+  //       //   sl<Dio>().options.headers.remove("Authorization");
+  //       //   rootNavigatorKey.currentContext?.go(Routes.signIn);
+  //       // }
+
+  //       // if (error.response?.statusCode == 401 && localSource.isUserLoggedIn) {
+  //       //   final result = await sl<AuthRepository>().refresh(
+  //       //     localSource.refreshToken,
+  //       //   );
+  //       //
+  //       //   result.fold(
+  //       //     (left) async {
+  //       //       await localSource.clearUserData();
+  //       //       rootNavigatorKey.currentContext?.go(Routes.signIn);
+  //       //
+  //       //       return handler.reject(error);
+  //       //     },
+  //       //     (right) async {
+  //       //       localSource.setAccessToken(right.accessToken ?? "");
+  //       //       sl<Dio>().options.headers["x-access-token"] = right.accessToken;
+  //       //
+  //       //       final newOptions = error.requestOptions;
+  //       //       final response = await sl<Dio>().request(
+  //       //         newOptions.path,
+  //       //         options: Options(
+  //       //           contentType: "application/json",
+  //       //           method: newOptions.method,
+  //       //           headers: <String, dynamic>{
+  //       //             "x-access-token": right.accessToken,
+  //       //           },
+  //       //         ),
+  //       //         data: newOptions.data,
+  //       //         queryParameters: newOptions.queryParameters,
+  //       //       );
+  //       //
+  //       //       return handler.resolve(response);
+  //       //     },
+  //       //   );
+  //       // } else {
+  //       //   return handler.next(error);
+  //       // }
+  //       return handler.next(error);
+  //     },
+  //   ),
+  //   // LogInterceptor(
+  //   //   error: kDebugMode,
+  //   //   request: kDebugMode,
+  //   //   requestBody: kDebugMode,
+  //   //   responseBody: kDebugMode,
+  //   //   requestHeader: kDebugMode,
+  //   //   responseHeader: kDebugMode,
+  //   //   logPrint: (Object object) {
+  //   //     if (kDebugMode) {
+  //   //       log("dio: $object");
+  //   //     }
+  //   //   },
+  //   // ),
+  // ]);
 }
 
 Future<void> _initHive() async {
