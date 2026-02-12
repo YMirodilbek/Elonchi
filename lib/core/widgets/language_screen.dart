@@ -35,6 +35,7 @@ class _LanguagePageState extends State<LanguagePage> {
               Text("choose.lan_title".tr()),
               const SizedBox(height: 16),
               LanguageItem(
+                color: context.color.base200,
                 iconPath: PIcons.uzIcon,
                 title: 'O’zbekcha',
                 active: context.locale?.languageCode == 'uz',
@@ -44,6 +45,7 @@ class _LanguagePageState extends State<LanguagePage> {
               ),
               const SizedBox(height: 8),
               LanguageItem(
+                color: context.color.base200,
                 iconPath: PIcons.ruIcon,
                 title: 'Русский',
                 active: context.locale?.languageCode == 'ru',

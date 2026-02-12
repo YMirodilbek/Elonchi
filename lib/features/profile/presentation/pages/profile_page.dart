@@ -3,11 +3,15 @@ import 'package:elonchi/constants/constants.dart';
 import 'package:elonchi/core/extension/extension.dart';
 import 'package:elonchi/core/widgets/bottom_sheet.dart';
 import 'package:elonchi/core/widgets/scale_animation.dart';
+import 'package:elonchi/features/profile/data/user_response.dart';
 import 'package:elonchi/features/profile/presentation/blocs/profile_main/profile_bloc.dart';
 import 'package:elonchi/features/profile/presentation/widgets/empty_user.dart';
+import 'package:elonchi/features/profile/presentation/widgets/language_sheet.dart';
 import 'package:elonchi/features/profile/presentation/widgets/log_out_sheet.dart';
 import 'package:elonchi/features/profile/presentation/widgets/login_button.dart';
+import 'package:elonchi/features/profile/presentation/widgets/platform_info.dart';
 import 'package:elonchi/features/profile/presentation/widgets/profile_item.dart';
+import 'package:elonchi/features/profile/presentation/widgets/support_sheet.dart';
 import 'package:elonchi/features/profile/presentation/widgets/theme_sheet.dart';
 import 'package:elonchi/features/profile/presentation/widgets/top_part_profile.dart';
 import 'package:elonchi/injector_container.dart';
@@ -43,9 +47,16 @@ class _ProfilePageState extends State<ProfilePage> {
             child: ListView(
               padding: const EdgeInsets.all(16),
               children: [
-                TopPartProfile(onTap: () {}),
+                TopPartProfile(
+                  onEditTap: () async {
+                    final result = await context.push<UserModel>(Routes.editProfileScreen, extra: state.userModel);
+                    if (result != null) {
+                      bloc.add(EditProfileInfoEvent(result));
+                    }
+                  },
+                ),
                 const SizedBox(height: 20),
-                const EmptyUser(),
+                UserInfo(userModel: state.userModel, selectedImgIndex: localSource.selectedPhotoIndex),
                 const SizedBox(height: 12),
                 ProfileItem(title: 'Мои объявления', iconPath: PIcons.myAnnoucementscon, onTap: () {}),
                 const SizedBox(height: 12),
@@ -65,7 +76,9 @@ class _ProfilePageState extends State<ProfilePage> {
                 ProfileItem(
                   title: "Язык",
                   iconPath: PIcons.languageSquareIcon,
-                  onTap: () {},
+                  onTap: () {
+                    triggerBottomSheet(content: LanguageSheet());
+                  },
                   borderRadiusGeometry: BorderRadius.only(
                     bottomLeft: Radius.circular(20),
                     bottomRight: Radius.circular(20),
@@ -77,14 +90,18 @@ class _ProfilePageState extends State<ProfilePage> {
                 ProfileItem(
                   title: "О платформе",
                   iconPath: PIcons.infoIcon,
-                  onTap: () {},
+                  onTap: () {
+                    triggerBottomSheet(content: const PlatformInfoSheet());
+                  },
                   borderRadiusGeometry: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
                 ),
                 Container(height: 1, color: Color(0xffE2E8F0)),
                 ProfileItem(
                   title: "Поддержка",
                   iconPath: PIcons.supportIcon,
-                  onTap: () {},
+                  onTap: () {
+                    triggerBottomSheet(content: const SupportSheet());
+                  },
                   borderRadiusGeometry: BorderRadius.only(
                     bottomLeft: Radius.circular(20),
                     bottomRight: Radius.circular(20),

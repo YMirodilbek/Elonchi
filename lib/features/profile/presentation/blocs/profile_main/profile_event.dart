@@ -15,3 +15,12 @@ final class GetUserEvent extends ProfileEvent {
   @override
   List<Object> get props => [];
 }
+
+final class EditProfileInfoEvent extends ProfileEvent {
+  final UserModel userModel;
+
+  const EditProfileInfoEvent(this.userModel);
+
+  @override
+  List<Object> get props => [userModel];
+}

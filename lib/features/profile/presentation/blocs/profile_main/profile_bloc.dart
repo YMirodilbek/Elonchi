@@ -1,6 +1,6 @@
 import 'package:elonchi/core/network/response_data.dart';
 import 'package:elonchi/features/profile/data/user_response.dart';
-import 'package:elonchi/features/profile/domain/profile_reporisitory.dart';
+import 'package:elonchi/features/profile/domain/repositories/profile_reporisitory.dart';
 import 'package:elonchi/injector_container.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,5 +29,9 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     } else {
       emit(state.copyWith(userModel: result.data, apiStatus: ApiStatus.error));
     }
+  }
+
+  void editUserInfo(EditProfileInfoEvent event, Emitter<ProfileState> emit) {
+    emit(state.copyWith(userModel: event.userModel));
   }
 }

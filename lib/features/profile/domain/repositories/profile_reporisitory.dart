@@ -5,7 +5,7 @@ import 'package:elonchi/features/profile/data/user_response.dart';
 
 abstract class ProfileRepository {
   Future<ResponseData<UserModel>> getUserInfo();
-  Future<ResponseData<void>> editUserInfo();
+  Future<ResponseData<void>> editUserInfo({required String? name});
 }
 
 class ProfileRepoImpl extends ProfileRepository {
@@ -13,11 +13,12 @@ class ProfileRepoImpl extends ProfileRepository {
   ProfileRepoImpl(this.requestManager);
 
   @override
-  Future<ResponseData<void>> editUserInfo() {
+  Future<ResponseData<void>> editUserInfo({String? name}) {
     return requestManager.request(
-      requestType: RequestType.get,
-      path: PUrls.getUser,
+      requestType: RequestType.post,
+      path: PUrls.editUser,
       dataParser: (json) => UserModel.fromJson(json),
+      data: {"first_name": "$name"},
     );
   }
 

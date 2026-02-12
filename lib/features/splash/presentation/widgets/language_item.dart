@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class LanguageItem extends StatelessWidget {
+  final Color color;
   final String iconPath;
   final String title;
   final bool active;
   final VoidCallback onTap;
   const LanguageItem({
     super.key,
+    required this.color,
     required this.iconPath,
     required this.title,
     required this.active,
@@ -22,7 +24,7 @@ class LanguageItem extends StatelessWidget {
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: context.color.base200),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: color),
         child: Row(
           children: [
             SvgPicture.asset(iconPath),

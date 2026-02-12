@@ -45,6 +45,14 @@ final class LocalSource {
     return box.get(PKeys.accessToken, defaultValue: "");
   }
 
+  int? get selectedPhotoIndex {
+    return box.get(PKeys.selectedImgIndex);
+  }
+
+  Future<void> setSelectedPhIndex(int index) async {
+    await box.put(PKeys.selectedImgIndex, index);
+  }
+
   Future<void> setAccessToken(String accessToken) async {
     await box.put(PKeys.accessToken, accessToken);
   }

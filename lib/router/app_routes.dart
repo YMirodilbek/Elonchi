@@ -11,11 +11,14 @@ import 'package:elonchi/features/home/presentation/pages/search_page.dart';
 import 'package:elonchi/features/messages/all_massages/presentation/blocs/all_messages_bloc/all_messages_bloc.dart';
 import 'package:elonchi/features/messages/all_massages/presentation/pages/messages.dart';
 import 'package:elonchi/features/messages/single_message/presentation/pages/conversation_page.dart';
+import 'package:elonchi/features/profile/data/user_response.dart';
+import 'package:elonchi/features/profile/domain/repositories/profile_reporisitory.dart';
+import 'package:elonchi/features/profile/presentation/blocs/profile_edit/profile_edit_bloc.dart';
 import 'package:elonchi/features/profile/presentation/blocs/profile_main/profile_bloc.dart';
 import 'package:elonchi/features/profile/presentation/pages/profile_edit_page.dart';
 import 'package:elonchi/features/sell/presentation/pages/add_item_page.dart';
 import 'package:elonchi/features/single_item/presentation/pages/single_item_page.dart';
-import 'package:elonchi/features/splash/presentation/pages/language_screen.dart';
+import 'package:elonchi/core/widgets/language_screen.dart';
 import 'package:elonchi/injector_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -125,9 +128,11 @@ final GoRouter router = GoRouter(
       path: Routes.editProfileScreen,
       name: Routes.editProfileScreen,
       parentNavigatorKey: rootNavigatorKey,
-      builder: (_, _) => const ProfileEditPage(),
+      builder: (_, state) => BlocProvider(
+        create: (context) => ProfileEditBloc(reporisitory: sl<ProfileRepository>()),
+        child: ProfileEditPage(userModel: state.extra as UserModel),
+      ),
     ),
-
     StatefulShellRoute.indexedStack(
       parentNavigatorKey: rootNavigatorKey,
       builder: (_, GoRouterState state, StatefulNavigationShell navigationShell) {

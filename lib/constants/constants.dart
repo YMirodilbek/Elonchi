@@ -86,6 +86,7 @@ sealed class PKeys {
   static const String showLottie = 'showLottie';
   static const String fcmToken = 'fcm_token';
   static const String imageUrl = 'image_url';
+  static const String selectedImgIndex = 'selected_img_index';
 }
 
 sealed class PUrls {
@@ -99,6 +100,7 @@ sealed class PUrls {
   static const String login = "/api/register/";
   static const String confirmOtp = '/api/verifay/';
   static const String getUser = "/api/get-user/";
+  static const String editUser = "/api/user-update/";
 
   static const String uploadFile = '/files/create/';
   static const String registerFmc = '/api/fcm/register-device/';
