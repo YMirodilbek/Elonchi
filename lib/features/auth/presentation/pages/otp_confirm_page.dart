@@ -41,7 +41,8 @@ class _OtpConfirmPageState extends State<OtpConfirmPage> {
     return BlocListener<OtpBloc, OtpState>(
       listener: (context, state) {
         if (state.status == ApiStatus.success) {
-          sl<ProfileBloc>().add(ChangeLoggedIn());
+          sl<ProfileBloc>().add(ChangeLoggedIn(true));
+          sl<ProfileBloc>().add(GetUserEvent());
           context.go(Routes.home);
         }
       },

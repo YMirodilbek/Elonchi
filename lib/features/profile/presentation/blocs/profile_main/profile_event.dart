@@ -5,9 +5,10 @@ sealed class ProfileEvent extends Equatable {
 }
 
 final class ChangeLoggedIn extends ProfileEvent {
-  const ChangeLoggedIn();
+  final bool value;
+  const ChangeLoggedIn(this.value);
   @override
-  List<Object> get props => [];
+  List<Object> get props => [value];
 }
 
 final class GetUserEvent extends ProfileEvent {

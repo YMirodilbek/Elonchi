@@ -31,6 +31,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
     super.initState();
     bloc = context.read<ProfileEditBloc>();
     bloc.add(EditProfileInfoEvent(widget.userModel));
+    bloc.add(InitControllerEvent(TextEditingController(text: widget.userModel.firstName)));
   }
 
   @override
@@ -63,9 +64,12 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     TopInfoPart(
+                      pickedImg: state.pickedImg,
                       selectedImageIndex: localSource.selectedPhotoIndex,
-                      userModel: UserModel(firstName: "test"),
-                      onImageAddTap: () {},
+                      userModel: state.userModel,
+                      onImageAddTap: () {
+                        bloc.add(const ChangeUserImgEvent());
+                      },
                     ),
                     ImageChangeOptions(
                       selectedImg: localSource.selectedPhotoIndex,
@@ -76,6 +80,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                     ),
                     const SizedBox(height: 16),
                     NameInput(
+                      controller: state.controller,
                       onChanged: (value) {
                         bloc.add(EditProfileInfoEvent(state.userModel.copyWith(firstName: value)));
                       },

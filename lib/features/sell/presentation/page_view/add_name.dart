@@ -2,7 +2,8 @@ import 'package:elonchi/core/extension/extension.dart';
 import 'package:flutter/material.dart';
 
 class AddNameForm extends StatelessWidget {
-  const AddNameForm({super.key});
+  final void Function(String title) onChanged;
+  const AddNameForm({super.key, required this.onChanged});
 
   @override
   Widget build(BuildContext context) {

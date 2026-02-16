@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:elonchi/constants/constants.dart';
 import 'package:elonchi/core/extension/extension.dart';
 import 'package:elonchi/features/profile/data/user_response.dart';
@@ -11,6 +12,7 @@ class UserInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String imagePath = userModel.image ?? "";
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(24), color: context.color.bgelevation),
@@ -19,8 +21,17 @@ class UserInfo extends StatelessWidget {
           CircleAvatar(
             radius: 32,
             backgroundColor: context.color.background,
-            child: selectedImgIndex != null
-                ? Image.asset('assets/images/img$selectedImgIndex.png')
+            child: imagePath.isNotEmpty
+                ? ClipOval(
+                    child: CachedNetworkImage(
+                      imageUrl: "${PConstants.baseUrl}$imagePath",
+                      width: 64,
+                      height: 64,
+                      fit: BoxFit.cover,
+                    ),
+                  )
+                : selectedImgIndex != null
+                ? Image.asset('assets/images/img$selectedImgIndex.png', width: 64, height: 64, fit: BoxFit.cover)
                 : SvgPicture.asset(PIcons.userProfileIcon),
           ),
           const SizedBox(height: 8),

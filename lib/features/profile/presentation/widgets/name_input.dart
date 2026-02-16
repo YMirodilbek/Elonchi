@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class NameInput extends StatelessWidget {
+  final TextEditingController? controller;
   final void Function(String value) onChanged;
 
   final String userName;
-  const NameInput({super.key, required this.userName, required this.onChanged});
+  const NameInput({super.key, required this.userName, required this.onChanged, this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class NameInput extends StatelessWidget {
                 Text('Ваше имя', style: TextStyle(color: context.color.textSoft, fontSize: 12)),
                 TextField(
                   onChanged: onChanged,
-
+                  controller: controller,
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     labelStyle: TextStyle(fontWeight: FontWeight.w500, color: context.color.textStrong),

@@ -6,9 +6,17 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 class ProgressBar extends StatelessWidget {
+  final double completionProgress;
+  final int currentPage;
   final double value;
   final VoidCallback onBackTap;
-  const ProgressBar({super.key, required this.value, required this.onBackTap});
+  const ProgressBar({
+    super.key,
+    required this.value,
+    required this.onBackTap,
+    required this.completionProgress,
+    required this.currentPage,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -37,12 +45,12 @@ class ProgressBar extends StatelessWidget {
           Row(
             children: [
               Text(
-                '1/8',
+                '$currentPage/8',
                 style: TextStyle(fontSize: 6, fontWeight: FontWeight.w500, color: context.color.textStrong),
               ),
               const Spacer(),
               Text(
-                '12.5%',
+                '$completionProgress%',
                 style: TextStyle(fontSize: 6, fontWeight: FontWeight.w500, color: context.color.textStrong),
               ),
             ],

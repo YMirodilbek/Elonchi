@@ -64,6 +64,7 @@ sealed class PIcons {
   static const checkinImg = "assets/images/checking_item.png";
   static const wantFastImg = "assets/images/want_fast.png";
   static const logOutIcon = "assets/icons/logout-01.svg";
+  static const deleteImgIcon = "assets/icons/delete_img.svg";
 }
 
 sealed class PKeys {
@@ -101,7 +102,10 @@ sealed class PUrls {
   static const String confirmOtp = '/api/verifay/';
   static const String getUser = "/api/get-user/";
   static const String editUser = "/api/user-update/";
-
+  static const String createProduct = "/api/product/product/";
   static const String uploadFile = '/files/create/';
   static const String registerFmc = '/api/fcm/register-device/';
+  static const String postProfuct = '/api/product/product/';
+  static const String getCategories = '/api/product/get-category/';
+  static String getSubCategories(int id) => '/api/product/get-sub-category/$id/';
 }
