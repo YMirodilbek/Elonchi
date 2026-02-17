@@ -155,3 +155,11 @@ final class ValidateAndProceedEvent extends AddItemEvent {
   @override
   List<Object> get props => [];
 }
+
+final class ChangeTradeEvent extends AddItemEvent {
+  final bool value;
+  const ChangeTradeEvent({required this.value});
+
+  @override
+  List<Object> get props => [value];
+}

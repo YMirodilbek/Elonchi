@@ -8,17 +8,18 @@ import 'package:elonchi/features/categories/presentation/blocs/bloc/category_blo
 import 'package:elonchi/features/categories/presentation/pages/categories_page.dart';
 import 'package:elonchi/features/regions/presentation/bloc/regions_bloc.dart';
 import 'package:elonchi/features/regions/presentation/pages/regions.dart';
-import 'package:elonchi/features/sell/presentation/bloc/bloc/add_item_bloc.dart';
-import 'package:elonchi/features/sell/presentation/page_view/add_characteristics.dart';
-import 'package:elonchi/features/sell/presentation/page_view/add_decription.dart';
-import 'package:elonchi/features/sell/presentation/page_view/add_name.dart';
-import 'package:elonchi/features/sell/presentation/page_view/contacts.dart';
-import 'package:elonchi/features/sell/presentation/page_view/image_add.dart';
-import 'package:elonchi/features/sell/presentation/page_view/meet_place.dart';
-import 'package:elonchi/features/sell/presentation/page_view/requirements.dart';
-import 'package:elonchi/features/sell/presentation/page_view/selecte_category.dart';
-import 'package:elonchi/features/sell/presentation/widgets/brands_sheet.dart';
-import 'package:elonchi/features/sell/presentation/widgets/progress_bar.dart';
+import 'package:elonchi/features/my_products/domain/entities/condition.dart';
+import 'package:elonchi/features/my_products/presentation/bloc/bloc/add_item_bloc.dart';
+import 'package:elonchi/features/my_products/presentation/page_view/add_characteristics.dart';
+import 'package:elonchi/features/my_products/presentation/page_view/add_decription.dart';
+import 'package:elonchi/features/my_products/presentation/page_view/add_name.dart';
+import 'package:elonchi/features/my_products/presentation/page_view/contacts.dart';
+import 'package:elonchi/features/my_products/presentation/page_view/image_add.dart';
+import 'package:elonchi/features/my_products/presentation/page_view/meet_place.dart';
+import 'package:elonchi/features/my_products/presentation/page_view/requirements.dart';
+import 'package:elonchi/features/my_products/presentation/page_view/selecte_category.dart';
+import 'package:elonchi/features/my_products/presentation/widgets/brands_sheet.dart';
+import 'package:elonchi/features/my_products/presentation/widgets/progress_bar.dart';
 import 'package:elonchi/injector_container.dart';
 import 'package:elonchi/router/app_routes.dart';
 import 'package:flutter/material.dart';
@@ -83,6 +84,10 @@ class _AddItemPageState extends State<AddItemPage> {
                 },
               ),
               RequirementsForm(
+                onTradeChange: (val) {
+                  bloc.add(ChangeTradeEvent(value: val));
+                },
+                trade: state.newProduct?.trade ?? false,
                 onMoneyTypeChange: (moneyType) {
                   bloc.add(ChangeMoneyTypeEvent(value: moneyType));
                 },
@@ -103,7 +108,7 @@ class _AddItemPageState extends State<AddItemPage> {
                     bloc.add(ChangeModelsEvent(model: selectedBrand));
                   }
                 },
-                condition: state.condition,
+                condition: state.newProduct?.condition ?? Condition.newProduct,
                 onConditionChange: (condition) {
                   bloc.add(ChangeConditionEvent(condition: condition));
                 },

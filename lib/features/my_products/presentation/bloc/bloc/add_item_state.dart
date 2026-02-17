@@ -6,12 +6,11 @@ class AddItemState extends Equatable {
   final double currentPage;
   final SellMethod sellMethod;
   final List<ModelItem> models;
-  final Condition? condition;
+
   final ApiStatus apiStatus;
   final String? validationError;
 
   const AddItemState({
-    this.condition,
     this.apiStatus = ApiStatus.initial,
     this.models = const [],
     this.newProduct,
@@ -22,7 +21,7 @@ class AddItemState extends Equatable {
   });
 
   @override
-  List<Object?> get props => [newProduct, currentPage, sellMethod, models, condition, apiStatus, validationError];
+  List<Object?> get props => [newProduct, currentPage, sellMethod, models, apiStatus, validationError];
 
   AddItemState copyWith({
     ApiStatus? apistatus,
@@ -30,13 +29,13 @@ class AddItemState extends Equatable {
     double? currentPage,
     SellMethod? sellmethod,
     List<ModelItem>? models,
-    Condition? condition,
+
     String? validationError,
     bool clearValidationError = false,
   }) {
     return AddItemState(
       apiStatus: apistatus ?? apiStatus,
-      condition: condition ?? this.condition,
+
       models: models ?? this.models,
       sellMethod: sellmethod ?? sellMethod,
       newProduct: newProduct ?? this.newProduct,

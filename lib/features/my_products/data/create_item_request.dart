@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:elonchi/features/categories/data/category_response.dart';
 import 'package:elonchi/features/categories/domain/entities/selected_category.dart';
 import 'package:elonchi/features/regions/data/regions_response.dart';
+import 'package:elonchi/features/my_products/domain/entities/condition.dart';
 
 class CreateProductRequest {
+  final Condition? condition;
   final String? contactname;
   final String? title;
   final String? price;
@@ -23,6 +25,7 @@ class CreateProductRequest {
   final List<File>? images;
 
   const CreateProductRequest({
+    this.condition = Condition.newProduct,
     this.contactname,
     this.selectedModel,
     this.title,
@@ -42,6 +45,7 @@ class CreateProductRequest {
   });
 
   CreateProductRequest copyWith({
+    Condition? condition,
     String? contactname,
     ModelItem? selectedModel,
     String? title,
@@ -60,6 +64,7 @@ class CreateProductRequest {
     List<File>? images,
   }) {
     return CreateProductRequest(
+      condition: condition ?? this.condition,
       contactname: contactname ?? this.contactname,
       selectedModel: selectedModel ?? this.selectedModel,
       title: title ?? this.title,

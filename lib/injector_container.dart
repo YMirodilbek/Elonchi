@@ -15,8 +15,8 @@ import 'package:elonchi/features/profile/presentation/blocs/profile_edit/profile
 import 'package:elonchi/features/profile/presentation/blocs/profile_main/profile_bloc.dart';
 import 'package:elonchi/features/regions/domain/regions_repo.dart';
 import 'package:elonchi/features/regions/presentation/bloc/regions_bloc.dart';
-import 'package:elonchi/features/sell/domain/repository/create_item_repo.dart';
-import 'package:elonchi/features/sell/presentation/bloc/bloc/add_item_bloc.dart';
+import 'package:elonchi/features/my_products/domain/repository/create_item_repo.dart';
+import 'package:elonchi/features/my_products/presentation/bloc/bloc/add_item_bloc.dart';
 import 'package:elonchi/router/app_routes.dart';
 
 import 'package:get_it/get_it.dart';

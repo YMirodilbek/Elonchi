@@ -2,8 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:elonchi/constants/constants.dart';
 import 'package:elonchi/core/network/request_manager.dart';
 import 'package:elonchi/core/network/response_data.dart';
-import 'package:elonchi/features/sell/data/create_item_request.dart';
-import 'package:elonchi/features/sell/data/product_item_response.dart';
+import 'package:elonchi/features/my_products/data/create_item_request.dart';
+import 'package:elonchi/features/my_products/data/product_item_response.dart';
 
 abstract class CreateItemRepo {
   Future<ResponseData<ProductModel>> createProduct(CreateProductRequest request);
@@ -23,16 +23,13 @@ class CreateItemRepoImpl extends CreateItemRepo {
       'title': request.title,
       'price': request.price,
       'money_type': request.moneyType,
-
       'trade': request.trade == null ? 0 : (request.trade! ? 1 : 0),
-
       'exchange': request.exchange == null ? 0 : (request.exchange! ? 1 : 0),
-
       'dostafca': request.dostafca == null ? 0 : (request.dostafca! ? 1 : 0),
-
       'address': request.address,
       'phone_number': request.phoneNumber,
       'description': request.description,
+      'condition': request.condition?.name,
       'lan': request.lan,
       'lat': request.lat,
       'region': request.region?.id,
@@ -66,8 +63,7 @@ class CreateItemRepoImpl extends CreateItemRepo {
 
   @override
   Future<ResponseData<void>> getItems() {
-    // TODO: implement getItems
-    throw UnimplementedError();
+    return requestManager.request(requestType: RequestType.get, path: PUrls.getMyProducts);
   }
 
   @override

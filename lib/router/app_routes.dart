@@ -16,9 +16,9 @@ import 'package:elonchi/features/profile/domain/repositories/profile_reporisitor
 import 'package:elonchi/features/profile/presentation/blocs/profile_edit/profile_edit_bloc.dart';
 import 'package:elonchi/features/profile/presentation/blocs/profile_main/profile_bloc.dart';
 import 'package:elonchi/features/profile/presentation/pages/profile_edit_page.dart';
-import 'package:elonchi/features/sell/presentation/bloc/bloc/add_item_bloc.dart';
-import 'package:elonchi/features/sell/presentation/pages/add_item_page.dart';
-import 'package:elonchi/features/sell/presentation/pages/success_state.dart';
+import 'package:elonchi/features/my_products/presentation/bloc/bloc/add_item_bloc.dart';
+import 'package:elonchi/features/my_products/presentation/pages/add_item_page.dart';
+import 'package:elonchi/features/my_products/presentation/pages/success_state.dart';
 import 'package:elonchi/features/single_item/presentation/pages/single_item_page.dart';
 import 'package:elonchi/core/widgets/language_screen.dart';
 import 'package:elonchi/injector_container.dart';
@@ -29,7 +29,7 @@ import 'package:elonchi/features/home/presentation/pages/home_page.dart';
 import 'package:elonchi/features/main/presentation/bloc/main_bloc.dart';
 import 'package:elonchi/features/main/presentation/pages/main_page.dart';
 import 'package:elonchi/features/profile/presentation/pages/profile_page.dart';
-import 'package:elonchi/features/sell/presentation/pages/sell_page.dart';
+import 'package:elonchi/features/my_products/presentation/pages/sell_page.dart';
 import 'package:elonchi/features/splash/presentation/pages/splash_page.dart';
 
 part "name_routes.dart";

@@ -1,9 +1,11 @@
 import 'package:elonchi/core/extension/extension.dart';
 import 'package:elonchi/core/widgets/scale_animation.dart';
-import 'package:elonchi/features/sell/domain/entities/sell_method.dart';
+import 'package:elonchi/features/my_products/domain/entities/sell_method.dart';
 import 'package:flutter/material.dart';
 
 class RequirementsForm extends StatelessWidget {
+  final bool trade;
+  final void Function(bool val) onTradeChange;
   final void Function(String moneyType) onMoneyTypeChange;
   final String moneyType;
   final void Function(String value) onPriceChanged;
@@ -11,6 +13,8 @@ class RequirementsForm extends StatelessWidget {
   final void Function(SellMethod method) onMethodChange;
   const RequirementsForm({
     super.key,
+    required this.trade,
+    required this.onTradeChange,
     required this.moneyType,
     required this.sellMethod,
     required this.onPriceChanged,
@@ -133,6 +137,29 @@ class RequirementsForm extends StatelessWidget {
                   ),
                 ),
               ],
+            ),
+          if (sellMethod == SellMethod.price)
+            Container(
+              margin: .only(top: 32),
+              padding: .all(16),
+              decoration: BoxDecoration(
+                borderRadius: .circular(12),
+                border: Border.all(width: 1, color: context.color.stroke),
+              ),
+              child: Row(
+                children: [
+                  Image.asset('assets/images/sales.png', height: 27),
+                  const SizedBox(width: 16),
+                  Text('Можно торговаться', style: TextStyle(color: context.color.textStrong)),
+                  Spacer(),
+                  Switch(
+                    value: trade,
+                    onChanged: (val) {
+                      onTradeChange(val);
+                    },
+                  ),
+                ],
+              ),
             ),
         ],
       ),

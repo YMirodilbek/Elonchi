@@ -1,4 +1,4 @@
-import 'package:elonchi/features/sell/presentation/widgets/tab_item.dart';
+import 'package:elonchi/features/my_products/presentation/widgets/tab_item.dart';
 import 'package:flutter/material.dart';
 
 class SellTabs extends StatelessWidget {

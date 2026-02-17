@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:elonchi/constants/constants.dart';
 import 'package:elonchi/core/extension/extension.dart';
 import 'package:elonchi/core/widgets/scale_animation.dart';
-import 'package:elonchi/features/sell/presentation/widgets/added_image.dart';
+import 'package:elonchi/features/my_products/presentation/widgets/added_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 

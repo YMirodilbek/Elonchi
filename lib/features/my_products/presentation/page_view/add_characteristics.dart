@@ -1,7 +1,7 @@
 import 'package:elonchi/constants/constants.dart';
 import 'package:elonchi/core/extension/extension.dart';
 import 'package:elonchi/core/widgets/scale_animation.dart';
-import 'package:elonchi/features/sell/domain/entities/condition.dart';
+import 'package:elonchi/features/my_products/domain/entities/condition.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 

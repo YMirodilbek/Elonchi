@@ -3,16 +3,16 @@ import 'package:elonchi/core/network/response_data.dart';
 import 'package:elonchi/features/categories/data/category_response.dart';
 import 'package:elonchi/features/categories/domain/entities/selected_category.dart';
 import 'package:elonchi/features/regions/data/regions_response.dart';
-import 'package:elonchi/features/sell/data/create_item_request.dart';
-import 'package:elonchi/features/sell/domain/entities/condition.dart';
-import 'package:elonchi/features/sell/domain/entities/sell_method.dart';
-import 'package:elonchi/features/sell/domain/repository/create_item_repo.dart';
+import 'package:elonchi/features/my_products/data/create_item_request.dart';
+import 'package:elonchi/features/my_products/domain/entities/condition.dart';
+import 'package:elonchi/features/my_products/domain/entities/sell_method.dart';
+import 'package:elonchi/features/my_products/domain/repository/create_item_repo.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
-
 part 'add_item_event.dart';
 part 'add_item_state.dart';
 
@@ -46,7 +46,9 @@ class AddItemBloc extends Bloc<AddItemEvent, AddItemState> {
     on<ChangePhoneEvent>(onPhoneChanged);
     on<CreateItemEvent>(onCreateItemEvent);
     on<ChangeAdressEvent>(onChangeAdress);
+    on<GetUserLocationEvent>(onGetUserlocation);
     on<ValidateAndProceedEvent>(onValidateAndProceed);
+    on<ChangeTradeEvent>(onChangeTrade);
   }
 
   Future<File?> compressFile(File file) async {
@@ -82,7 +84,12 @@ class AddItemBloc extends Bloc<AddItemEvent, AddItemState> {
       3.0 => (state.newProduct?.price == null) ? 'Please enter a price' : null,
       4.0 => state.newProduct?.selectedModel == null ? 'Please select a brand' : null,
       5.0 => (state.newProduct?.description?.trim().isEmpty ?? true) ? 'Please enter a description' : null,
-      6.0 => state.newProduct?.region == null ? 'Please select a region' : null,
+      6.0 =>
+        (state.newProduct?.region == null ||
+                state.newProduct?.address == null ||
+                state.newProduct!.address!.trim().isEmpty)
+            ? 'Please select a region and write the address'
+            : null,
       7.0 => (state.newProduct?.phoneNumber?.isEmpty ?? true) ? 'Please enter a phone number' : null,
       _ => null,
     };
@@ -167,6 +174,28 @@ class AddItemBloc extends Bloc<AddItemEvent, AddItemState> {
     }
   }
 
+  void onGetUserlocation(GetUserLocationEvent event, Emitter<AddItemState> emit) async {
+    final request = await Geolocator.requestPermission();
+    if (request == LocationPermission.denied || request == LocationPermission.deniedForever) {
+      emit(state.copyWith(validationError: 'Location permission denied'));
+      return;
+    } else {
+      try {
+        final position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+        emit(
+          state.copyWith(
+            newProduct: state.newProduct?.copyWith(
+              lat: position.latitude.toString(),
+              lan: position.longitude.toString(),
+            ),
+          ),
+        );
+      } catch (e) {
+        emit(state.copyWith(validationError: 'Failed to get location: $e'));
+      }
+    }
+  }
+
   void onChangeCategory(ChangeCategoryEvent event, Emitter<AddItemState> emit) {
     emit(state.copyWith(newProduct: state.newProduct?.copyWith(category: event.category)));
   }
@@ -188,7 +217,7 @@ class AddItemBloc extends Bloc<AddItemEvent, AddItemState> {
   }
 
   void onChangeCondition(ChangeConditionEvent event, Emitter<AddItemState> emit) {
-    emit(state.copyWith(condition: event.condition));
+    emit(state.copyWith(newProduct: state.newProduct?.copyWith(condition: event.condition)));
   }
 
   void onChangeModels(SetModelsEvent event, Emitter<AddItemState> emit) {
@@ -213,6 +242,10 @@ class AddItemBloc extends Bloc<AddItemEvent, AddItemState> {
 
   void onPhoneChanged(ChangePhoneEvent event, Emitter<AddItemState> emit) {
     emit(state.copyWith(newProduct: state.newProduct?.copyWith(phoneNumber: event.phone)));
+  }
+
+  void onChangeTrade(ChangeTradeEvent event, Emitter<AddItemState> emit) {
+    emit(state.copyWith(newProduct: state.newProduct?.copyWith(trade: event.value)));
   }
 
   void onChangeAdress(ChangeAdressEvent event, Emitter<AddItemState> emit) {

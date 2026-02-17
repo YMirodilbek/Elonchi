@@ -1,7 +1,7 @@
 import 'package:elonchi/core/extension/extension.dart';
 import 'package:elonchi/core/widgets/button_with_scale.dart';
-import 'package:elonchi/features/sell/presentation/widgets/current_item.dart';
-import 'package:elonchi/features/sell/presentation/widgets/tabs.dart';
+import 'package:elonchi/features/my_products/presentation/widgets/current_item.dart';
+import 'package:elonchi/features/my_products/presentation/widgets/tabs.dart';
 import 'package:elonchi/router/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
