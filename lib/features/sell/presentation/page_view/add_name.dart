@@ -19,6 +19,7 @@ class AddNameForm extends StatelessWidget {
           ),
           const SizedBox(height: 32),
           TextField(
+            onChanged: onChanged,
             decoration: InputDecoration(
               hintStyle: TextStyle(color: context.color.textSoft),
               hintText: 'Название товара',

@@ -1,8 +1,13 @@
+import 'package:elonchi/constants/constants.dart';
 import 'package:elonchi/core/extension/extension.dart';
+import 'package:elonchi/core/widgets/scale_animation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class SelectCategoryForm extends StatelessWidget {
-  const SelectCategoryForm({super.key});
+  final String? categoryName;
+  final VoidCallback onCategoryTap;
+  const SelectCategoryForm({super.key, required this.onCategoryTap, this.categoryName});
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +22,27 @@ class SelectCategoryForm extends StatelessWidget {
             style: TextStyle(color: context.color.textSub),
           ),
           const SizedBox(height: 8),
+          WScaleAnimation(
+            onTap: onCategoryTap,
+            child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: context.color.bgelevation),
+              child: Row(
+                children: [
+                  Container(
+                    height: 40,
+                    width: 40,
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: context.color.background),
+                    child: Image.asset('assets/images/all_categories.png'),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(categoryName ?? ' Категория', style: TextStyle(color: context.color.textStrong)),
+                  const Spacer(),
+                  SvgPicture.asset(PIcons.arrowRightIcon),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );

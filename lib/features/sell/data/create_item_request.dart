@@ -1,6 +1,11 @@
 import 'dart:io';
 
+import 'package:elonchi/features/categories/data/category_response.dart';
+import 'package:elonchi/features/categories/domain/entities/selected_category.dart';
+import 'package:elonchi/features/regions/data/regions_response.dart';
+
 class CreateProductRequest {
+  final String? contactname;
   final String? title;
   final String? price;
   final String? moneyType;
@@ -12,14 +17,17 @@ class CreateProductRequest {
   final String? description;
   final String? lan;
   final String? lat;
-  final String? region;
-  final String? category;
+  final RegionResponse? region;
+  final SelectedCategory? category;
+  final ModelItem? selectedModel;
   final List<File>? images;
 
   const CreateProductRequest({
+    this.contactname,
+    this.selectedModel,
     this.title,
     this.price,
-    this.moneyType,
+    this.moneyType = "UZS",
     this.trade,
     this.exchange,
     this.dostafca,
@@ -34,6 +42,8 @@ class CreateProductRequest {
   });
 
   CreateProductRequest copyWith({
+    String? contactname,
+    ModelItem? selectedModel,
     String? title,
     String? price,
     String? moneyType,
@@ -45,11 +55,13 @@ class CreateProductRequest {
     String? description,
     String? lan,
     String? lat,
-    String? region,
-    String? category,
+    RegionResponse? region,
+    SelectedCategory? category,
     List<File>? images,
   }) {
     return CreateProductRequest(
+      contactname: contactname ?? this.contactname,
+      selectedModel: selectedModel ?? this.selectedModel,
       title: title ?? this.title,
       price: price ?? this.price,
       moneyType: moneyType ?? this.moneyType,

@@ -22,7 +22,6 @@ class ProgressBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-
       child: Column(
         children: [
           Row(
@@ -30,7 +29,7 @@ class ProgressBar extends StatelessWidget {
               GestureDetector(
                 behavior: HitTestBehavior.opaque,
                 onTap: onBackTap,
-                child: SizedBox(height: 36, width: 36, child: SvgPicture.asset(PIcons.arrowLeftIcon)),
+                child: SizedBox(height: 24, width: 24, child: SvgPicture.asset(PIcons.arrowLeftIcon)),
               ),
               const Spacer(),
               WScaleAnimation(

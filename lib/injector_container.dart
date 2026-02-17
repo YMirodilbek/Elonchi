@@ -8,10 +8,13 @@ import 'package:elonchi/features/auth/domain/auth_repository.dart';
 import 'package:elonchi/features/auth/presentation/blocs/login_bloc/login_bloc.dart';
 import 'package:elonchi/features/auth/presentation/blocs/otp_bloc/otp_bloc.dart';
 import 'package:elonchi/features/categories/domain/categories_repo.dart';
+import 'package:elonchi/features/categories/presentation/blocs/bloc/category_bloc.dart';
 import 'package:elonchi/features/messages/all_massages/presentation/blocs/all_messages_bloc/all_messages_bloc.dart';
 import 'package:elonchi/features/profile/domain/repositories/profile_reporisitory.dart';
 import 'package:elonchi/features/profile/presentation/blocs/profile_edit/profile_edit_bloc.dart';
 import 'package:elonchi/features/profile/presentation/blocs/profile_main/profile_bloc.dart';
+import 'package:elonchi/features/regions/domain/regions_repo.dart';
+import 'package:elonchi/features/regions/presentation/bloc/regions_bloc.dart';
 import 'package:elonchi/features/sell/domain/repository/create_item_repo.dart';
 import 'package:elonchi/features/sell/presentation/bloc/bloc/add_item_bloc.dart';
 import 'package:elonchi/router/app_routes.dart';
@@ -46,8 +49,11 @@ Future<void> init() async {
     ..registerLazySingleton<ProfileRepository>(() => ProfileRepoImpl(sl()))
     ..registerLazySingleton<CreateItemRepo>(() => CreateItemRepoImpl(sl()))
     ..registerLazySingleton<CategoriesRepo>(() => CategoriesRepoImpl(sl()))
+    ..registerLazySingleton<RegionsRepo>(() => RegionsRepoImpl(sl()))
     ..registerFactory(() => LoginBloc(authRepository: sl<AuthRepository>()))
     ..registerFactory(() => AddItemBloc(sl<CreateItemRepo>()))
+    ..registerFactory(() => RegionsBloc(sl<RegionsRepo>()))
+    ..registerFactory(() => CategoryBloc(categoriesRepo: sl<CategoriesRepo>()))
     ..registerFactory(() => OtpBloc(authRepository: sl<AuthRepository>(), localSource: sl<LocalSource>()))
     ..registerFactory(() => ProfileEditBloc(reporisitory: sl<ProfileRepository>()))
     ..registerLazySingleton(() => ProfileBloc(reporisitory: sl<ProfileRepository>()))

@@ -19,28 +19,43 @@ class CreateItemRepoImpl extends CreateItemRepo {
   Future<ResponseData<ProductModel>> createProduct(CreateProductRequest request) async {
     final formData = FormData();
 
-    formData.fields.addAll([
-      MapEntry('title', request.title ?? ''),
-      MapEntry('price', request.price ?? ''),
-      MapEntry('money_type', request.moneyType ?? ''),
-      MapEntry('trade', request.trade.toString()),
-      MapEntry('exchange', request.exchange.toString()),
-      MapEntry('dostafca', request.dostafca.toString()),
-      MapEntry('address', request.address ?? ''),
-      MapEntry('phone_number', request.phoneNumber ?? ''),
-      MapEntry('description', request.description ?? ''),
-      MapEntry('lan', request.lan ?? ''),
-      MapEntry('lat', request.lat ?? ''),
-      MapEntry('region', request.region ?? ''),
-      MapEntry('category', request.category ?? ''),
-    ]);
+    final Map<String, dynamic> fields = {
+      'title': request.title,
+      'price': request.price,
+      'money_type': request.moneyType,
 
-    for (final file in request.images!) {
-      formData.files.add(
-        MapEntry('image', await MultipartFile.fromFile(file.path, filename: file.path.split('/').last)),
-      );
+      'trade': request.trade == null ? 0 : (request.trade! ? 1 : 0),
+
+      'exchange': request.exchange == null ? 0 : (request.exchange! ? 1 : 0),
+
+      'dostafca': request.dostafca == null ? 0 : (request.dostafca! ? 1 : 0),
+
+      'address': request.address,
+      'phone_number': request.phoneNumber,
+      'description': request.description,
+      'lan': request.lan,
+      'lat': request.lat,
+      'region': request.region?.id,
+      'category': request.category?.id,
+      'contact_name': request.contactname,
+    };
+
+    fields.removeWhere((key, value) => value == null);
+
+    fields.forEach((key, value) {
+      formData.fields.add(MapEntry(key, value.toString()));
+    });
+
+    /// 4️⃣ Add images safely
+    if (request.images != null && request.images!.isNotEmpty) {
+      for (final file in request.images!) {
+        formData.files.add(
+          MapEntry('image', await MultipartFile.fromFile(file.path, filename: file.path.split('/').last)),
+        );
+      }
     }
 
+    /// 5️⃣ Send request
     return requestManager.request<ProductModel>(
       requestType: RequestType.post,
       path: PUrls.createProduct,

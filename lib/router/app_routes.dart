@@ -18,6 +18,7 @@ import 'package:elonchi/features/profile/presentation/blocs/profile_main/profile
 import 'package:elonchi/features/profile/presentation/pages/profile_edit_page.dart';
 import 'package:elonchi/features/sell/presentation/bloc/bloc/add_item_bloc.dart';
 import 'package:elonchi/features/sell/presentation/pages/add_item_page.dart';
+import 'package:elonchi/features/sell/presentation/pages/success_state.dart';
 import 'package:elonchi/features/single_item/presentation/pages/single_item_page.dart';
 import 'package:elonchi/core/widgets/language_screen.dart';
 import 'package:elonchi/injector_container.dart';
@@ -125,6 +126,14 @@ final GoRouter router = GoRouter(
       parentNavigatorKey: rootNavigatorKey,
       builder: (_, _) => const ConversationPage(),
     ),
+
+    GoRoute(
+      path: Routes.successItemAddedScreen,
+      name: Routes.successItemAddedScreen,
+      parentNavigatorKey: rootNavigatorKey,
+      builder: (_, _) => const SuccessState(),
+    ),
+
     GoRoute(
       path: Routes.editProfileScreen,
       name: Routes.editProfileScreen,

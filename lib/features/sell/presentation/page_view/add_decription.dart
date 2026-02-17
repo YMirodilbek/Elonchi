@@ -2,7 +2,8 @@ import 'package:elonchi/core/extension/extension.dart';
 import 'package:flutter/material.dart';
 
 class DecriptionsForm extends StatelessWidget {
-  const DecriptionsForm({super.key});
+  final void Function(String value) onChanged;
+  const DecriptionsForm({super.key, required this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +20,7 @@ class DecriptionsForm extends StatelessWidget {
           const SizedBox(height: 8),
           const SizedBox(height: 32),
           TextField(
+            onChanged: onChanged,
             decoration: InputDecoration(
               hintStyle: TextStyle(color: context.color.textSoft),
               hintText: 'Описания товара',
