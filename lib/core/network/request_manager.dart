@@ -32,6 +32,7 @@ class RequestManager {
         response: response.data,
       );
     } on DioException catch (error, stacktrace) {
+      //
       //  printError("Exception occurred: $error stacktrace: $stacktrace");
       return ResponseData(
         error: (error.response?.data is Map && error.response?.data.containsKey('detail'))

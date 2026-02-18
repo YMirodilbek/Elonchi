@@ -9,7 +9,7 @@ import 'package:elonchi/features/categories/presentation/pages/categories_page.d
 import 'package:elonchi/features/regions/presentation/bloc/regions_bloc.dart';
 import 'package:elonchi/features/regions/presentation/pages/regions.dart';
 import 'package:elonchi/features/my_products/domain/entities/condition.dart';
-import 'package:elonchi/features/my_products/presentation/bloc/bloc/add_item_bloc.dart';
+import 'package:elonchi/features/my_products/presentation/bloc/add_bloc/add_item_bloc.dart';
 import 'package:elonchi/features/my_products/presentation/page_view/add_characteristics.dart';
 import 'package:elonchi/features/my_products/presentation/page_view/add_decription.dart';
 import 'package:elonchi/features/my_products/presentation/page_view/add_name.dart';

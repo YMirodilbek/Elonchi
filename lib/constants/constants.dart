@@ -98,7 +98,7 @@ sealed class PUrls {
   static const String fetchUser = '/user/get-me/';
 
   // auth
-  static const String refress = '/admin-auth/token/refresh/';
+  static const String refress = '/api/token/refresh/';
   static const String login = "/api/register/";
   static const String confirmOtp = '/api/verifay/';
   static const String getUser = "/api/get-user/";
@@ -110,5 +110,6 @@ sealed class PUrls {
   static const String getCategories = '/api/product/get-category/';
   static const String getRegions = '/api/product/get-region/';
   static const String getMyProducts = '/api/product/product/my_product/';
+  static String editProduct(int id) => '/api/product/product/$id/';
   static String getSubCategories(int id) => '/api/product/get-sub-category/$id/';
 }

@@ -3,11 +3,13 @@ import 'package:elonchi/constants/constants.dart';
 import 'package:elonchi/core/network/request_manager.dart';
 import 'package:elonchi/core/network/response_data.dart';
 import 'package:elonchi/features/my_products/data/create_item_request.dart';
+import 'package:elonchi/features/my_products/data/edit_item_request.dart';
 import 'package:elonchi/features/my_products/data/product_item_response.dart';
 
 abstract class CreateItemRepo {
-  Future<ResponseData<ProductModel>> createProduct(CreateProductRequest request);
-  Future<ResponseData<void>> getItems();
+  Future<ResponseData<void>> createProduct(CreateProductRequest request);
+  Future<ResponseData<ProductResponse>> editProduct(EditItemRequest request);
+
   Future<ResponseData<void>> deleteItem();
 }
 
@@ -16,7 +18,7 @@ class CreateItemRepoImpl extends CreateItemRepo {
   CreateItemRepoImpl(this.requestManager);
 
   @override
-  Future<ResponseData<ProductModel>> createProduct(CreateProductRequest request) async {
+  Future<ResponseData<void>> createProduct(CreateProductRequest request) async {
     final formData = FormData();
 
     final Map<String, dynamic> fields = {
@@ -43,32 +45,32 @@ class CreateItemRepoImpl extends CreateItemRepo {
       formData.fields.add(MapEntry(key, value.toString()));
     });
 
-    /// 4️⃣ Add images safely
     if (request.images != null && request.images!.isNotEmpty) {
       for (final file in request.images!) {
         formData.files.add(
-          MapEntry('image', await MultipartFile.fromFile(file.path, filename: file.path.split('/').last)),
+          MapEntry('images', await MultipartFile.fromFile(file.path, filename: file.path.split('/').last)),
         );
       }
     }
 
     /// 5️⃣ Send request
-    return requestManager.request<ProductModel>(
-      requestType: RequestType.post,
-      path: PUrls.createProduct,
-      dataParser: (json) => ProductModel.fromJson(json),
-      data: formData,
-    );
-  }
-
-  @override
-  Future<ResponseData<void>> getItems() {
-    return requestManager.request(requestType: RequestType.get, path: PUrls.getMyProducts);
+    return requestManager.request(requestType: RequestType.post, path: PUrls.createProduct, data: formData);
   }
 
   @override
   Future<ResponseData<void>> deleteItem() {
     // TODO: implement deleteItem
     throw UnimplementedError();
+  }
+
+  @override
+  Future<ResponseData<ProductResponse>> editProduct(EditItemRequest request) {
+    final Map<String, dynamic> data = request.toJson();
+    return requestManager.request(
+      requestType: RequestType.put,
+      path: PUrls.editProduct(request.id),
+      data: data,
+      dataParser: (jsonData) => ProductResponse.fromJson(jsonData['data']),
+    );
   }
 }
