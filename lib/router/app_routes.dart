@@ -11,12 +11,18 @@ import 'package:elonchi/features/home/presentation/pages/search_page.dart';
 import 'package:elonchi/features/messages/all_massages/presentation/blocs/all_messages_bloc/all_messages_bloc.dart';
 import 'package:elonchi/features/messages/all_massages/presentation/pages/messages.dart';
 import 'package:elonchi/features/messages/single_message/presentation/pages/conversation_page.dart';
+import 'package:elonchi/features/my_products/data/product_item_response.dart';
+import 'package:elonchi/features/my_products/presentation/bloc/edit_item_bloc/edit_item_bloc.dart';
+import 'package:elonchi/features/my_products/presentation/bloc/my_items_bloc/my_items_bloc.dart';
+import 'package:elonchi/features/my_products/presentation/pages/edit_item_page.dart';
 import 'package:elonchi/features/profile/data/user_response.dart';
 import 'package:elonchi/features/profile/domain/repositories/profile_reporisitory.dart';
 import 'package:elonchi/features/profile/presentation/blocs/profile_edit/profile_edit_bloc.dart';
 import 'package:elonchi/features/profile/presentation/blocs/profile_main/profile_bloc.dart';
 import 'package:elonchi/features/profile/presentation/pages/profile_edit_page.dart';
-import 'package:elonchi/features/sell/presentation/pages/add_item_page.dart';
+import 'package:elonchi/features/my_products/presentation/bloc/add_bloc/add_item_bloc.dart';
+import 'package:elonchi/features/my_products/presentation/pages/add_item_page.dart';
+import 'package:elonchi/features/my_products/presentation/pages/success_state.dart';
 import 'package:elonchi/features/single_item/presentation/pages/single_item_page.dart';
 import 'package:elonchi/core/widgets/language_screen.dart';
 import 'package:elonchi/injector_container.dart';
@@ -27,7 +33,7 @@ import 'package:elonchi/features/home/presentation/pages/home_page.dart';
 import 'package:elonchi/features/main/presentation/bloc/main_bloc.dart';
 import 'package:elonchi/features/main/presentation/pages/main_page.dart';
 import 'package:elonchi/features/profile/presentation/pages/profile_page.dart';
-import 'package:elonchi/features/sell/presentation/pages/sell_page.dart';
+import 'package:elonchi/features/my_products/presentation/pages/my_items_page.dart';
 import 'package:elonchi/features/splash/presentation/pages/splash_page.dart';
 
 part "name_routes.dart";
@@ -116,13 +122,28 @@ final GoRouter router = GoRouter(
       path: Routes.addItemScreen,
       name: Routes.addItemScreen,
       parentNavigatorKey: rootNavigatorKey,
-      builder: (_, _) => const AddItemPage(),
+      builder: (_, _) => BlocProvider(create: (context) => sl<AddItemBloc>(), child: const AddItemPage()),
     ),
     GoRoute(
       path: Routes.conversationScreen,
       name: Routes.conversationScreen,
       parentNavigatorKey: rootNavigatorKey,
       builder: (_, _) => const ConversationPage(),
+    ),
+    GoRoute(
+      path: Routes.successItemAddedScreen,
+      name: Routes.successItemAddedScreen,
+      parentNavigatorKey: rootNavigatorKey,
+      builder: (_, _) => const SuccessState(),
+    ),
+    GoRoute(
+      path: Routes.editItemScreen,
+      name: Routes.editItemScreen,
+      parentNavigatorKey: rootNavigatorKey,
+      builder: (_, state) => BlocProvider(
+        create: (context) => sl<EditItemBloc>(),
+        child: EditItemPage(product: state.extra as ProductResponse),
+      ),
     ),
     GoRoute(
       path: Routes.editProfileScreen,
@@ -148,7 +169,13 @@ final GoRouter router = GoRouter(
         ),
         StatefulShellBranch(
           initialLocation: Routes.race,
-          routes: <RouteBase>[GoRoute(path: Routes.race, name: Routes.race, builder: (_, _) => const SellPage())],
+          routes: <RouteBase>[
+            GoRoute(
+              path: Routes.race,
+              name: Routes.race,
+              builder: (_, _) => BlocProvider(create: (context) => sl<MyItemsBloc>(), child: const MyItemsPage()),
+            ),
+          ],
         ),
         StatefulShellBranch(
           initialLocation: Routes.messages,

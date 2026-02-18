@@ -14,10 +14,11 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     : super(ProfileState(loggedIn: localSource.isUserLoggedIn, userModel: UserModel(), apiStatus: ApiStatus.initial)) {
     on<ChangeLoggedIn>(_setLoggedIn);
     on<GetUserEvent>(_getUser);
+    on<EditProfileInfoEvent>(editUserInfo);
   }
 
   void _setLoggedIn(ChangeLoggedIn event, Emitter<ProfileState> emit) {
-    emit(state.copyWith(loggedIn: true));
+    emit(state.copyWith(loggedIn: event.value));
   }
 
   void _getUser(GetUserEvent event, Emitter<ProfileState> emit) async {

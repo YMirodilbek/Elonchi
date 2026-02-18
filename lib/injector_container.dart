@@ -7,10 +7,19 @@ import 'package:elonchi/core/network/request_manager.dart';
 import 'package:elonchi/features/auth/domain/auth_repository.dart';
 import 'package:elonchi/features/auth/presentation/blocs/login_bloc/login_bloc.dart';
 import 'package:elonchi/features/auth/presentation/blocs/otp_bloc/otp_bloc.dart';
+import 'package:elonchi/features/categories/domain/categories_repo.dart';
+import 'package:elonchi/features/categories/presentation/blocs/bloc/category_bloc.dart';
 import 'package:elonchi/features/messages/all_massages/presentation/blocs/all_messages_bloc/all_messages_bloc.dart';
+import 'package:elonchi/features/my_products/domain/repository/my_items_repo.dart';
+import 'package:elonchi/features/my_products/presentation/bloc/edit_item_bloc/edit_item_bloc.dart';
+import 'package:elonchi/features/my_products/presentation/bloc/my_items_bloc/my_items_bloc.dart';
 import 'package:elonchi/features/profile/domain/repositories/profile_reporisitory.dart';
 import 'package:elonchi/features/profile/presentation/blocs/profile_edit/profile_edit_bloc.dart';
 import 'package:elonchi/features/profile/presentation/blocs/profile_main/profile_bloc.dart';
+import 'package:elonchi/features/regions/domain/regions_repo.dart';
+import 'package:elonchi/features/regions/presentation/bloc/regions_bloc.dart';
+import 'package:elonchi/features/my_products/domain/repository/create_item_repo.dart';
+import 'package:elonchi/features/my_products/presentation/bloc/add_bloc/add_item_bloc.dart';
 import 'package:elonchi/router/app_routes.dart';
 
 import 'package:get_it/get_it.dart';
@@ -41,7 +50,16 @@ Future<void> init() async {
     ..registerSingleton<RequestManager>(RequestManager(dio: sl()))
     ..registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(requestManager: sl()))
     ..registerLazySingleton<ProfileRepository>(() => ProfileRepoImpl(sl()))
+    ..registerLazySingleton<CreateItemRepo>(() => CreateItemRepoImpl(sl()))
+    ..registerLazySingleton<CategoriesRepo>(() => CategoriesRepoImpl(sl()))
+    ..registerLazySingleton<RegionsRepo>(() => RegionsRepoImpl(sl()))
+    ..registerLazySingleton<MyItemsRepo>(() => MyItemsRepoImpl(sl()))
     ..registerFactory(() => LoginBloc(authRepository: sl<AuthRepository>()))
+    ..registerFactory(() => MyItemsBloc(sl<MyItemsRepo>()))
+    ..registerFactory(() => AddItemBloc(sl<CreateItemRepo>()))
+    ..registerFactory(() => RegionsBloc(sl<RegionsRepo>()))
+    ..registerFactory(() => EditItemBloc(sl<CreateItemRepo>()))
+    ..registerFactory(() => CategoryBloc(categoriesRepo: sl<CategoriesRepo>()))
     ..registerFactory(() => OtpBloc(authRepository: sl<AuthRepository>(), localSource: sl<LocalSource>()))
     ..registerFactory(() => ProfileEditBloc(reporisitory: sl<ProfileRepository>()))
     ..registerLazySingleton(() => ProfileBloc(reporisitory: sl<ProfileRepository>()))

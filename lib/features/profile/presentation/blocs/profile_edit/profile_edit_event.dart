@@ -20,3 +20,17 @@ final class EditProfileInfoEvent extends ProfileEditEvent {
   @override
   List<Object> get props => [userModel];
 }
+
+final class InitControllerEvent extends ProfileEditEvent {
+  final TextEditingController controller;
+  const InitControllerEvent(this.controller);
+  @override
+  List<Object> get props => [controller];
+}
+
+final class ChangeUserImgEvent extends ProfileEditEvent {
+  const ChangeUserImgEvent();
+
+  @override
+  List<Object?> get props => [];
+}

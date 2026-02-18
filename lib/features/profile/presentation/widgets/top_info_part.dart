@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:elonchi/constants/constants.dart';
 import 'package:elonchi/core/extension/extension.dart';
 import 'package:elonchi/core/widgets/scale_animation.dart';
@@ -6,13 +9,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class TopInfoPart extends StatelessWidget {
+  final File? pickedImg;
   final int? selectedImageIndex;
   final VoidCallback onImageAddTap;
   final UserModel userModel;
-  const TopInfoPart({super.key, required this.userModel, required this.onImageAddTap, this.selectedImageIndex});
+  const TopInfoPart({
+    super.key,
+    required this.userModel,
+    required this.onImageAddTap,
+    this.selectedImageIndex,
+    this.pickedImg,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final String imagePath = userModel.image ?? "";
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
       decoration: BoxDecoration(color: context.color.bgelevation, borderRadius: BorderRadius.circular(12)),
@@ -25,7 +36,18 @@ class TopInfoPart extends StatelessWidget {
             padding: selectedImageIndex != null ? null : const EdgeInsets.all(12),
             child: WScaleAnimation(
               onTap: onImageAddTap,
-              child: selectedImageIndex != null
+              child: pickedImg != null
+                  ? imagePath.isNotEmpty
+                        ? ClipOval(
+                            child: CachedNetworkImage(
+                              imageUrl: "${PConstants.baseUrl}$imagePath",
+                              width: 64,
+                              height: 64,
+                              fit: BoxFit.cover,
+                            ),
+                          )
+                        : Image.file(pickedImg!)
+                  : selectedImageIndex != null
                   ? Image.asset('assets/images/img$selectedImageIndex.png')
                   : SvgPicture.asset(PIcons.imageAddIcon),
             ),

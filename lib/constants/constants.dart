@@ -64,6 +64,8 @@ sealed class PIcons {
   static const checkinImg = "assets/images/checking_item.png";
   static const wantFastImg = "assets/images/want_fast.png";
   static const logOutIcon = "assets/icons/logout-01.svg";
+  static const deleteImgIcon = "assets/icons/delete_img.svg";
+  static const selectedIcon = "assets/icons/selected.svg";
 }
 
 sealed class PKeys {
@@ -96,12 +98,18 @@ sealed class PUrls {
   static const String fetchUser = '/user/get-me/';
 
   // auth
-  static const String refress = '/admin-auth/token/refresh/';
+  static const String refress = '/api/token/refresh/';
   static const String login = "/api/register/";
   static const String confirmOtp = '/api/verifay/';
   static const String getUser = "/api/get-user/";
   static const String editUser = "/api/user-update/";
-
+  static const String createProduct = "/api/product/product/";
   static const String uploadFile = '/files/create/';
   static const String registerFmc = '/api/fcm/register-device/';
+  static const String postProfuct = '/api/product/product/';
+  static const String getCategories = '/api/product/get-category/';
+  static const String getRegions = '/api/product/get-region/';
+  static const String getMyProducts = '/api/product/product/my_product/';
+  static String editProduct(int id) => '/api/product/product/$id/';
+  static String getSubCategories(int id) => '/api/product/get-sub-category/$id/';
 }

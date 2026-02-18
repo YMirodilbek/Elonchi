@@ -5,7 +5,7 @@ import 'package:elonchi/core/widgets/bottom_sheet.dart';
 import 'package:elonchi/core/widgets/scale_animation.dart';
 import 'package:elonchi/features/profile/data/user_response.dart';
 import 'package:elonchi/features/profile/presentation/blocs/profile_main/profile_bloc.dart';
-import 'package:elonchi/features/profile/presentation/widgets/empty_user.dart';
+import 'package:elonchi/features/profile/presentation/widgets/user_info.dart';
 import 'package:elonchi/features/profile/presentation/widgets/language_sheet.dart';
 import 'package:elonchi/features/profile/presentation/widgets/log_out_sheet.dart';
 import 'package:elonchi/features/profile/presentation/widgets/login_button.dart';
@@ -53,6 +53,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     if (result != null) {
                       bloc.add(EditProfileInfoEvent(result));
                     }
+                    setState(() {});
                   },
                 ),
                 const SizedBox(height: 20),
@@ -60,7 +61,13 @@ class _ProfilePageState extends State<ProfilePage> {
                 const SizedBox(height: 12),
                 ProfileItem(title: 'Мои объявления', iconPath: PIcons.myAnnoucementscon, onTap: () {}),
                 const SizedBox(height: 12),
-                ProfileItem(title: "Мои желания", iconPath: PIcons.favouriteProfileIcon, onTap: () {}),
+                ProfileItem(
+                  title: "Мои желания",
+                  iconPath: PIcons.favouriteProfileIcon,
+                  onTap: () {
+                    context.push(Routes.myWishes);
+                  },
+                ),
                 const SizedBox(height: 16),
                 Text("pool.create.settings".tr(), style: TextStyle(fontSize: 16)),
                 const SizedBox(height: 8),
@@ -116,8 +123,13 @@ class _ProfilePageState extends State<ProfilePage> {
                         final value = await triggerBottomSheet<bool>(content: LogOutSheet());
                         if (value != null && value) {
                           localSource.setAccessToken('');
+                          localSource.clearFcmToken();
+                          bloc.add(ChangeLoggedIn(false));
+                          bloc.add(EditProfileInfoEvent(UserModel()));
                           sl<Dio>().options.headers.remove("Authorization");
-                          context.go(Routes.splashScreen);
+                          if (context.mounted) {
+                            context.go(Routes.splashScreen);
+                          }
                         }
                       },
                       child: Row(
