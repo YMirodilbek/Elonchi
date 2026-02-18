@@ -3,13 +3,14 @@ import 'package:elonchi/features/auth/presentation/blocs/login_bloc/login_bloc.d
 import 'package:elonchi/features/auth/presentation/blocs/otp_bloc/otp_bloc.dart';
 import 'package:elonchi/features/auth/presentation/pages/login_page.dart';
 import 'package:elonchi/features/auth/presentation/pages/otp_confirm_page.dart';
+import 'package:elonchi/features/home/presentation/blocs/bloc/home_bloc.dart';
 import 'package:elonchi/features/home/presentation/pages/categories_page.dart';
 import 'package:elonchi/features/home/presentation/pages/filters_page.dart';
 import 'package:elonchi/features/home/presentation/pages/hot_sales_page.dart';
 import 'package:elonchi/features/home/presentation/pages/my_wishes_page.dart';
 import 'package:elonchi/features/home/presentation/pages/search_page.dart';
-import 'package:elonchi/features/messages/all_massages/presentation/blocs/all_messages_bloc/all_messages_bloc.dart';
-import 'package:elonchi/features/messages/all_massages/presentation/pages/messages.dart';
+import 'package:elonchi/features/messages/all_messages/presentation/blocs/all_messages_bloc/all_messages_bloc.dart';
+import 'package:elonchi/features/messages/all_messages/presentation/pages/messages.dart';
 import 'package:elonchi/features/messages/single_message/presentation/pages/conversation_page.dart';
 import 'package:elonchi/features/my_products/data/product_item_response.dart';
 import 'package:elonchi/features/my_products/presentation/bloc/edit_item_bloc/edit_item_bloc.dart';
@@ -24,7 +25,7 @@ import 'package:elonchi/features/my_products/presentation/bloc/add_bloc/add_item
 import 'package:elonchi/features/my_products/presentation/pages/add_item_page.dart';
 import 'package:elonchi/features/my_products/presentation/pages/success_state.dart';
 import 'package:elonchi/features/single_item/presentation/pages/single_item_page.dart';
-import 'package:elonchi/core/widgets/language_screen.dart';
+import 'package:elonchi/features/splash/presentation/pages/language_screen.dart';
 import 'package:elonchi/injector_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -165,7 +166,13 @@ final GoRouter router = GoRouter(
       branches: <StatefulShellBranch>[
         StatefulShellBranch(
           initialLocation: Routes.home,
-          routes: <RouteBase>[GoRoute(path: Routes.home, name: Routes.home, builder: (_, _) => const HomePage())],
+          routes: <RouteBase>[
+            GoRoute(
+              path: Routes.home,
+              name: Routes.home,
+              builder: (_, _) => BlocProvider(create: (context) => sl<HomeBloc>(), child: const HomePage()),
+            ),
+          ],
         ),
         StatefulShellBranch(
           initialLocation: Routes.race,

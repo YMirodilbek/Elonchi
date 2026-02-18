@@ -77,16 +77,6 @@ final class LocalSource {
     return box.get(PKeys.userId, defaultValue: 0);
   }
 
-  //creator
-
-  Future<void> setCreator(bool isCreator) async {
-    await box.put(PKeys.isCreator, isCreator);
-  }
-
-  bool get isCreator {
-    return box.get(PKeys.isCreator, defaultValue: false);
-  }
-
   Future<void> setloggedIn(String loggedIn) async {
     await box.put(PKeys.loggedIn, loggedIn);
   }
@@ -101,7 +91,7 @@ final class LocalSource {
     return box.get(PKeys.firstname, defaultValue: "");
   }
 
-  // last name
+  // st name
 
   Future<void> setLastName(String userName) async {
     await box.put(PKeys.lastname, userName);

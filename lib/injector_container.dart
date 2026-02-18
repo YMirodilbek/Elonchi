@@ -9,7 +9,9 @@ import 'package:elonchi/features/auth/presentation/blocs/login_bloc/login_bloc.d
 import 'package:elonchi/features/auth/presentation/blocs/otp_bloc/otp_bloc.dart';
 import 'package:elonchi/features/categories/domain/categories_repo.dart';
 import 'package:elonchi/features/categories/presentation/blocs/bloc/category_bloc.dart';
-import 'package:elonchi/features/messages/all_massages/presentation/blocs/all_messages_bloc/all_messages_bloc.dart';
+import 'package:elonchi/features/home/domain/repository/home_repo.dart';
+import 'package:elonchi/features/home/presentation/blocs/bloc/home_bloc.dart';
+import 'package:elonchi/features/messages/all_messages/presentation/blocs/all_messages_bloc/all_messages_bloc.dart';
 import 'package:elonchi/features/my_products/domain/repository/my_items_repo.dart';
 import 'package:elonchi/features/my_products/presentation/bloc/edit_item_bloc/edit_item_bloc.dart';
 import 'package:elonchi/features/my_products/presentation/bloc/my_items_bloc/my_items_bloc.dart';
@@ -54,8 +56,10 @@ Future<void> init() async {
     ..registerLazySingleton<CategoriesRepo>(() => CategoriesRepoImpl(sl()))
     ..registerLazySingleton<RegionsRepo>(() => RegionsRepoImpl(sl()))
     ..registerLazySingleton<MyItemsRepo>(() => MyItemsRepoImpl(sl()))
+    ..registerLazySingleton<HomeRepo>(() => HomeRepoImpl(sl()))
     ..registerFactory(() => LoginBloc(authRepository: sl<AuthRepository>()))
     ..registerFactory(() => MyItemsBloc(sl<MyItemsRepo>()))
+    ..registerFactory(() => HomeBloc(sl<HomeRepo>()))
     ..registerFactory(() => AddItemBloc(sl<CreateItemRepo>()))
     ..registerFactory(() => RegionsBloc(sl<RegionsRepo>()))
     ..registerFactory(() => EditItemBloc(sl<CreateItemRepo>()))

@@ -1,5 +1,6 @@
 import 'package:elonchi/core/extension/extension.dart';
 import 'package:elonchi/features/splash/presentation/widgets/logo_withtext.dart';
+import 'package:elonchi/injector_container.dart';
 import 'package:flutter/material.dart';
 
 import 'package:go_router/go_router.dart';
@@ -28,7 +29,10 @@ class _SplashPageState extends State<SplashPage> {
 
       Future.delayed(const Duration(milliseconds: 400), () {
         if (context.mounted) {
-          context.go(Routes.languageScreen);
+          if (localSource.onBoarded) {
+            context.go(Routes.home);
+          } else
+            context.go(Routes.languageScreen);
         }
       });
     });
