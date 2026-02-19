@@ -17,47 +17,47 @@ class RecomendationsSingle extends StatelessWidget {
             style: TextStyle(color: context.color.textStrong, fontSize: 16, fontWeight: FontWeight.w500),
           ),
           const SizedBox(height: 8),
-          Row(
-            children: [
-              Expanded(
-                child: ProductItem(
-                  productImagePath: "assets/images/item_1.png",
-                  title: "500 000 сум",
-                  liked: false,
-                  description: "Apple magic mishka",
-                ),
-              ),
-              Expanded(
-                child: ProductItem(
-                  productImagePath: "assets/images/item_2.png",
-                  title: "1 200 000 сум",
-                  liked: false,
-                  description: "Magnitlik Shaxmat",
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Row(
-            children: [
-              Expanded(
-                child: ProductItem(
-                  productImagePath: "assets/images/item_1.png",
-                  title: "500 000 сум",
-                  liked: false,
-                  description: "Apple magic mishka",
-                ),
-              ),
-              Expanded(
-                child: ProductItem(
-                  productImagePath: "assets/images/item_2.png",
-                  title: "1 200 000 сум",
-                  liked: false,
-                  description: "Magnitlik Shaxmat",
-                ),
-              ),
-            ],
-          ),
+          // Row(
+          //   children: [
+          //     Expanded(
+          //       child: ProductItem(
+          //         productImagePath: "assets/images/item_1.png",
+          //         title: "500 000 сум",
+          //         liked: false,
+          //         description: "Apple magic mishka",
+          //       ),
+          //     ),
+          //     Expanded(
+          //       child: ProductItem(
+          //         productImagePath: "assets/images/item_2.png",
+          //         title: "1 200 000 сум",
+          //         liked: false,
+          //         description: "Magnitlik Shaxmat",
+          //       ),
+          //     ),
+          //   ],
+          // ),
+          // const SizedBox(height: 8),
+          // Row(
+          //   children: [
+          //     Expanded(
+          //       child: ProductItem(
+          //         productImagePath: "assets/images/item_1.png",
+          //         title: "500 000 сум",
+          //         liked: false,
+          //         description: "Apple magic mishka",
+          //       ),
+          //     ),
+          //     Expanded(
+          //       child: ProductItem(
+          //         productImagePath: "assets/images/item_2.png",
+          //         title: "1 200 000 сум",
+          //         liked: false,
+          //         description: "Magnitlik Shaxmat",
+          //       ),
+          //     ),
+          //   ],
+          // ),
         ],
       ),
     );

@@ -40,47 +40,6 @@ class _LikedPageState extends State<LikedPage> {
             style: TextStyle(fontWeight: FontWeight.w500, color: context.color.textStrong, fontSize: 16),
           ),
           const SizedBox(height: 8),
-          Row(
-            children: [
-              Expanded(
-                child: ProductItem(
-                  productImagePath: "assets/images/item_1.png",
-                  title: "500 000 сум",
-                  liked: false,
-                  description: "Apple magic mishka",
-                ),
-              ),
-              Expanded(
-                child: ProductItem(
-                  productImagePath: "assets/images/item_2.png",
-                  title: "1 200 000 сум",
-                  liked: false,
-                  description: "Magnitlik Shaxmat",
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Row(
-            children: [
-              Expanded(
-                child: ProductItem(
-                  productImagePath: "assets/images/item_1.png",
-                  title: "500 000 сум",
-                  liked: false,
-                  description: "Apple magic mishka",
-                ),
-              ),
-              Expanded(
-                child: ProductItem(
-                  productImagePath: "assets/images/item_2.png",
-                  title: "1 200 000 сум",
-                  liked: false,
-                  description: "Magnitlik Shaxmat",
-                ),
-              ),
-            ],
-          ),
         ],
       ),
     );

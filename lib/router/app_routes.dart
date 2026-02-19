@@ -3,8 +3,10 @@ import 'package:elonchi/features/auth/presentation/blocs/login_bloc/login_bloc.d
 import 'package:elonchi/features/auth/presentation/blocs/otp_bloc/otp_bloc.dart';
 import 'package:elonchi/features/auth/presentation/pages/login_page.dart';
 import 'package:elonchi/features/auth/presentation/pages/otp_confirm_page.dart';
-import 'package:elonchi/features/home/presentation/blocs/bloc/home_bloc.dart';
-import 'package:elonchi/features/home/presentation/pages/categories_page.dart';
+import 'package:elonchi/features/home/domain/entities/get_product_request.dart';
+import 'package:elonchi/features/home/presentation/blocs/filters_bloc/filters_bloc.dart';
+import 'package:elonchi/features/home/presentation/blocs/home_bloc/home_bloc.dart';
+import 'package:elonchi/features/home/presentation/blocs/search_bloc/search_bloc.dart';
 import 'package:elonchi/features/home/presentation/pages/filters_page.dart';
 import 'package:elonchi/features/home/presentation/pages/hot_sales_page.dart';
 import 'package:elonchi/features/home/presentation/pages/my_wishes_page.dart';
@@ -71,23 +73,32 @@ final GoRouter router = GoRouter(
       parentNavigatorKey: rootNavigatorKey,
       builder: (_, _) => const LikedPage(),
     ),
-    GoRoute(
-      path: Routes.categoriesScreen,
-      name: Routes.categoriesScreen,
-      parentNavigatorKey: rootNavigatorKey,
-      builder: (_, _) => const CategoriesPage(),
-    ),
+    // GoRoute(
+    //   path: Routes.categoriesScreen,
+    //   name: Routes.categoriesScreen,
+    //   parentNavigatorKey: rootNavigatorKey,
+    //   builder: (_, _) => const CategoriesPage(),
+    // ),
     GoRoute(
       path: Routes.filtersScreen,
       name: Routes.filtersScreen,
       parentNavigatorKey: rootNavigatorKey,
-      builder: (_, _) => const FiltersPage(),
+      builder: (_, state) => BlocProvider(
+        create: (context) => sl<FiltersBloc>(),
+        child: FiltersPage(request: state.extra as GetProductRequest),
+      ),
     ),
     GoRoute(
       path: Routes.searchScreen,
       name: Routes.searchScreen,
       parentNavigatorKey: rootNavigatorKey,
-      builder: (_, _) => const SearchPage(),
+      builder: (_, state) {
+        final data = state.extra as Map<String, dynamic>;
+        return BlocProvider(
+          create: (context) => sl<SearchBloc>(),
+          child: SearchPage(region: data["region"], category: data["category"]),
+        );
+      },
     ),
     GoRoute(
       path: Routes.singleItemScreen,

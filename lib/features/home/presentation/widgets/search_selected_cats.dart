@@ -5,20 +5,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class SearchSelectedCategories extends StatelessWidget {
-  const SearchSelectedCategories({super.key});
+  final VoidCallback onCategoryTap;
+  final String? categoryName;
+  const SearchSelectedCategories({super.key, this.categoryName = 'Все категории', required this.onCategoryTap});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         WScaleAnimation(
-          onTap: () {},
+          onTap: onCategoryTap,
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 9, horizontal: 16),
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(16), color: context.color.textStrong),
             child: Row(
               children: [
-                Text('Все категории', style: TextStyle(color: context.color.white)),
+                Text(categoryName ?? 'Все категории', style: TextStyle(color: context.color.white)),
                 const SizedBox(width: 8),
                 SvgPicture.asset(PIcons.menuIcon),
               ],

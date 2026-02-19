@@ -28,12 +28,7 @@ class CurrentItem extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadiusGeometry.circular(16),
-                child: CachedNetworkImage(
-                  imageUrl: '${PConstants.baseUrl}$imagePath',
-                  height: 80,
-                  width: 80,
-                  fit: BoxFit.cover,
-                ),
+                child: CachedNetworkImage(imageUrl: imagePath, height: 80, width: 80, fit: BoxFit.cover),
               ),
               const SizedBox(width: 8),
               Column(

@@ -1,6 +1,9 @@
 import 'package:elonchi/constants/constants.dart';
 import 'package:elonchi/core/network/request_manager.dart';
 import 'package:elonchi/core/network/response_data.dart';
+import 'package:elonchi/features/home/data/banner_response.dart';
+import 'package:elonchi/features/home/data/products_response.dart';
+import 'package:elonchi/features/home/domain/entities/get_product_request.dart';
 
 abstract class HomeRepo {
   Future<ResponseData<void>> likeItem(int itemId);
@@ -9,8 +12,8 @@ abstract class HomeRepo {
   Future<ResponseData<void>> getWatchingItems();
   Future<ResponseData<void>> watchItem(int itemId);
   Future<ResponseData<void>> deleteWatchingItem(int itemId);
-  Future<ResponseData<void>> getBannerData();
-  Future<ResponseData<void>> getProducts();
+  Future<ResponseData<List<BannerDataResponse>>> getBannerData();
+  Future<ResponseData<ProductsResponsePaginated>> getProducts(GetProductRequest request);
 }
 
 class HomeRepoImpl extends HomeRepo {
@@ -28,8 +31,14 @@ class HomeRepoImpl extends HomeRepo {
   }
 
   @override
-  Future<ResponseData<void>> getBannerData() {
-    return requestManager.request(requestType: RequestType.get, path: PUrls.getBanners);
+  Future<ResponseData<List<BannerDataResponse>>> getBannerData() {
+    return requestManager.request(
+      requestType: RequestType.get,
+      path: PUrls.getBanners,
+      dataParser: (jsonData) {
+        return (jsonData as List?)?.map((e) => BannerDataResponse.fromJson(e)).toList() ?? [];
+      },
+    );
   }
 
   @override
@@ -38,8 +47,13 @@ class HomeRepoImpl extends HomeRepo {
   }
 
   @override
-  Future<ResponseData<void>> getProducts() {
-    return requestManager.request(requestType: RequestType.get, path: PUrls.getSearchProducts);
+  Future<ResponseData<ProductsResponsePaginated>> getProducts(GetProductRequest request) {
+    return requestManager.request(
+      requestType: RequestType.get,
+      path: PUrls.getSearchProducts,
+      queryParameters: request.toJson(),
+      dataParser: (jsonData) => ProductsResponsePaginated.fromJson(jsonData),
+    );
   }
 
   @override
