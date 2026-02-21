@@ -66,6 +66,7 @@ sealed class PIcons {
   static const logOutIcon = "assets/icons/logout-01.svg";
   static const deleteImgIcon = "assets/icons/delete_img.svg";
   static const selectedIcon = "assets/icons/selected.svg";
+  static const likedFilledIcon = "assets/icons/favourite_filled.svg";
 }
 
 sealed class PKeys {
@@ -119,11 +120,13 @@ sealed class PUrls {
   static const String getSearchProducts = '/api/product/product/search/';
   static const String createRoom = "/api/chat/chat-crete/";
   static const String getChatList = "/api/chat/chat-list/";
-  static String sendMessage(int id) => "api/chat/message-create/$id/";
-  static String getChatMessages(int id) => "api/chat/message-list/$id/";
+  static const String getComplaints = "/api/product/complaint/";
+  static const String createComplaint = "/api/product/complaint/";
+  static String getProductInfo(int id) => "/api/product/product/$id/";
+  static String sendMessage(int id) => "/api/chat/message-create/$id/";
+  static String getChatMessages(int id) => "/api/chat/message-list/$id/";
   static String deleteChat(int id) => '/api/chat/chat-delete/$id/';
   static String deleteWatchItem(int id) => '/api/product/pricewatch/$id/';
-  static String deleteProduct(int id) => 'api/product/like/$id/';
   static String editProduct(int id) => '/api/product/product/$id/';
   static String getSubCategories(int id) => '/api/product/get-sub-category/$id/';
 }

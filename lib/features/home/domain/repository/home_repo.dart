@@ -7,7 +7,6 @@ import 'package:elonchi/features/home/domain/entities/get_product_request.dart';
 
 abstract class HomeRepo {
   Future<ResponseData<void>> likeItem(int itemId);
-  Future<ResponseData<void>> dislikeItem(int itemId);
   Future<ResponseData<void>> getLikedItems();
   Future<ResponseData<void>> getWatchingItems();
   Future<ResponseData<void>> watchItem(int itemId);
@@ -23,11 +22,6 @@ class HomeRepoImpl extends HomeRepo {
   @override
   Future<ResponseData<void>> deleteWatchingItem(int itemId) {
     return requestManager.request(requestType: RequestType.delete, path: PUrls.deleteWatchItem(itemId));
-  }
-
-  @override
-  Future<ResponseData<void>> dislikeItem(int itemId) {
-    return requestManager.request(requestType: RequestType.delete, path: PUrls.deleteProduct(itemId));
   }
 
   @override

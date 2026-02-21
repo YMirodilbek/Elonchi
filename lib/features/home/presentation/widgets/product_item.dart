@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 class ProductItem extends StatelessWidget {
+  final int itemId;
   final VoidCallback onLikedTap;
   final String productImagePath;
   final String description;
@@ -14,6 +15,7 @@ class ProductItem extends StatelessWidget {
   final bool liked;
   const ProductItem({
     super.key,
+    required this.itemId,
     required this.onLikedTap,
     required this.productImagePath,
     required this.title,
@@ -25,7 +27,7 @@ class ProductItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return WScaleAnimation(
       onTap: () {
-        context.push(Routes.singleItemScreen);
+        context.push(Routes.singleItemScreen, extra: itemId);
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,7 +68,10 @@ class ProductItem extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 8),
-                GestureDetector(onTap: onLikedTap, child: SvgPicture.asset(PIcons.favouriteIcon)),
+                GestureDetector(
+                  onTap: onLikedTap,
+                  child: liked ? SvgPicture.asset(PIcons.likedFilledIcon) : SvgPicture.asset(PIcons.favouriteIcon),
+                ),
               ],
             ),
           ),

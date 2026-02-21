@@ -5,7 +5,7 @@ import 'package:elonchi/features/messages/single_message/presentation/widgets/co
 import 'package:elonchi/features/messages/single_message/presentation/widgets/options_sheet.dart';
 import 'package:elonchi/features/messages/single_message/presentation/widgets/received_message.dart';
 import 'package:elonchi/features/messages/single_message/presentation/widgets/related_item.dart';
-import 'package:elonchi/features/messages/single_message/presentation/widgets/report_sheet.dart';
+import 'package:elonchi/features/report/presentation/pages/report_sheet.dart';
 import 'package:elonchi/features/messages/single_message/presentation/widgets/sent_message.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -34,7 +34,7 @@ class _ConversationPageState extends State<ConversationPage> {
             ),
           );
           if (choice == "report") {
-            triggerBottomSheet(content: ReportSheet());
+            triggerBottomSheet(content: ReportSheet(productId: 0));
           }
         },
       ),

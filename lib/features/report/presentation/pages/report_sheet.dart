@@ -1,11 +1,28 @@
 import 'package:elonchi/core/extension/extension.dart';
 import 'package:elonchi/core/widgets/button_with_scale.dart';
 import 'package:elonchi/features/messages/single_message/presentation/widgets/report_item.dart';
+import 'package:elonchi/features/report/presentation/bloc/bloc/report_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-class ReportSheet extends StatelessWidget {
-  const ReportSheet({super.key});
+class ReportSheet extends StatefulWidget {
+  final int productId;
+  const ReportSheet({super.key, required this.productId});
+
+  @override
+  State<ReportSheet> createState() => _ReportSheetState();
+}
+
+class _ReportSheetState extends State<ReportSheet> {
+  late final ReportBloc bloc;
+
+  @override
+  void initState() {
+    super.initState();
+    bloc = context.read<ReportBloc>();
+    bloc.add(GetReportEvent());
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,4 @@
 import 'package:elonchi/core/extension/extension.dart';
-import 'package:elonchi/features/home/presentation/widgets/product_item.dart';
 import 'package:flutter/material.dart';
 
 class RecomendationsSingle extends StatelessWidget {

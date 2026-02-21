@@ -26,6 +26,7 @@ import 'package:elonchi/features/profile/presentation/pages/profile_edit_page.da
 import 'package:elonchi/features/my_products/presentation/bloc/add_bloc/add_item_bloc.dart';
 import 'package:elonchi/features/my_products/presentation/pages/add_item_page.dart';
 import 'package:elonchi/features/my_products/presentation/pages/success_state.dart';
+import 'package:elonchi/features/single_item/presentation/blocs/bloc/single_bloc.dart';
 import 'package:elonchi/features/single_item/presentation/pages/single_item_page.dart';
 import 'package:elonchi/features/splash/presentation/pages/language_screen.dart';
 import 'package:elonchi/injector_container.dart';
@@ -104,7 +105,10 @@ final GoRouter router = GoRouter(
       path: Routes.singleItemScreen,
       name: Routes.singleItemScreen,
       parentNavigatorKey: rootNavigatorKey,
-      builder: (_, _) => const SingleItemPage(),
+      builder: (_, state) => BlocProvider(
+        create: (context) => sl<SingleBloc>(),
+        child: SingleItemPage(itemId: state.extra as int),
+      ),
     ),
     GoRoute(
       path: Routes.authScreen,

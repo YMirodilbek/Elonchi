@@ -46,6 +46,9 @@ class Product {
   final int? region;
   final int? category;
   final int? user;
+  final bool? iLike;
+  final bool? iDislike;
+  final bool? isWatching;
 
   const Product({
     this.id,
@@ -72,6 +75,9 @@ class Product {
     this.region,
     this.category,
     this.user,
+    this.iLike,
+    this.iDislike,
+    this.isWatching,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
@@ -97,9 +103,12 @@ class Product {
       createdAt: json['created_at'] != null ? DateTime.tryParse(json['created_at']) : null,
       lat: json['lat'] != null ? double.tryParse(json['lat'].toString()) : null,
       lng: json['lan'] != null ? double.tryParse(json['lan'].toString()) : null,
-      region: json['region'] as int?,
-      category: json['category'] as int?,
+      region: json['region'] is Map ? (json['region'] as Map)['id'] as int? : json['region'] as int?,
+      category: json['category'] is Map ? (json['category'] as Map)['id'] as int? : json['category'] as int?,
       user: json['user'] as int?,
+      iLike: json['i_like'] as bool?,
+      iDislike: json['i_dislike'] as bool?,
+      isWatching: json['is_watching'] as bool?,
     );
   }
 
@@ -128,6 +137,9 @@ class Product {
     int? region,
     int? category,
     int? user,
+    bool? iLike,
+    bool? iDislike,
+    bool? isWatching,
   }) {
     return Product(
       id: id ?? this.id,
@@ -154,6 +166,9 @@ class Product {
       region: region ?? this.region,
       category: category ?? this.category,
       user: user ?? this.user,
+      iLike: iLike ?? this.iLike,
+      iDislike: iDislike ?? this.iDislike,
+      isWatching: isWatching ?? this.isWatching,
     );
   }
 }

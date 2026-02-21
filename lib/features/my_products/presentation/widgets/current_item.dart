@@ -14,7 +14,7 @@ class CurrentItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final imagePath = product.image?[0].image ?? '';
+    final imagePath = (product.image?.isNotEmpty ?? false) ? product.image![0].image ?? '' : '';
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16),
       padding: const EdgeInsets.all(12),
@@ -27,8 +27,15 @@ class CurrentItem extends StatelessWidget {
           Row(
             children: [
               ClipRRect(
-                borderRadius: BorderRadiusGeometry.circular(16),
-                child: CachedNetworkImage(imageUrl: imagePath, height: 80, width: 80, fit: BoxFit.cover),
+                borderRadius: BorderRadius.circular(16),
+                child: CachedNetworkImage(
+                  imageUrl: imagePath,
+                  height: 80,
+                  width: 80,
+                  fit: BoxFit.cover,
+                  placeholder: (context, url) => Container(color: Colors.grey[300]),
+                  errorWidget: (context, url, error) => Container(color: Colors.grey[300]),
+                ),
               ),
               const SizedBox(width: 8),
               Column(

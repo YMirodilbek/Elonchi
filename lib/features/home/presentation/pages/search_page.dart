@@ -128,6 +128,7 @@ class _SearchPageState extends State<SearchPage> {
                                   ? product.image!.first.image ?? "assets/images/item_1.png"
                                   : "assets/images/item_1.png";
                               return ProductItem(
+                                itemId: product.id ?? 0,
                                 onLikedTap: () {},
                                 productImagePath: imageUrl,
                                 title: product.price ?? "N/A",
