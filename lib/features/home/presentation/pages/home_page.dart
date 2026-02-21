@@ -44,126 +44,134 @@ class _HomePageState extends State<HomePage> {
       body: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
           return SafeArea(
-            child: ListView(
-              padding: const EdgeInsets.all(16),
-              children: [
-                TopDetailsHome(
-                  onLocationTap: () async {
-                    final data = await triggerBottomSheet<RegionResponse>(
-                      content: BlocProvider(create: (context) => sl<RegionsBloc>(), child: RegionsSheet()),
-                    );
-                    if (data != null) {
-                      bloc.add(ChangeAdressEvent(region: data));
-                    }
-                  },
-                  adress: state.region?.name ?? "Выберите регион",
-                  onLikedTap: () {
-                    context.push(Routes.myWishes);
-                  },
-                  onHotSalesTap: () {
-                    context.push(Routes.salesScreen);
-                  },
-                ),
-                const SizedBox(height: 16),
-                SearchWidget(
-                  onTap: () {
-                    context.push(Routes.searchScreen, extra: {"region": state.region});
-                  },
-                ),
-                const SizedBox(height: 8),
-                AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 300),
-                  child: state.bannerApiStatus == ApiStatus.loading
-                      ? BannerShimmer(key: const ValueKey('bannerShimmer'))
-                      : state.bannerData.isNotEmpty
-                      ? HomeBanner(
-                          key: const ValueKey('banner'),
-                          banners: state.bannerData,
-                          onTap: () {
-                            showModalBottomSheet(
-                              useRootNavigator: true,
-                              context: context,
-                              isScrollControlled: true,
-                              backgroundColor: Colors.transparent,
-                              builder: (context) => BannerSheet(banners: state.bannerData),
-                            );
-                          },
-                        )
-                      : const SizedBox.shrink(),
-                ),
-                const SizedBox(height: 8),
-                AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 300),
-                  child: state.categoriesApiStatus == ApiStatus.loading
-                      ? CategoryShimmer(key: const ValueKey('categoryShimmer'))
-                      : state.categories.isNotEmpty
-                      ? GridView.builder(
-                          key: const ValueKey('categories'),
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 5,
-                            childAspectRatio: 0.8,
-                            crossAxisSpacing: 5,
-                          ),
-                          itemBuilder: (context, index) {
-                            final category = state.categories.length > index ? state.categories[index] : null;
-                            return CategoryItem(
-                              onTap: () {
-                                context.push(
-                                  Routes.searchScreen,
-                                  extra: {"region": state.region, "category": category},
-                                );
-                              },
-                              title: category?.name ?? "Категория",
-                              imagePath: category?.img ?? "",
-                            );
-                          },
-                          itemCount: state.categories.length,
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                        )
-                      : const SizedBox.shrink(),
-                ),
-                const SizedBox(height: 12),
-                if (state.recentProductsApiStatus != ApiStatus.loading && state.recentProducts.isNotEmpty)
-                  Text("Недавные товары", style: TextStyle(fontSize: 16)),
-                const SizedBox(height: 8),
-                AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 300),
-                  child: state.recentProductsApiStatus == ApiStatus.loading
-                      ? ProductGridShimmer(key: const ValueKey('recentProductsShimmer'), itemCount: 4)
-                      : state.recentProducts.isNotEmpty
-                      ? GridView.builder(
-                          key: const ValueKey('recentProducts'),
-                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            childAspectRatio: 0.8,
-                            crossAxisSpacing: 8,
-                            mainAxisSpacing: 8,
-                          ),
-                          itemCount: state.recentProducts.length,
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            final product = state.recentProducts[index];
-                            final imageUrl = (product.image?.isNotEmpty ?? false)
-                                ? product.image!.first.image ?? "assets/images/item_1.png"
-                                : "assets/images/item_1.png";
-                            return ProductItem(
-                              itemId: product.id ?? 0,
-                              onLikedTap: () {
-                                if (state.likingStatus == ApiStatus.loading) return;
-                                bloc.add(ToggleLikeEvent(product.id ?? 0));
-                              },
-                              productImagePath: imageUrl,
-                              title: product.price ?? "N/A",
-                              liked: product.iLike ?? false,
-                              description: product.title ?? "N/A",
-                            );
-                          },
-                        )
-                      : const SizedBox.shrink(),
-                ),
-              ],
+            child: RefreshIndicator.adaptive(
+              onRefresh: () async {
+                bloc.add(const GetCategoriesEvent());
+                bloc.add(const GetBannerDataEvent());
+                bloc.add(const GetRecentItems());
+                await Future.delayed(const Duration(milliseconds: 500));
+              },
+              child: ListView(
+                padding: const EdgeInsets.all(16),
+                children: [
+                  TopDetailsHome(
+                    onLocationTap: () async {
+                      final data = await triggerBottomSheet<RegionResponse>(
+                        content: BlocProvider(create: (context) => sl<RegionsBloc>(), child: RegionsSheet()),
+                      );
+                      if (data != null) {
+                        bloc.add(ChangeAdressEvent(region: data));
+                      }
+                    },
+                    adress: state.region?.name ?? "Выберите регион",
+                    onLikedTap: () {
+                      context.push(Routes.myWishes);
+                    },
+                    onHotSalesTap: () {
+                      context.push(Routes.salesScreen);
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                  SearchWidget(
+                    onTap: () {
+                      context.push(Routes.searchScreen, extra: {"region": state.region});
+                    },
+                  ),
+                  const SizedBox(height: 8),
+                  AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 300),
+                    child: state.bannerApiStatus == ApiStatus.loading
+                        ? BannerShimmer(key: const ValueKey('bannerShimmer'))
+                        : state.bannerData.isNotEmpty
+                        ? HomeBanner(
+                            key: const ValueKey('banner'),
+                            banners: state.bannerData,
+                            onTap: () {
+                              showModalBottomSheet(
+                                useRootNavigator: true,
+                                context: context,
+                                isScrollControlled: true,
+                                backgroundColor: Colors.transparent,
+                                builder: (context) => BannerSheet(banners: state.bannerData),
+                              );
+                            },
+                          )
+                        : const SizedBox.shrink(),
+                  ),
+                  const SizedBox(height: 8),
+                  AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 300),
+                    child: state.categoriesApiStatus == ApiStatus.loading
+                        ? CategoryShimmer(key: const ValueKey('categoryShimmer'))
+                        : state.categories.isNotEmpty
+                        ? GridView.builder(
+                            key: const ValueKey('categories'),
+                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 5,
+                              childAspectRatio: 0.8,
+                              crossAxisSpacing: 5,
+                            ),
+                            itemBuilder: (context, index) {
+                              final category = state.categories.length > index ? state.categories[index] : null;
+                              return CategoryItem(
+                                onTap: () {
+                                  context.push(
+                                    Routes.searchScreen,
+                                    extra: {"region": state.region, "category": category},
+                                  );
+                                },
+                                title: category?.name ?? "Категория",
+                                imagePath: category?.img ?? "",
+                              );
+                            },
+                            itemCount: state.categories.length,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                          )
+                        : const SizedBox.shrink(),
+                  ),
+                  const SizedBox(height: 12),
+                  if (state.recentProductsApiStatus != ApiStatus.loading && state.recentProducts.isNotEmpty)
+                    Text("Недавные товары", style: TextStyle(fontSize: 16)),
+                  const SizedBox(height: 8),
+                  AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 300),
+                    child: state.recentProductsApiStatus == ApiStatus.loading
+                        ? ProductGridShimmer(key: const ValueKey('recentProductsShimmer'), itemCount: 4)
+                        : state.recentProducts.isNotEmpty
+                        ? GridView.builder(
+                            key: const ValueKey('recentProducts'),
+                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              childAspectRatio: 0.8,
+                              crossAxisSpacing: 8,
+                              mainAxisSpacing: 8,
+                            ),
+                            itemCount: state.recentProducts.length,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              final product = state.recentProducts[index];
+                              final imageUrl = (product.image?.isNotEmpty ?? false)
+                                  ? product.image!.first.image ?? "assets/images/item_1.png"
+                                  : "assets/images/item_1.png";
+                              return ProductItem(
+                                itemId: product.id ?? 0,
+                                onLikedTap: () {
+                                  if (state.likingStatus == ApiStatus.loading) return;
+                                  bloc.add(ToggleLikeEvent(product.id ?? 0));
+                                },
+                                productImagePath: imageUrl,
+                                title: product.price ?? "N/A",
+                                liked: product.iLike ?? false,
+                                description: product.title ?? "N/A",
+                              );
+                            },
+                          )
+                        : const SizedBox.shrink(),
+                  ),
+                ],
+              ),
             ),
           );
         },

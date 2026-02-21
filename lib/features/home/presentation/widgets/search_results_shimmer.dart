@@ -11,8 +11,9 @@ class SearchResultsShimmer extends StatelessWidget {
     return GridView.builder(
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        childAspectRatio: 0.8,
+        childAspectRatio: 1,
         crossAxisSpacing: 8,
+        mainAxisSpacing: 8,
       ),
       itemCount: itemCount,
       itemBuilder: (context, index) {

@@ -12,7 +12,7 @@ class SearchState extends Equatable {
   final CategoryResponse? category;
   const SearchState({
     this.likeLoadingStatus = ApiStatus.initial,
-    this.itemsLoadingStatus = ApiStatus.initial,
+    this.itemsLoadingStatus = ApiStatus.loading,
     this.searchController,
     this.region,
     this.category,

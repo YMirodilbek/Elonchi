@@ -24,7 +24,6 @@ class _MainPageState extends State<MainPage> {
     notificationServices.initLocalNotifications(context);
     notificationServices.firebaseInit(context);
     notificationServices.setupInteractMessage(context);
-
     notificationServices
         .getDeviceToken()
         .then((token) {
@@ -58,7 +57,6 @@ class _MainPageState extends State<MainPage> {
                   },
                 ),
               ),
-
               Expanded(
                 child: NavbarItem(
                   iconPath: PIcons.messageIcon,

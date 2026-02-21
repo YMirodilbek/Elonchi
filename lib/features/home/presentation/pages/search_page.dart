@@ -115,7 +115,7 @@ class _SearchPageState extends State<SearchPage> {
                   Expanded(
                     child: AnimatedSwitcher(
                       duration: const Duration(milliseconds: 300),
-                      child: state.itemsLoadingStatus == ApiStatus.loading
+                      child: (state.itemsLoadingStatus == ApiStatus.loading)
                           ? SearchResultsShimmer(key: const ValueKey('searchShimmer'))
                           : state.products.isEmpty
                           ? Center(
@@ -137,10 +137,13 @@ class _SearchPageState extends State<SearchPage> {
                                     : "assets/images/item_1.png";
                                 return ProductItem(
                                   itemId: product.id ?? 0,
-                                  onLikedTap: () {},
+                                  onLikedTap: () {
+                                    if (state.likeLoadingStatus == ApiStatus.loading) return;
+                                    bloc.add(ToggleLikeEvent(product.id ?? 0));
+                                  },
                                   productImagePath: imageUrl,
                                   title: product.price ?? "N/A",
-                                  liked: false,
+                                  liked: product.iLike ?? false,
                                   description: product.title ?? "N/A",
                                 );
                               },

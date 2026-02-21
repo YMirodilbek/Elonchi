@@ -21,6 +21,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     on<SearchProductsEvent>(onChangeQuert);
     on<DeleteQueryEvent>(onDeleteQuery);
     on<InitController>(onInitController);
+    on<ToggleLikeEvent>(onToggleLikeEvent);
   }
 
   void onSetCategory(SetCategoryEvent event, Emitter<SearchState> emit) {
@@ -76,5 +77,21 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
   void onInitController(InitController event, Emitter<SearchState> emit) {
     emit(state.copyWith(searchController: event.controller));
+  }
+
+  void onToggleLikeEvent(ToggleLikeEvent event, Emitter<SearchState> emit) async {
+    emit(state.copyWith(likeLoadingStatus: ApiStatus.loading));
+    final result = await homeRepo.likeItem(event.productId);
+    if (result.ok) {
+      final currentProducts = state.products;
+      final index = currentProducts.indexWhere((element) => element.id == event.productId);
+      if (index != -1) {
+        final product = currentProducts[index];
+        final updatedProduct = product.copyWith(iLike: !(product.iLike ?? false));
+        final updatedProducts = List<Product>.from(currentProducts)..[index] = updatedProduct;
+        emit(state.copyWith(products: updatedProducts));
+      }
+    }
+    emit(state.copyWith(likeLoadingStatus: ApiStatus.initial));
   }
 }

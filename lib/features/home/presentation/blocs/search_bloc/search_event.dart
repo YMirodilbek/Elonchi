@@ -43,3 +43,10 @@ class InitController extends SearchEvent {
   @override
   List<Object> get props => [controller];
 }
+
+class ToggleLikeEvent extends SearchEvent {
+  final int productId;
+  const ToggleLikeEvent(this.productId);
+  @override
+  List<Object> get props => [productId];
+}
