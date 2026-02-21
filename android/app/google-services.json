@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1042178519908",
+    "project_id": "elonchi-c0f2a",
+    "storage_bucket": "elonchi-c0f2a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1042178519908:android:e78a62bc6f4cf5fef90071",
+        "android_client_info": {
+          "package_name": "com.example.elonchi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZmvTn-_hV1tsi0lp1RSPbwvYJDngZSaU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1042178519908:android:06702371bbe46f90f90071",
+        "android_client_info": {
+          "package_name": "uz.elonchimobi.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZmvTn-_hV1tsi0lp1RSPbwvYJDngZSaU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

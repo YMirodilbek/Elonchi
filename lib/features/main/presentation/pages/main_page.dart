@@ -1,3 +1,4 @@
+import 'package:elonchi/core/firebase_notification/firebase_notification_manager.dart';
 import 'package:elonchi/injector_container.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -14,6 +15,26 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  @override
+  void initState() {
+    super.initState();
+
+    final NotificationServices notificationServices = NotificationServices();
+    notificationServices.requestNotificationPermission();
+    notificationServices.initLocalNotifications(context);
+    notificationServices.firebaseInit(context);
+    notificationServices.setupInteractMessage(context);
+
+    notificationServices
+        .getDeviceToken()
+        .then((token) {
+          localSource.setFcmToken(token);
+        })
+        .catchError((e) {
+          print('❌ Error getting device token: $e');
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

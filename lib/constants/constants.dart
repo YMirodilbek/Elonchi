@@ -122,6 +122,7 @@ sealed class PUrls {
   static const String getChatList = "/api/chat/chat-list/";
   static const String getComplaints = "/api/product/complaint/";
   static const String createComplaint = "/api/product/complaint/";
+  static const String getRecentItems = "/api/product/recently/";
   static String getProductInfo(int id) => "/api/product/product/$id/";
   static String sendMessage(int id) => "/api/chat/message-create/$id/";
   static String getChatMessages(int id) => "/api/chat/message-list/$id/";

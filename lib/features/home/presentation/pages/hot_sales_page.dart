@@ -1,9 +1,10 @@
 import 'package:elonchi/constants/constants.dart';
 import 'package:elonchi/core/extension/extension.dart';
 import 'package:elonchi/core/widgets/scale_animation.dart';
-import 'package:elonchi/features/home/presentation/widgets/product_item.dart';
+import 'package:elonchi/features/home/presentation/blocs/watching_bloc/watching_bloc.dart';
 import 'package:elonchi/features/home/presentation/widgets/sales_empty_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
@@ -15,6 +16,15 @@ class HotSalesPage extends StatefulWidget {
 }
 
 class _HotSalesPageState extends State<HotSalesPage> {
+  late final WatchingBloc bloc;
+
+  @override
+  void initState() {
+    super.initState();
+    bloc = context.read<WatchingBloc>();
+    bloc.add(const GetWatchingProductsEvent());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,4 +1,5 @@
 import 'package:easy_debounce/easy_debounce.dart';
+import 'package:elonchi/core/network/response_data.dart';
 import 'package:elonchi/features/categories/data/category_response.dart';
 import 'package:elonchi/features/home/data/products_response.dart';
 import 'package:elonchi/features/home/domain/entities/get_product_request.dart';
@@ -41,6 +42,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   }
 
   void onGetProducts(GetProducts event, Emitter<SearchState> emit) async {
+    emit(state.copyWith(itemsLoadingStatus: ApiStatus.loading));
     final results = await homeRepo.getProducts(state.request);
     if (results.ok) {
       bool hasNext = true;
@@ -52,6 +54,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     } else {
       emit(state.copyWith(products: []));
     }
+    emit(state.copyWith(itemsLoadingStatus: ApiStatus.initial));
   }
 
   void onChangeQuert(SearchProductsEvent event, Emitter<SearchState> emit) {

@@ -38,7 +38,7 @@ class SingleState extends Equatable {
     return SingleState(
       watchApiStatus: watchApiStatus ?? this.watchApiStatus,
       likeRelatedProductsApiStatus: likeRelatedProductsApiStatus ?? this.likeRelatedProductsApiStatus,
-      likeApiStatus: likeApiStatus ?? this.status,
+      likeApiStatus: likeApiStatus ?? this.likeApiStatus,
       status: status ?? this.status,
       product: product ?? this.product,
       relatedProducts: relatedProducts ?? this.relatedProducts,

@@ -1,6 +1,8 @@
 part of 'search_bloc.dart';
 
 class SearchState extends Equatable {
+  final ApiStatus likeLoadingStatus;
+  final ApiStatus itemsLoadingStatus;
   final TextEditingController? searchController;
   final int pageNum;
   final bool hasNext;
@@ -9,6 +11,8 @@ class SearchState extends Equatable {
   final RegionResponse? region;
   final CategoryResponse? category;
   const SearchState({
+    this.likeLoadingStatus = ApiStatus.initial,
+    this.itemsLoadingStatus = ApiStatus.initial,
     this.searchController,
     this.region,
     this.category,
@@ -19,9 +23,21 @@ class SearchState extends Equatable {
   });
 
   @override
-  List<Object?> get props => [region, category, request, products, hasNext, pageNum, searchController];
+  List<Object?> get props => [
+    region,
+    category,
+    request,
+    products,
+    hasNext,
+    pageNum,
+    searchController,
+    likeLoadingStatus,
+    itemsLoadingStatus,
+  ];
 
   SearchState copyWith({
+    ApiStatus? likeLoadingStatus,
+    ApiStatus? itemsLoadingStatus,
     TextEditingController? searchController,
     RegionResponse? region,
     CategoryResponse? category,
@@ -31,6 +47,8 @@ class SearchState extends Equatable {
     int? pageNum,
   }) {
     return SearchState(
+      likeLoadingStatus: likeLoadingStatus ?? this.likeLoadingStatus,
+      itemsLoadingStatus: itemsLoadingStatus ?? this.itemsLoadingStatus,
       searchController: searchController ?? this.searchController,
       pageNum: pageNum ?? this.pageNum,
       region: region ?? this.region,

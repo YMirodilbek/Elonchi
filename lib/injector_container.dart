@@ -12,7 +12,9 @@ import 'package:elonchi/features/categories/presentation/blocs/bloc/category_blo
 import 'package:elonchi/features/home/domain/repository/home_repo.dart';
 import 'package:elonchi/features/home/presentation/blocs/filters_bloc/filters_bloc.dart';
 import 'package:elonchi/features/home/presentation/blocs/home_bloc/home_bloc.dart';
+import 'package:elonchi/features/home/presentation/blocs/liked_bloc/like_bloc.dart';
 import 'package:elonchi/features/home/presentation/blocs/search_bloc/search_bloc.dart';
+import 'package:elonchi/features/home/presentation/blocs/watching_bloc/watching_bloc.dart';
 import 'package:elonchi/features/messages/all_messages/presentation/blocs/all_messages_bloc/all_messages_bloc.dart';
 import 'package:elonchi/features/my_products/domain/repository/my_items_repo.dart';
 import 'package:elonchi/features/my_products/presentation/bloc/edit_item_bloc/edit_item_bloc.dart';
@@ -66,6 +68,8 @@ Future<void> init() async {
     ..registerLazySingleton<HomeRepo>(() => HomeRepoImpl(sl()))
     ..registerLazySingleton<ReportRepo>(() => ReportRepoImpl(sl()))
     ..registerFactory(() => ReportBloc(sl<ReportRepo>()))
+    ..registerFactory(() => LikeBloc(sl<HomeRepo>()))
+    ..registerFactory(() => WatchingBloc(sl<HomeRepo>()))
     ..registerFactory(() => SearchBloc(sl<HomeRepo>()))
     ..registerFactory(() => SingleBloc(sl<SingleItemRepo>()))
     ..registerFactory(() => LoginBloc(authRepository: sl<AuthRepository>()))

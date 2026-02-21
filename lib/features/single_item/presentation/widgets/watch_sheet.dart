@@ -23,6 +23,7 @@ class WatchSheet extends StatelessWidget {
         Text('Мы уведомим вас, если цена снизится', style: TextStyle(color: context.color.textSub)),
         const SizedBox(height: 16),
         ButtonWithScale(
+          color: iswatching ? context.color.errorColor.withOpacity(0.1) : context.color.base,
           onPressed: () {
             context.pop(true);
           },

@@ -6,7 +6,9 @@ import 'package:elonchi/features/auth/presentation/pages/otp_confirm_page.dart';
 import 'package:elonchi/features/home/domain/entities/get_product_request.dart';
 import 'package:elonchi/features/home/presentation/blocs/filters_bloc/filters_bloc.dart';
 import 'package:elonchi/features/home/presentation/blocs/home_bloc/home_bloc.dart';
+import 'package:elonchi/features/home/presentation/blocs/liked_bloc/like_bloc.dart';
 import 'package:elonchi/features/home/presentation/blocs/search_bloc/search_bloc.dart';
+import 'package:elonchi/features/home/presentation/blocs/watching_bloc/watching_bloc.dart';
 import 'package:elonchi/features/home/presentation/pages/filters_page.dart';
 import 'package:elonchi/features/home/presentation/pages/hot_sales_page.dart';
 import 'package:elonchi/features/home/presentation/pages/my_wishes_page.dart';
@@ -66,20 +68,15 @@ final GoRouter router = GoRouter(
       path: Routes.salesScreen,
       name: Routes.salesScreen,
       parentNavigatorKey: rootNavigatorKey,
-      builder: (_, _) => const HotSalesPage(),
+      builder: (_, _) => BlocProvider(create: (context) => sl<WatchingBloc>(), child: const HotSalesPage()),
     ),
     GoRoute(
       path: Routes.myWishes,
       name: Routes.myWishes,
       parentNavigatorKey: rootNavigatorKey,
-      builder: (_, _) => const LikedPage(),
+      builder: (_, _) => BlocProvider(create: (context) => sl<LikeBloc>(), child: const LikedPage()),
     ),
-    // GoRoute(
-    //   path: Routes.categoriesScreen,
-    //   name: Routes.categoriesScreen,
-    //   parentNavigatorKey: rootNavigatorKey,
-    //   builder: (_, _) => const CategoriesPage(),
-    // ),
+
     GoRoute(
       path: Routes.filtersScreen,
       name: Routes.filtersScreen,

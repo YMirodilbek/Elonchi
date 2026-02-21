@@ -1,9 +1,10 @@
 import 'package:elonchi/constants/constants.dart';
 import 'package:elonchi/core/extension/extension.dart';
 import 'package:elonchi/core/widgets/scale_animation.dart';
+import 'package:elonchi/features/home/presentation/blocs/liked_bloc/like_bloc.dart';
 import 'package:elonchi/features/home/presentation/widgets/empty_state.dart';
-import 'package:elonchi/features/home/presentation/widgets/product_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
@@ -15,6 +16,14 @@ class LikedPage extends StatefulWidget {
 }
 
 class _LikedPageState extends State<LikedPage> {
+  late final LikeBloc bloc;
+  @override
+  void initState() {
+    super.initState();
+    bloc = context.read<LikeBloc>();
+    bloc.add(const GetLikedProductsEvent());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

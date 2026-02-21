@@ -22,3 +22,17 @@ final class GetBannerDataEvent extends HomeEvent {
   @override
   List<Object> get props => [];
 }
+
+final class GetRecentItems extends HomeEvent {
+  const GetRecentItems();
+  @override
+  List<Object> get props => [];
+}
+
+final class ToggleLikeEvent extends HomeEvent {
+  final int productId;
+  const ToggleLikeEvent(this.productId);
+
+  @override
+  List<Object> get props => [productId];
+}

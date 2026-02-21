@@ -90,7 +90,7 @@ class _SingleItemPageState extends State<SingleItemPage> {
                                       bloc.add(WatchProductEvent(widget.itemId));
                                     }
                                   },
-                                  isWatching: false,
+                                  isWatching: state.product?.isWatching ?? false,
                                   isFree: state.product?.price == null || state.product?.price == '0',
                                   price: '${state.product?.price ?? 'N/A'} ${state.product?.moneyType ?? ''}',
                                   title: state.product?.title ?? 'N/A',

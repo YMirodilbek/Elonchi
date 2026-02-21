@@ -1,5 +1,6 @@
 import 'package:elonchi/constants/constants.dart';
 import 'package:elonchi/core/extension/extension.dart';
+import 'package:elonchi/core/network/response_data.dart';
 import 'package:elonchi/core/widgets/bottom_sheet.dart';
 import 'package:elonchi/core/widgets/scale_animation.dart';
 import 'package:elonchi/features/categories/data/category_response.dart';
@@ -7,6 +8,7 @@ import 'package:elonchi/features/categories/presentation/blocs/bloc/category_blo
 import 'package:elonchi/features/categories/presentation/pages/categories_page.dart';
 import 'package:elonchi/features/home/presentation/blocs/search_bloc/search_bloc.dart';
 import 'package:elonchi/features/home/presentation/widgets/product_item.dart';
+import 'package:elonchi/features/home/presentation/widgets/search_results_shimmer.dart';
 import 'package:elonchi/features/home/presentation/widgets/search_selected_cats.dart';
 import 'package:elonchi/features/home/presentation/widgets/search_top_part.dart';
 import 'package:elonchi/features/regions/data/regions_response.dart';
@@ -111,32 +113,39 @@ class _SearchPageState extends State<SearchPage> {
                   ),
                   const SizedBox(height: 16),
                   Expanded(
-                    child: state.products.isEmpty
-                        ? Center(
-                            child: Text('Товаров не найдено', style: TextStyle(color: context.color.textSoft)),
-                          )
-                        : GridView.builder(
-                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              childAspectRatio: 0.8,
-                              crossAxisSpacing: 8,
+                    child: AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 300),
+                      child: state.itemsLoadingStatus == ApiStatus.loading
+                          ? SearchResultsShimmer(key: const ValueKey('searchShimmer'))
+                          : state.products.isEmpty
+                          ? Center(
+                              key: const ValueKey('empty'),
+                              child: Text('Товаров не найдено', style: TextStyle(color: context.color.textSoft)),
+                            )
+                          : GridView.builder(
+                              key: const ValueKey('results'),
+                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                childAspectRatio: 0.8,
+                                crossAxisSpacing: 8,
+                              ),
+                              itemCount: state.products.length,
+                              itemBuilder: (context, index) {
+                                final product = state.products[index];
+                                final imageUrl = (product.image?.isNotEmpty ?? false)
+                                    ? product.image!.first.image ?? "assets/images/item_1.png"
+                                    : "assets/images/item_1.png";
+                                return ProductItem(
+                                  itemId: product.id ?? 0,
+                                  onLikedTap: () {},
+                                  productImagePath: imageUrl,
+                                  title: product.price ?? "N/A",
+                                  liked: false,
+                                  description: product.title ?? "N/A",
+                                );
+                              },
                             ),
-                            itemCount: state.products.length,
-                            itemBuilder: (context, index) {
-                              final product = state.products[index];
-                              final imageUrl = (product.image?.isNotEmpty ?? false)
-                                  ? product.image!.first.image ?? "assets/images/item_1.png"
-                                  : "assets/images/item_1.png";
-                              return ProductItem(
-                                itemId: product.id ?? 0,
-                                onLikedTap: () {},
-                                productImagePath: imageUrl,
-                                title: product.price ?? "N/A",
-                                liked: false,
-                                description: product.title ?? "N/A",
-                              );
-                            },
-                          ),
+                    ),
                   ),
                 ],
               ),

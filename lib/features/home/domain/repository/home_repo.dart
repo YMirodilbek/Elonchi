@@ -13,6 +13,7 @@ abstract class HomeRepo {
   Future<ResponseData<void>> deleteWatchingItem(int itemId);
   Future<ResponseData<List<BannerDataResponse>>> getBannerData();
   Future<ResponseData<ProductsResponsePaginated>> getProducts(GetProductRequest request);
+  Future<ResponseData<ProductsResponsePaginated>> getRecentItems();
 }
 
 class HomeRepoImpl extends HomeRepo {
@@ -66,6 +67,15 @@ class HomeRepoImpl extends HomeRepo {
       requestType: RequestType.post,
       path: PUrls.postWatchItem,
       data: {"product_id": itemId},
+    );
+  }
+
+  @override
+  Future<ResponseData<ProductsResponsePaginated>> getRecentItems() {
+    return requestManager.request(
+      requestType: RequestType.get,
+      path: PUrls.getRecentItems,
+      dataParser: (jsonData) => ProductsResponsePaginated.fromJson(jsonData),
     );
   }
 }
