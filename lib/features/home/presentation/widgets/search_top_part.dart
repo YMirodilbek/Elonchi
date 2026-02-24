@@ -25,7 +25,10 @@ class SearchTopPart extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        WScaleAnimation(onTap: onBackTap, child: SvgPicture.asset(PIcons.arrowLeftIcon)),
+        WScaleAnimation(
+          onTap: onBackTap,
+          child: SvgPicture.asset(PIcons.arrowLeftIcon, color: context.color.iconStrong),
+        ),
         const SizedBox(width: 16),
         Expanded(
           child: Container(
@@ -47,7 +50,10 @@ class SearchTopPart extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 16),
-        WScaleAnimation(onTap: onFiltersTap, child: SvgPicture.asset(PIcons.filtersIcon)),
+        WScaleAnimation(
+          onTap: onFiltersTap,
+          child: SvgPicture.asset(PIcons.filtersIcon, color: context.color.iconStrong),
+        ),
       ],
     );
   }

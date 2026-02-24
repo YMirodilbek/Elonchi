@@ -50,3 +50,10 @@ class ToggleLikeEvent extends SearchEvent {
   @override
   List<Object> get props => [productId];
 }
+
+final class LoadMoreProducts extends SearchEvent {
+  const LoadMoreProducts();
+
+  @override
+  List<Object> get props => [];
+}

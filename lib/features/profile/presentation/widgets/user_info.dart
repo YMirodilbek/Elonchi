@@ -40,7 +40,8 @@ class UserInfo extends StatelessWidget {
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: context.color.textStrong),
                 ),
           const SizedBox(height: 4),
-          Text("Профель создань 14.01.2026", style: TextStyle(color: context.color.text400, fontSize: 12)),
+          // here
+          Text("Профель создань -- -- ----", style: TextStyle(color: context.color.text400, fontSize: 12)),
         ],
       ),
     );

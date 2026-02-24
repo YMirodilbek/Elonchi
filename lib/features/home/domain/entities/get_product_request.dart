@@ -14,6 +14,7 @@ class GetProductRequest {
   final String? title;
   final String? contactName;
   final String? condition;
+  final int? page;
 
   const GetProductRequest({
     this.regionName,
@@ -31,6 +32,7 @@ class GetProductRequest {
     this.title,
     this.contactName,
     this.condition,
+    this.page,
   });
 
   GetProductRequest copyWith({
@@ -49,6 +51,7 @@ class GetProductRequest {
     String? title,
     String? contactName,
     String? condition,
+    int? page,
   }) {
     return GetProductRequest(
       categoryName: categoryName ?? this.categoryName,
@@ -66,6 +69,7 @@ class GetProductRequest {
       title: title ?? this.title,
       contactName: contactName ?? this.contactName,
       condition: condition ?? this.condition,
+      page: page ?? this.page,
     );
   }
 
@@ -87,5 +91,14 @@ class GetProductRequest {
     };
     map.removeWhere((key, value) => value == null);
     return map;
+  }
+
+  Map<String, dynamic> toQueryParams() {
+    final params = <String, dynamic>{};
+    if (query != null && query!.isNotEmpty) params['search'] = query;
+    if (categoryId != null) params['category'] = categoryId;
+    if (region != null) params['region'] = region;
+    if (page != null) params['page'] = page;
+    return params;
   }
 }

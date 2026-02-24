@@ -20,28 +20,36 @@ class SearchSelectedCategories extends StatelessWidget {
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(16), color: context.color.textStrong),
             child: Row(
               children: [
-                Text(categoryName ?? 'Все категории', style: TextStyle(color: context.color.white)),
+                Text(categoryName ?? 'Все категории', style: TextStyle(color: context.color.background)),
                 const SizedBox(width: 8),
-                SvgPicture.asset(PIcons.menuIcon),
+                SvgPicture.asset(PIcons.menuIcon, color: context.color.background),
               ],
             ),
           ),
         ),
         const SizedBox(width: 8),
-        WScaleAnimation(
-          onTap: () {},
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(width: 1, color: context.color.stroke),
-            ),
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-            child: Row(
-              children: [
-                SvgPicture.asset(PIcons.arrorDown),
-                const SizedBox(width: 8),
-                Text("Рекомендованное", style: TextStyle(color: context.color.textSub)),
-              ],
+        Expanded(
+          child: WScaleAnimation(
+            onTap: () {},
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(width: 1, color: context.color.stroke),
+              ),
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+              child: Row(
+                children: [
+                  SvgPicture.asset(PIcons.arrorDown, color: context.color.textSub),
+                  const SizedBox(width: 8),
+                  Flexible(
+                    child: Text(
+                      "home.recommended".tr(),
+                      style: TextStyle(color: context.color.textSub),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

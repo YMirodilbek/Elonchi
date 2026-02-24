@@ -3,9 +3,10 @@ import 'package:elonchi/features/auth/presentation/widgets/login_input.dart';
 import 'package:flutter/material.dart';
 
 class ContancsForm extends StatelessWidget {
+  final FocusNode? focusNode;
   final void Function(String name) onNameChanged;
   final void Function(String phone) onPhoneChanged;
-  const ContancsForm({super.key, required this.onNameChanged, required this.onPhoneChanged});
+  const ContancsForm({super.key, required this.onNameChanged, required this.onPhoneChanged, this.focusNode});
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +57,7 @@ class ContancsForm extends StatelessWidget {
                     const SizedBox(width: 4),
                     Expanded(
                       child: TextField(
+                        focusNode: focusNode,
                         onChanged: onPhoneChanged,
                         keyboardType: TextInputType.number,
                         inputFormatters: [UzbekPhoneFormatter()],

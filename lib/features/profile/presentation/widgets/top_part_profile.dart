@@ -1,4 +1,5 @@
 import 'package:elonchi/constants/constants.dart';
+import 'package:elonchi/core/extension/extension.dart';
 import 'package:elonchi/core/widgets/scale_animation.dart';
 
 import 'package:flutter/material.dart';
@@ -14,7 +15,10 @@ class TopPartProfile extends StatelessWidget {
       children: [
         Text('Профиль', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
         const Spacer(),
-        WScaleAnimation(onTap: onEditTap, child: SvgPicture.asset(PIcons.editInfoIcon)),
+        WScaleAnimation(
+          onTap: onEditTap,
+          child: SvgPicture.asset(PIcons.editInfoIcon, color: context.color.iconStrong),
+        ),
       ],
     );
   }

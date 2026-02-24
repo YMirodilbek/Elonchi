@@ -22,6 +22,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     on<DeleteQueryEvent>(onDeleteQuery);
     on<InitController>(onInitController);
     on<ToggleLikeEvent>(onToggleLikeEvent);
+    on<LoadMoreProducts>(onLoadMoreProducts);
   }
 
   void onSetCategory(SetCategoryEvent event, Emitter<SearchState> emit) {
@@ -43,14 +44,10 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   }
 
   void onGetProducts(GetProducts event, Emitter<SearchState> emit) async {
-    emit(state.copyWith(itemsLoadingStatus: ApiStatus.loading));
+    emit(state.copyWith(itemsLoadingStatus: ApiStatus.loading, currentPage: 1));
     final results = await homeRepo.getProducts(state.request);
     if (results.ok) {
-      bool hasNext = true;
-      if (results.data?.next == null || results.data!.next!.isEmpty) {
-        hasNext = false;
-      }
-
+      bool hasNext = results.data?.next != null && results.data!.next!.isNotEmpty;
       emit(state.copyWith(products: results.data?.products ?? [], hasNext: hasNext));
     } else {
       emit(state.copyWith(products: []));
@@ -93,5 +90,31 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       }
     }
     emit(state.copyWith(likeLoadingStatus: ApiStatus.initial));
+  }
+
+  void onLoadMoreProducts(LoadMoreProducts event, Emitter<SearchState> emit) async {
+    if (!state.hasNext || state.paginationStatus == ApiStatus.loading) return;
+
+    final nextPage = state.currentPage + 1;
+    emit(state.copyWith(paginationStatus: ApiStatus.loading));
+
+    final request = state.request.copyWith(page: nextPage);
+    final results = await homeRepo.getProducts(request);
+    if (results.ok) {
+      final newProducts = results.data?.products ?? [];
+      final allProducts = [...state.products, ...newProducts];
+      bool hasNext = results.data?.next != null && results.data!.next!.isNotEmpty;
+      emit(
+        state.copyWith(
+          products: allProducts,
+          currentPage: nextPage,
+          hasNext: hasNext,
+          paginationStatus: ApiStatus.success,
+        ),
+      );
+    } else {
+      emit(state.copyWith(paginationStatus: ApiStatus.error));
+    }
+    emit(state.copyWith(paginationStatus: ApiStatus.initial));
   }
 }

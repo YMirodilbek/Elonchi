@@ -5,7 +5,7 @@ import 'package:elonchi/core/widgets/scale_animation.dart';
 import 'package:elonchi/features/home/presentation/blocs/liked_bloc/like_bloc.dart';
 import 'package:elonchi/features/home/presentation/widgets/empty_state.dart';
 import 'package:elonchi/features/home/presentation/widgets/product_grid_shimmer.dart';
-import 'package:elonchi/features/home/presentation/widgets/product_item.dart';
+import 'package:elonchi/core/widgets/product_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -73,7 +73,7 @@ class _LikedPageState extends State<LikedPage> {
                           physics: const NeverScrollableScrollPhysics(),
                           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
-                            childAspectRatio: 0.75,
+                            childAspectRatio: 0.70,
                             crossAxisSpacing: 8,
                             mainAxisSpacing: 8,
                           ),

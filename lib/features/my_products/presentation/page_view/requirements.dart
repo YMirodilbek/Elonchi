@@ -4,6 +4,7 @@ import 'package:elonchi/features/my_products/domain/entities/sell_method.dart';
 import 'package:flutter/material.dart';
 
 class RequirementsForm extends StatelessWidget {
+  final FocusNode? focusNode;
   final bool trade;
   final void Function(bool val) onTradeChange;
   final void Function(String moneyType) onMoneyTypeChange;
@@ -13,6 +14,7 @@ class RequirementsForm extends StatelessWidget {
   final void Function(SellMethod method) onMethodChange;
   const RequirementsForm({
     super.key,
+    this.focusNode,
     required this.trade,
     required this.onTradeChange,
     required this.moneyType,
@@ -37,46 +39,60 @@ class RequirementsForm extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              WScaleAnimation(
-                onTap: () {
-                  onMethodChange(SellMethod.price);
-                },
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(width: 1, color: context.color.stroke),
-                    color: sellMethod == SellMethod.price ? context.color.bgelevation : context.color.background,
+              Flexible(
+                child: WScaleAnimation(
+                  onTap: () {
+                    onMethodChange(SellMethod.price);
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 16),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(width: 1, color: context.color.stroke),
+                      color: sellMethod == SellMethod.price ? context.color.bgelevation : context.color.background,
+                    ),
+                    child: FittedBox(
+                      child: Text('Указать цену', style: TextStyle(color: context.color.textSoft)),
+                    ),
                   ),
-                  child: Text('Указать цену', style: TextStyle(color: context.color.textSoft)),
                 ),
               ),
-              WScaleAnimation(
-                onTap: () {
-                  onMethodChange(SellMethod.exchange);
-                },
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-                  decoration: BoxDecoration(
-                    color: sellMethod == SellMethod.exchange ? context.color.bgelevation : context.color.background,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(width: 1, color: context.color.stroke),
+              const SizedBox(width: 4),
+              Flexible(
+                child: WScaleAnimation(
+                  onTap: () {
+                    onMethodChange(SellMethod.exchange);
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 16),
+                    decoration: BoxDecoration(
+                      color: sellMethod == SellMethod.exchange ? context.color.bgelevation : context.color.background,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(width: 1, color: context.color.stroke),
+                    ),
+                    child: FittedBox(
+                      child: Text('Обмен        ', style: TextStyle(color: context.color.textSoft)),
+                    ),
                   ),
-                  child: Text('Обмен         ', style: TextStyle(color: context.color.textSoft)),
                 ),
               ),
-              WScaleAnimation(
-                onTap: () {
-                  onMethodChange(SellMethod.giveAway);
-                },
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-                  decoration: BoxDecoration(
-                    color: sellMethod == SellMethod.giveAway ? context.color.bgelevation : context.color.background,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(width: 1, color: context.color.stroke),
+              const SizedBox(width: 4),
+              Flexible(
+                child: WScaleAnimation(
+                  onTap: () {
+                    onMethodChange(SellMethod.giveAway);
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 16),
+                    decoration: BoxDecoration(
+                      color: sellMethod == SellMethod.giveAway ? context.color.bgelevation : context.color.background,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(width: 1, color: context.color.stroke),
+                    ),
+                    child: FittedBox(
+                      child: Text('Отдам даром', style: TextStyle(color: context.color.textSoft)),
+                    ),
                   ),
-                  child: Text('Отдам даром', style: TextStyle(color: context.color.textSoft)),
                 ),
               ),
             ],
@@ -95,6 +111,7 @@ class RequirementsForm extends StatelessWidget {
                       color: context.color.bgelevation,
                     ),
                     child: TextField(
+                      focusNode: focusNode,
                       keyboardType: TextInputType.number,
                       onChanged: (value) {
                         onPriceChanged(value);

@@ -7,7 +7,7 @@ import 'package:elonchi/features/categories/data/category_response.dart';
 import 'package:elonchi/features/categories/presentation/blocs/bloc/category_bloc.dart';
 import 'package:elonchi/features/categories/presentation/pages/categories_page.dart';
 import 'package:elonchi/features/home/presentation/blocs/search_bloc/search_bloc.dart';
-import 'package:elonchi/features/home/presentation/widgets/product_item.dart';
+import 'package:elonchi/core/widgets/product_item.dart';
 import 'package:elonchi/features/home/presentation/widgets/search_results_shimmer.dart';
 import 'package:elonchi/features/home/presentation/widgets/search_selected_cats.dart';
 import 'package:elonchi/features/home/presentation/widgets/search_top_part.dart';
@@ -32,6 +32,7 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   late final SearchBloc bloc;
+  late final ScrollController _scrollController;
 
   @override
   void initState() {
@@ -47,6 +48,22 @@ class _SearchPageState extends State<SearchPage> {
     Future.delayed(const Duration(milliseconds: 300), () {
       bloc.add(const GetProducts());
     });
+
+    _scrollController = ScrollController();
+    _scrollController.addListener(_onScroll);
+  }
+
+  void _onScroll() {
+    if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent - 200) {
+      bloc.add(const LoadMoreProducts());
+    }
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_onScroll);
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -123,11 +140,13 @@ class _SearchPageState extends State<SearchPage> {
                               child: Text('Товаров не найдено', style: TextStyle(color: context.color.textSoft)),
                             )
                           : GridView.builder(
+                              controller: _scrollController,
                               key: const ValueKey('results'),
                               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
-                                childAspectRatio: 0.8,
+                                childAspectRatio: 0.70,
                                 crossAxisSpacing: 8,
+                                mainAxisSpacing: 8,
                               ),
                               itemCount: state.products.length,
                               itemBuilder: (context, index) {

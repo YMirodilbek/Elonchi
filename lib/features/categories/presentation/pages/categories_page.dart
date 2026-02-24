@@ -44,7 +44,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                         context.pop();
                       }
                     },
-                    child: SvgPicture.asset(PIcons.arrowLeftIcon),
+                    child: SvgPicture.asset(PIcons.arrowLeftIcon, color: context.color.iconStrong),
                   ),
                   const Spacer(),
                   Text(

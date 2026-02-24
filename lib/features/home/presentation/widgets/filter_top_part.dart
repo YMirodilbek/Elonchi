@@ -13,7 +13,10 @@ class FilterTopPart extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        WScaleAnimation(onTap: onBackTap, child: SvgPicture.asset(PIcons.arrowLeftIcon)),
+        WScaleAnimation(
+          onTap: onBackTap,
+          child: SvgPicture.asset(PIcons.arrowLeftIcon, color: context.color.iconStrong),
+        ),
         const Spacer(),
         const SizedBox(width: 30),
         Text(

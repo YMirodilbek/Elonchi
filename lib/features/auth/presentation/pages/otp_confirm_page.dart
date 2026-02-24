@@ -32,7 +32,6 @@ class _OtpConfirmPageState extends State<OtpConfirmPage> {
     super.initState();
     bloc = context.read<OtpBloc>();
     loginBloc = sl<login_bloc.LoginBloc>();
-
     bloc.add(InitialTimerEvent(initialSeconds: widget.initialSeconds));
   }
 
@@ -59,7 +58,7 @@ class _OtpConfirmPageState extends State<OtpConfirmPage> {
                       onTap: () {
                         context.pop();
                       },
-                      child: SvgPicture.asset(PIcons.arrowLeftIcon),
+                      child: SvgPicture.asset(PIcons.arrowLeftIcon, color: context.color.iconStrong),
                     ),
                     const SizedBox(height: 20),
                     Image.asset('assets/images/otp_img.png', height: 80, width: 80),

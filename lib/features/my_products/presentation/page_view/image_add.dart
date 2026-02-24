@@ -62,7 +62,7 @@ class ImageAddForm extends StatelessWidget {
                     onTap: onImagetap,
                     child: Column(
                       children: [
-                        SvgPicture.asset(PIcons.addring),
+                        SvgPicture.asset(PIcons.addring, color: context.color.iconStrong),
                         const SizedBox(height: 4),
                         Text(
                           "Загрузить",

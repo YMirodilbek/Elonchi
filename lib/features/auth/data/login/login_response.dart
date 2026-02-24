@@ -1,15 +1,9 @@
 class WelcomeResponse {
-  final String? detail;
+  final int? code;
 
-  WelcomeResponse({
-    this.detail,
-  });
+  WelcomeResponse({this.code});
 
-  factory WelcomeResponse.fromJson(Map<String, dynamic> json) => WelcomeResponse(
-    detail: json["detail"],
-  );
+  factory WelcomeResponse.fromJson(Map<String, dynamic> json) => WelcomeResponse(code: json["code"]);
 
-  Map<String, dynamic> toJson() => {
-    "detail": detail,
-  };
+  Map<String, dynamic> toJson() => {"code": code};
 }

@@ -46,29 +46,29 @@ class _MyItemsPageState extends State<MyItemsPage> {
                   duration: const Duration(milliseconds: 300),
                   child: state.apiStatus == ApiStatus.loading
                       ? const MyProductsShimmer(key: ValueKey('shimmer'))
-                      : state.items.isEmpty
-                      ? const Center(key: ValueKey('empty'), child: Text('No products yet'))
                       : RefreshIndicator.adaptive(
                           key: const ValueKey('list'),
                           onRefresh: () async {
                             bloc.add(const GetMyItemsEvent());
                             await Future.delayed(const Duration(milliseconds: 500));
                           },
-                          child: ListView.builder(
-                            itemBuilder: (context, index) => CurrentItem(
-                              onLowerPriceTap: () async {
-                                final data = await context.push<ProductResponse>(
-                                  Routes.editItemScreen,
-                                  extra: state.items[index],
-                                );
-                                if (data != null) {
-                                  bloc.add(UpdateItemEvent(product: data, index: index));
-                                }
-                              },
-                              product: state.items[index],
-                            ),
-                            itemCount: state.items.length,
-                          ),
+                          child: state.items.isEmpty
+                              ? const Center(key: ValueKey('empty'), child: Text('No products yet'))
+                              : ListView.builder(
+                                  itemBuilder: (context, index) => CurrentItem(
+                                    onLowerPriceTap: () async {
+                                      final data = await context.push<ProductResponse>(
+                                        Routes.editItemScreen,
+                                        extra: state.items[index],
+                                      );
+                                      if (data != null) {
+                                        bloc.add(UpdateItemEvent(product: data, index: index));
+                                      }
+                                    },
+                                    product: state.items[index],
+                                  ),
+                                  itemCount: state.items.length,
+                                ),
                         ),
                 ),
               ),
@@ -79,8 +79,8 @@ class _MyItemsPageState extends State<MyItemsPage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Container(
         margin: const EdgeInsets.only(bottom: 16),
-        width: 200,
         child: ButtonWithScale(
+          horizontalMargin: 64,
           onPressed: () {
             context.push(Routes.addItemScreen);
           },

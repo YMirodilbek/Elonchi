@@ -4,7 +4,7 @@ import 'package:elonchi/core/network/response_data.dart';
 import 'package:elonchi/core/widgets/scale_animation.dart';
 import 'package:elonchi/features/home/presentation/blocs/watching_bloc/watching_bloc.dart';
 import 'package:elonchi/features/home/presentation/widgets/product_grid_shimmer.dart';
-import 'package:elonchi/features/home/presentation/widgets/product_item.dart';
+import 'package:elonchi/core/widgets/product_item.dart';
 import 'package:elonchi/features/home/presentation/widgets/sales_empty_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -74,7 +74,7 @@ class _HotSalesPageState extends State<HotSalesPage> {
                           physics: const NeverScrollableScrollPhysics(),
                           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
-                            childAspectRatio: 0.75,
+                            childAspectRatio: 0.70,
                             crossAxisSpacing: 8,
                             mainAxisSpacing: 8,
                           ),

@@ -35,11 +35,19 @@ class AddItemPage extends StatefulWidget {
 
 class _AddItemPageState extends State<AddItemPage> {
   late final AddItemBloc bloc;
+  late final FocusNode sharedFocusNode;
 
   @override
   void initState() {
     super.initState();
     bloc = context.read<AddItemBloc>();
+    sharedFocusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    sharedFocusNode.dispose();
+    super.dispose();
   }
 
   @override
@@ -67,6 +75,7 @@ class _AddItemPageState extends State<AddItemPage> {
                 images: state.newProduct?.images,
               ),
               AddNameForm(
+                focusNode: sharedFocusNode,
                 onChanged: (title) {
                   bloc.add(ChangeItemTitleEvent(title: title));
                 },
@@ -84,6 +93,8 @@ class _AddItemPageState extends State<AddItemPage> {
                 },
               ),
               RequirementsForm(
+                focusNode: sharedFocusNode,
+
                 onTradeChange: (val) {
                   bloc.add(ChangeTradeEvent(value: val));
                 },
@@ -114,11 +125,13 @@ class _AddItemPageState extends State<AddItemPage> {
                 },
               ),
               DecriptionsForm(
+                focusNode: sharedFocusNode,
                 onChanged: (value) {
                   bloc.add(ChangeDescriptionEvent(value: value));
                 },
               ),
               MeetPlaceForm(
+                focusNode: sharedFocusNode,
                 onAdressChanged: (adress) {
                   bloc.add(ChangeAdressEvent(value: adress));
                 },
@@ -137,6 +150,7 @@ class _AddItemPageState extends State<AddItemPage> {
                 },
               ),
               ContancsForm(
+                focusNode: sharedFocusNode,
                 onNameChanged: (String name) {
                   bloc.add(ChangeNameEvent(name: name));
                 },
@@ -174,16 +188,26 @@ class _AddItemPageState extends State<AddItemPage> {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    ButtonWithScale(
-                      isLoading: state.apiStatus == ApiStatus.loading,
-                      text: 'auth.login.continue'.tr(),
-                      onPressed: () => bloc.add(const ValidateAndProceedEvent()),
-                      textStyle: TextStyle(color: context.color.white, fontWeight: FontWeight.w500),
-                    ),
+
                     const SizedBox(height: 40),
                   ],
                 ),
               ),
+            );
+          },
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: BlocBuilder<AddItemBloc, AddItemState>(
+          builder: (context, state) {
+            return ButtonWithScale(
+              horizontalMargin: 16,
+              isLoading: state.apiStatus == ApiStatus.loading,
+              text: 'auth.login.continue'.tr(),
+              onPressed: () {
+                sharedFocusNode.unfocus();
+                bloc.add(const ValidateAndProceedEvent());
+              },
+              textStyle: TextStyle(color: context.color.white, fontWeight: FontWeight.w500),
             );
           },
         ),

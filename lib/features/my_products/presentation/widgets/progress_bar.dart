@@ -29,7 +29,11 @@ class ProgressBar extends StatelessWidget {
               GestureDetector(
                 behavior: HitTestBehavior.opaque,
                 onTap: onBackTap,
-                child: SizedBox(height: 24, width: 24, child: SvgPicture.asset(PIcons.arrowLeftIcon)),
+                child: SizedBox(
+                  height: 24,
+                  width: 24,
+                  child: SvgPicture.asset(PIcons.arrowLeftIcon, color: context.color.iconStrong),
+                ),
               ),
               const Spacer(),
               WScaleAnimation(

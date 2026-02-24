@@ -7,7 +7,7 @@ import 'package:elonchi/features/home/presentation/widgets/home_banner.dart';
 import 'package:elonchi/features/home/presentation/widgets/banner_shimmer.dart';
 import 'package:elonchi/features/home/presentation/widgets/category_shimmer.dart';
 import 'package:elonchi/features/home/presentation/widgets/product_grid_shimmer.dart';
-import 'package:elonchi/features/home/presentation/widgets/product_item.dart';
+import 'package:elonchi/core/widgets/product_item.dart';
 import 'package:elonchi/features/home/presentation/widgets/search_widget.dart';
 import 'package:elonchi/features/home/presentation/widgets/top_details.dart';
 import 'package:elonchi/features/regions/data/regions_response.dart';
@@ -109,7 +109,7 @@ class _HomePageState extends State<HomePage> {
                             key: const ValueKey('categories'),
                             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 5,
-                              childAspectRatio: 0.8,
+                              childAspectRatio: 0.65,
                               crossAxisSpacing: 5,
                             ),
                             itemBuilder: (context, index) {
@@ -144,7 +144,7 @@ class _HomePageState extends State<HomePage> {
                             key: const ValueKey('recentProducts'),
                             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
-                              childAspectRatio: 0.76,
+                              childAspectRatio: 0.70,
                               crossAxisSpacing: 8,
                               mainAxisSpacing: 8,
                             ),

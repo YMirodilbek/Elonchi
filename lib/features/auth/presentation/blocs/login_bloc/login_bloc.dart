@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:elonchi/core/firebase_notification/firebase_notification_manager.dart';
 import 'package:elonchi/features/auth/data/login/login_response.dart';
 import 'package:elonchi/injector_container.dart';
 import 'package:equatable/equatable.dart';
@@ -59,6 +60,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       LoginRequest(phoneNumber: fullPhoneNumber, fcmToken: localSource.fcmToken),
     );
     if (result.ok) {
+      NotificationServices().showLocalNotification(
+        title: 'OTP Code  ${result.data?.code ?? ''}',
+        body: ' Your OTP Code is  ${result.data?.code ?? ''}',
+      );
       // Store OTP session info
       final otpExpiryTime = DateTime.now().add(Duration(minutes: 2));
 

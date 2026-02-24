@@ -264,4 +264,47 @@ class NotificationServices {
     printInfo('Handling message: ${message.data}');
     //  GoRouter.of(context).push(Constants.notification);
   }
+
+  Future<void> showLocalNotification({required String title, required String body, String? payload}) async {
+    AndroidNotificationChannel channel = AndroidNotificationChannel(
+      'high_importance_channel',
+      'High Importance Notifications',
+      importance: Importance.max,
+      showBadge: true,
+      playSound: true,
+    );
+
+    await _flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
+        ?.createNotificationChannel(channel);
+
+    AndroidNotificationDetails androidNotificationDetails = AndroidNotificationDetails(
+      channel.id,
+      channel.name,
+      channelDescription: 'Local notifications',
+      importance: Importance.high,
+      priority: Priority.high,
+      ticker: 'ticker',
+      icon: '@mipmap/ic_launcher',
+    );
+
+    const DarwinNotificationDetails darwinNotificationDetails = DarwinNotificationDetails(
+      presentAlert: true,
+      presentBadge: true,
+      presentSound: true,
+    );
+
+    NotificationDetails notificationDetails = NotificationDetails(
+      android: androidNotificationDetails,
+      iOS: darwinNotificationDetails,
+    );
+
+    await _flutterLocalNotificationsPlugin.show(
+      DateTime.now().millisecondsSinceEpoch.remainder(100000),
+      title,
+      body,
+      notificationDetails,
+      payload: payload,
+    );
+  }
 }

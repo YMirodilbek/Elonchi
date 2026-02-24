@@ -2,8 +2,9 @@ import 'package:elonchi/core/extension/extension.dart';
 import 'package:flutter/material.dart';
 
 class AddNameForm extends StatelessWidget {
+  final FocusNode? focusNode;
   final void Function(String title) onChanged;
-  const AddNameForm({super.key, required this.onChanged});
+  const AddNameForm({super.key, required this.onChanged, this.focusNode});
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +20,7 @@ class AddNameForm extends StatelessWidget {
           ),
           const SizedBox(height: 32),
           TextField(
+            focusNode: focusNode,
             onChanged: onChanged,
             decoration: InputDecoration(
               hintStyle: TextStyle(color: context.color.textSoft),

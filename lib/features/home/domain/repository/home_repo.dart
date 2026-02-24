@@ -50,7 +50,7 @@ class HomeRepoImpl extends HomeRepo {
     return requestManager.request(
       requestType: RequestType.get,
       path: PUrls.getSearchProducts,
-      queryParameters: request.toJson(),
+      queryParameters: request.toQueryParams(),
       dataParser: (jsonData) => ProductsResponsePaginated.fromJson(jsonData),
     );
   }

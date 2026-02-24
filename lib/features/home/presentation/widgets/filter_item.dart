@@ -27,7 +27,7 @@ class FilterItem extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 8),
         child: Row(
           children: [
-            SvgPicture.asset(iconPath),
+            SvgPicture.asset(iconPath, color: context.color.iconStrong),
             const SizedBox(width: 8),
             Text(title),
             const Spacer(),

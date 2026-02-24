@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class MeetPlaceForm extends StatelessWidget {
+  final FocusNode? focusNode;
   final void Function(String adress) onAdressChanged;
   final void Function(bool val) onShippingChange;
   final String? region;
@@ -12,6 +13,7 @@ class MeetPlaceForm extends StatelessWidget {
   final bool shipping;
   const MeetPlaceForm({
     super.key,
+    this.focusNode,
     required this.onAdressChanged,
     required this.onRegionTap,
     this.region,
@@ -58,6 +60,7 @@ class MeetPlaceForm extends StatelessWidget {
                 const SizedBox(height: 12),
                 Text('Напишите адрес', style: TextStyle(fontSize: 12, color: context.color.textSoft)),
                 TextField(
+                  focusNode: focusNode,
                   onChanged: onAdressChanged,
                   decoration: InputDecoration(border: .none),
                   style: TextStyle(color: context.color.textSub),
@@ -76,8 +79,9 @@ class MeetPlaceForm extends StatelessWidget {
               children: [
                 Image.asset('assets/images/shipping.png', height: 27),
                 const SizedBox(width: 8),
-                Text('Вы готовы доставить товар', style: TextStyle(color: context.color.textStrong)),
-                Spacer(),
+                Expanded(
+                  child: Text('Вы готовы доставить товар', style: TextStyle(color: context.color.textStrong)),
+                ),
                 Switch(
                   value: shipping,
                   onChanged: (val) {

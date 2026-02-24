@@ -1,7 +1,7 @@
 import 'package:elonchi/core/extension/extension.dart';
 import 'package:elonchi/core/network/response_data.dart';
 import 'package:elonchi/core/widgets/bottom_sheet.dart';
-import 'package:elonchi/features/home/presentation/widgets/product_item.dart';
+import 'package:elonchi/core/widgets/product_item.dart';
 import 'package:elonchi/features/messages/all_messages/data/chat_list_response.dart';
 import 'package:elonchi/features/messages/all_messages/domain/repository/all_massages_repo.dart';
 import 'package:elonchi/features/messages/single_message/domain/entities/conversation_request.dart';
@@ -172,7 +172,7 @@ class _SingleItemPageState extends State<SingleItemPage> {
                             sliver: SliverGrid(
                               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
-                                childAspectRatio: 0.75,
+                                childAspectRatio: 0.70,
                                 crossAxisSpacing: 8,
                                 mainAxisSpacing: 8,
                               ),
