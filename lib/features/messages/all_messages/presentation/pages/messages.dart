@@ -80,18 +80,16 @@ class _MessagesPageState extends State<MessagesPage> {
                                 chatRoom: chatRoom,
                                 deleting: state.deleting,
                                 onTap: () {
-                                  print(chatRoom.product?.image);
-                                  context.push(
-                                    Routes.conversationScreen,
-                                    extra: ConversationRequest(
-                                      product: chatRoom.product ?? ProductMessage(),
-                                      chatId: chatRoom.id ?? 0,
-                                      type: SmsType.buyer,
-                                      userName: '',
-                                      message: '',
-                                      userId: 0,
-                                    ),
+                                  final request = ConversationRequest(
+                                    product: chatRoom.product ?? ProductMessage(),
+                                    chatId: chatRoom.id ?? 0,
+                                    type: SmsType.buyer,
+                                    userName: '',
+                                    message: '',
+                                    userId: 0,
                                   );
+
+                                  context.push(Routes.conversationScreen, extra: request);
                                 },
                                 onDelete: () async {
                                   final result = await showDialog<bool>(

@@ -15,10 +15,9 @@ final class InitConversationEvent extends SingleConversationEvent {
 }
 
 final class SendMessageEvent extends SingleConversationEvent {
-  final String message;
-  const SendMessageEvent(this.message);
+  const SendMessageEvent();
   @override
-  List<Object> get props => [message];
+  List<Object> get props => [];
 }
 
 final class GetMessagesEvent extends SingleConversationEvent {
@@ -34,4 +33,19 @@ final class CreateRoomEvent extends SingleConversationEvent {
 
   @override
   List<Object> get props => [request];
+}
+
+final class AddImageToMessageEvent extends SingleConversationEvent {
+  const AddImageToMessageEvent();
+
+  @override
+  List<Object> get props => [];
+}
+
+final class DeleteImageEvent extends SingleConversationEvent {
+  final int index;
+  const DeleteImageEvent(this.index);
+
+  @override
+  List<Object> get props => [index];
 }

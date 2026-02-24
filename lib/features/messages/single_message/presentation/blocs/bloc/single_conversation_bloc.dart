@@ -1,10 +1,15 @@
+import 'dart:io';
+
 import 'package:elonchi/core/network/response_data.dart';
 import 'package:elonchi/features/messages/all_messages/data/chat_list_response.dart';
 import 'package:elonchi/features/messages/all_messages/data/conversation_response.dart';
 import 'package:elonchi/features/messages/all_messages/domain/repository/all_massages_repo.dart';
 import 'package:elonchi/features/messages/single_message/domain/entities/conversation_request.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
+import 'package:image_picker/image_picker.dart';
 
 part 'single_conversation_event.dart';
 part 'single_conversation_state.dart';
@@ -14,10 +19,14 @@ class SingleConversationBloc extends Bloc<SingleConversationEvent, SingleConvers
   SingleConversationBloc(this.repo) : super(SingleConversationState()) {
     on<InitConversationEvent>(onInitConversation);
     on<GetMessagesEvent>(onGetMessages);
+    on<SendMessageEvent>(onSendMessage);
+    on<AddImageToMessageEvent>(onAddImageToMessage);
+    on<DeleteImageEvent>(onDeleteImage);
   }
 
   void onInitConversation(InitConversationEvent event, Emitter<SingleConversationState> emit) async {
     final chatId = event.conversationRequest.chatId;
+    emit(state.copyWith(conversationRequest: event.conversationRequest, messageController: TextEditingController()));
     if (chatId != null) {
       add(GetMessagesEvent(chatId));
     } else {
@@ -55,5 +64,49 @@ class SingleConversationBloc extends Bloc<SingleConversationEvent, SingleConvers
         ),
       );
     }
+  }
+
+  void onAddImageToMessage(AddImageToMessageEvent event, Emitter<SingleConversationState> emit) async {
+    if (state.images.isNotEmpty) {
+      return;
+    }
+
+    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      final originalFile = File(pickedFile.path);
+
+      // 🔹 original size
+      final originalBytes = await originalFile.length();
+      final originalMB = originalBytes / (1024 * 1024);
+      print('Original size: ${originalMB.toStringAsFixed(2)} MB');
+
+      // 🔹 compress
+      final compressed = await compressFile(originalFile);
+
+      final finalFile = compressed ?? originalFile;
+
+      // 🔹 compressed size
+      final compressedBytes = await finalFile.length();
+      final compressedMB = compressedBytes / (1024 * 1024);
+      print('Compressed size: ${compressedMB.toStringAsFixed(2)} MB');
+
+      final updatedImages = List<File>.from(state.images)..add(finalFile);
+      emit(state.copyWith(images: updatedImages));
+    }
+  }
+
+  void onDeleteImage(DeleteImageEvent event, Emitter<SingleConversationState> emit) {
+    final updatedImages = List<File>.from(state.images)..removeAt(event.index);
+    emit(state.copyWith(images: updatedImages));
+  }
+
+  Future<File?> compressFile(File file) async {
+    final result = await FlutterImageCompress.compressAndGetFile(
+      file.absolute.path,
+      '${file.path}_compressed.jpg',
+      quality: 70, // reduce quality
+    );
+
+    return result != null ? File(result.path) : null;
   }
 }

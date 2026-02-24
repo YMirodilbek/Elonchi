@@ -42,7 +42,7 @@ class AppThemeColors extends ThemeExtension<AppThemeColors> {
     required this.base,
     required this.stroke,
     required this.line200,
-    required this.icon900,
+    required this.iconStrong,
     required this.bgElevattion2,
     required this.icon400,
     required this.bgelevation,
@@ -65,7 +65,7 @@ class AppThemeColors extends ThemeExtension<AppThemeColors> {
   final Color base200;
   final Color stroke;
   final Color line200;
-  final Color icon900;
+  final Color iconStrong;
   final Color bgElevattion2;
   final Color icon400;
   final Color bgelevation;
@@ -88,7 +88,7 @@ class AppThemeColors extends ThemeExtension<AppThemeColors> {
     base: Color(0XFF0D9B8A),
     stroke: Color(0xFFE2E8F0),
     line200: Color(0xFFE4E4E7),
-    icon900: Color(0xFF18181B),
+    iconStrong: Color(0xFF081711),
     bgElevattion2: Color(0xFFE2F0EE),
     icon400: Color(0xFFA1A1AA),
     bgelevation: Color(0xFFF4F8F8),
@@ -112,7 +112,7 @@ class AppThemeColors extends ThemeExtension<AppThemeColors> {
     base: Color(0XFF0D9B8A),
     stroke: Color(0xFF27493D),
     line200: Color(0xFF323233),
-    icon900: Color(0xFFFFFFFF),
+    iconStrong: Color(0xFFF8FCFB),
     bgElevattion2: Color(0xFF1D3430),
     icon400: Color(0xFF727278),
     bgelevation: Color(0xFF0A1612),
@@ -135,7 +135,7 @@ class AppThemeColors extends ThemeExtension<AppThemeColors> {
     Color? base,
     Color? stroke,
     Color? line200,
-    Color? icon900,
+    Color? iconStrong,
     Color? bgElevattion2,
     Color? icon400,
     Color? bgelevation,
@@ -158,7 +158,7 @@ class AppThemeColors extends ThemeExtension<AppThemeColors> {
       base: base ?? this.base,
       stroke: stroke ?? this.stroke,
       line200: line200 ?? this.line200,
-      icon900: icon900 ?? this.icon900,
+      iconStrong: iconStrong ?? this.iconStrong,
       bgElevattion2: bgElevattion2 ?? this.bgElevattion2,
       icon400: icon400 ?? this.icon400,
       bgelevation: bgelevation ?? this.bgelevation,
@@ -187,7 +187,7 @@ class AppThemeColors extends ThemeExtension<AppThemeColors> {
       base: Color.lerp(base, other.base, t)!,
       stroke: Color.lerp(stroke, other.stroke, t)!,
       line200: Color.lerp(line200, other.line200, t)!,
-      icon900: Color.lerp(icon900, other.icon900, t)!,
+      iconStrong: Color.lerp(iconStrong, other.iconStrong, t)!,
       bgElevattion2: Color.lerp(bgElevattion2, other.bgElevattion2, t)!,
       icon400: Color.lerp(icon400, other.icon400, t)!,
       bgelevation: Color.lerp(bgelevation, other.bgelevation, t)!,

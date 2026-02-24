@@ -1,4 +1,5 @@
 import 'package:elonchi/core/extension/extension.dart';
+import 'package:elonchi/core/network/response_data.dart';
 import 'package:elonchi/core/widgets/bottom_sheet.dart';
 import 'package:elonchi/features/messages/single_message/domain/entities/conversation_request.dart';
 import 'package:elonchi/features/messages/single_message/presentation/blocs/bloc/single_conversation_bloc.dart';
@@ -36,7 +37,6 @@ class _ConversationPageState extends State<ConversationPage> {
     return BlocBuilder<SingleConversationBloc, SingleConversationState>(
       builder: (context, state) {
         final relatedProduct = state.conversationRequest.product;
-        print(relatedProduct.image);
         return Scaffold(
           appBar: ConversationAppbar(
             userName: state.conversationRequest.userName,
@@ -88,7 +88,21 @@ class _ConversationPageState extends State<ConversationPage> {
               ),
             ],
           ),
-          bottomSheet: ChatInputField(onSend: () {}, enabled: true, hint: "Написать собщения"),
+          bottomSheet: ChatInputField(
+            onImageRemoveTap: () {
+              bloc.add(const DeleteImageEvent(0));
+            },
+            imageFile: state.images.isNotEmpty ? state.images.last : null,
+            onImageAddTap: () {
+              bloc.add(const AddImageToMessageEvent());
+            },
+            controller: state.messageController,
+            onSend: () {
+              bloc.add(const SendMessageEvent());
+            },
+            enabled: state.sendMessageApiStatus != ApiStatus.loading,
+            hint: "Написать собщения",
+          ),
         );
       },
     );

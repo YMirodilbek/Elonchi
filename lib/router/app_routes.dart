@@ -63,7 +63,16 @@ class _GoRouterDecoder extends Converter<Object?, Object?> {
   const _GoRouterDecoder();
 
   @override
-  Object? convert(Object? input) => input;
+  Object? convert(Object? input) {
+    print('🔵 DECODER input type: ${input.runtimeType}');
+    print('🔵 DECODER input: $input');
+    if (input is Map<String, dynamic> && input['__type'] == 'ConversationRequest') {
+      final result = ConversationRequest.fromJson(input);
+      print('🔵 DECODER result product image: ${result.product.image}');
+      return result;
+    }
+    return input;
+  }
 }
 
 class _GoRouterEncoder extends Converter<Object?, Object?> {
@@ -71,8 +80,11 @@ class _GoRouterEncoder extends Converter<Object?, Object?> {
 
   @override
   Object? convert(Object? input) {
+    print('🟢 ENCODER input type: ${input.runtimeType}');
     if (input is ConversationRequest) {
-      return input.toJson();
+      final json = {'__type': 'ConversationRequest', ...input.toJson()};
+      print('🟢 ENCODER output: $json');
+      return json;
     }
     return input;
   }
@@ -174,14 +186,13 @@ final GoRouter router = GoRouter(
       name: Routes.conversationScreen,
       parentNavigatorKey: rootNavigatorKey,
       builder: (_, state) {
-        final extra = state.extra;
-        final conversationRequest = extra is Map<String, dynamic>
-            ? ConversationRequest.fromJson(extra)
-            : extra as ConversationRequest;
-
+        print('🟠 ROUTE BUILDER extra type: ${state.extra.runtimeType}');
+        print('🟠 ROUTE BUILDER extra: ${state.extra}');
+        final request = state.extra as ConversationRequest;
+        print('🟠 ROUTE BUILDER product image: ${request.product.image}');
         return BlocProvider(
           create: (context) => sl<SingleConversationBloc>(),
-          child: ConversationPage(conversationRequest: conversationRequest),
+          child: ConversationPage(conversationRequest: request),
         );
       },
     ),

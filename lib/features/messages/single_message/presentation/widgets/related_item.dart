@@ -33,6 +33,7 @@ class RelatedItem extends StatelessWidget {
             ),
             const SizedBox(width: 8),
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(itemName, style: TextStyle(fontSize: 16, color: context.color.textStrong)),
                 const SizedBox(height: 4),
