@@ -2,6 +2,9 @@ import 'package:elonchi/core/extension/extension.dart';
 import 'package:elonchi/core/network/response_data.dart';
 import 'package:elonchi/core/widgets/bottom_sheet.dart';
 import 'package:elonchi/features/home/presentation/widgets/product_item.dart';
+import 'package:elonchi/features/messages/all_messages/data/chat_list_response.dart';
+import 'package:elonchi/features/messages/all_messages/domain/repository/all_massages_repo.dart';
+import 'package:elonchi/features/messages/single_message/domain/entities/conversation_request.dart';
 import 'package:elonchi/features/report/presentation/bloc/bloc/report_bloc.dart';
 import 'package:elonchi/features/report/presentation/pages/report_sheet.dart';
 import 'package:elonchi/features/single_item/presentation/blocs/bloc/single_bloc.dart';
@@ -108,7 +111,24 @@ class _SingleItemPageState extends State<SingleItemPage> {
                                     }
                                   },
                                   onMessage: () {
-                                    context.push(Routes.conversationScreen);
+                                    context.push(
+                                      Routes.conversationScreen,
+                                      extra: ConversationRequest(
+                                        type: SmsType.buyer,
+                                        userName: state.product?.contactName ?? '',
+                                        message: '',
+                                        product: ProductMessage(
+                                          id: widget.itemId,
+                                          title: state.product?.title,
+                                          price: state.product?.price,
+                                          moneyType: state.product?.moneyType,
+                                          image: state.product?.image?.isNotEmpty == true
+                                              ? state.product?.image!.first.image
+                                              : null,
+                                        ),
+                                        userId: state.product?.user ?? 0,
+                                      ),
+                                    );
                                   },
                                 ),
                                 const SizedBox(height: 8),
@@ -144,7 +164,6 @@ class _SingleItemPageState extends State<SingleItemPage> {
                             ),
                           ),
                         ),
-
                         if (state.relatedProducts.isNotEmpty)
                           SliverPadding(
                             padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -177,7 +196,31 @@ class _SingleItemPageState extends State<SingleItemPage> {
                         SliverToBoxAdapter(child: const SizedBox(height: 80)),
                       ],
                     ),
-                    const Align(alignment: Alignment.bottomCenter, child: FloatingMessageInput(showTextField: true)),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: FloatingMessageInput(
+                        onSendMessage: (value) {
+                          context.push(
+                            Routes.conversationScreen,
+                            extra: ConversationRequest(
+                              type: SmsType.buyer,
+                              userName: state.product?.contactName ?? '',
+                              message: value,
+                              product: ProductMessage(
+                                id: widget.itemId,
+                                title: state.product?.title,
+                                price: state.product?.price,
+                                moneyType: state.product?.moneyType,
+                                image: state.product?.image?.isNotEmpty == true
+                                    ? state.product?.image!.first.image
+                                    : null,
+                              ),
+                              userId: state.product?.user ?? 0,
+                            ),
+                          );
+                        },
+                      ),
+                    ),
                   ],
                 ),
         );
@@ -185,3 +228,23 @@ class _SingleItemPageState extends State<SingleItemPage> {
     );
   }
 }
+
+// single => 
+// - set loading status to true 
+// - create room 
+// - get Id of the room and send the last message to the server 
+
+
+
+// all messages, 
+// -get Id of the conversation and get 
+// 
+
+//Get all messages 
+//Handle Single
+//Handle sending form data request 
+//Handle the UI with images,
+//Handle the Product information 
+//Handle the pagination and so on, with dates 
+// Handle deletion in single and in overall screen 
+//

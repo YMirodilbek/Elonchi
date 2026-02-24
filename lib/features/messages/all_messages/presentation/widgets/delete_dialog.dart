@@ -25,7 +25,7 @@ class DeleteDialog extends StatelessWidget {
                 Expanded(
                   child: ButtonWithScale(
                     onPressed: () {
-                      context.pop();
+                      context.pop(true);
                     },
                     text: "Удалить",
                     textStyle: TextStyle(fontWeight: FontWeight.w500, color: context.color.white),

@@ -15,8 +15,11 @@ import 'package:elonchi/features/home/presentation/pages/my_wishes_page.dart';
 import 'package:elonchi/features/home/presentation/pages/search_page.dart';
 import 'package:elonchi/features/messages/all_messages/presentation/blocs/all_messages_bloc/all_messages_bloc.dart';
 import 'package:elonchi/features/messages/all_messages/presentation/pages/messages.dart';
+import 'package:elonchi/features/messages/single_message/domain/entities/conversation_request.dart';
+import 'package:elonchi/features/messages/single_message/presentation/blocs/bloc/single_conversation_bloc.dart';
 import 'package:elonchi/features/messages/single_message/presentation/pages/conversation_page.dart';
 import 'package:elonchi/features/my_products/data/product_item_response.dart';
+import 'dart:convert';
 import 'package:elonchi/features/my_products/presentation/bloc/edit_item_bloc/edit_item_bloc.dart';
 import 'package:elonchi/features/my_products/presentation/bloc/my_items_bloc/my_items_bloc.dart';
 import 'package:elonchi/features/my_products/presentation/pages/edit_item_page.dart';
@@ -46,11 +49,40 @@ part "name_routes.dart";
 
 final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
 
+class _GoRouterCodec extends Codec<Object?, Object?> {
+  const _GoRouterCodec();
+
+  @override
+  Converter<Object?, Object?> get decoder => const _GoRouterDecoder();
+
+  @override
+  Converter<Object?, Object?> get encoder => const _GoRouterEncoder();
+}
+
+class _GoRouterDecoder extends Converter<Object?, Object?> {
+  const _GoRouterDecoder();
+
+  @override
+  Object? convert(Object? input) => input;
+}
+
+class _GoRouterEncoder extends Converter<Object?, Object?> {
+  const _GoRouterEncoder();
+
+  @override
+  Object? convert(Object? input) {
+    if (input is ConversationRequest) {
+      return input.toJson();
+    }
+    return input;
+  }
+}
+
 final GoRouter router = GoRouter(
   navigatorKey: rootNavigatorKey,
   debugLogDiagnostics: true,
   initialLocation: Routes.splashScreen,
-
+  extraCodec: const _GoRouterCodec(),
   routes: <RouteBase>[
     GoRoute(
       path: Routes.splashScreen,
@@ -141,7 +173,17 @@ final GoRouter router = GoRouter(
       path: Routes.conversationScreen,
       name: Routes.conversationScreen,
       parentNavigatorKey: rootNavigatorKey,
-      builder: (_, _) => const ConversationPage(),
+      builder: (_, state) {
+        final extra = state.extra;
+        final conversationRequest = extra is Map<String, dynamic>
+            ? ConversationRequest.fromJson(extra)
+            : extra as ConversationRequest;
+
+        return BlocProvider(
+          create: (context) => sl<SingleConversationBloc>(),
+          child: ConversationPage(conversationRequest: conversationRequest),
+        );
+      },
     ),
     GoRoute(
       path: Routes.successItemAddedScreen,

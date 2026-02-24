@@ -19,7 +19,10 @@ class MessagesAppbar extends StatelessWidget implements PreferredSizeWidget {
           style: TextStyle(color: context.color.textStrong, fontSize: 20, fontWeight: FontWeight.w600),
         ),
         const Spacer(),
-        WScaleAnimation(onTap: onTap, child: SvgPicture.asset(PIcons.deleteIcon)),
+        WScaleAnimation(
+          onTap: onTap,
+          child: SvgPicture.asset(PIcons.deleteIcon, color: deleting ? context.color.errorColor : null),
+        ),
         const SizedBox(width: 16),
       ],
     );

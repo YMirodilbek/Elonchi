@@ -1,29 +1,42 @@
 import 'package:elonchi/core/extension/extension.dart';
 import 'package:elonchi/core/widgets/scale_animation.dart';
 import 'package:elonchi/core/widgets/user_message_container.dart';
+import 'package:elonchi/features/messages/all_messages/data/chat_list_response.dart';
 import 'package:flutter/material.dart';
 
 class MessageStartItem extends StatelessWidget {
+  final ChatRoomResponse chatRoom;
   final bool deleting;
   final VoidCallback onTap;
-  final String userName;
-  final String itemName;
-  final String lastMessage;
-  final String time;
+  final VoidCallback onDelete;
+
   const MessageStartItem({
     super.key,
+    required this.chatRoom,
     required this.deleting,
-    required this.userName,
-    required this.itemName,
-    required this.lastMessage,
-    required this.time,
     required this.onTap,
+    required this.onDelete,
   });
 
   @override
   Widget build(BuildContext context) {
+    final userName = '${chatRoom.user?.firstName ?? ''} ${chatRoom.user?.lastName ?? ''}'.trim();
+
+    // Extract time from timestamp (HH:MM format)
+    String getFormattedTime(String? timestamp) {
+      if (timestamp == null || timestamp.isEmpty) return '';
+      try {
+        final dateTime = DateTime.parse(timestamp);
+        return '${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')}';
+      } catch (e) {
+        return '';
+      }
+    }
+
+    final formattedTime = getFormattedTime(chatRoom.lastMessage?.timestamp);
+
     return WScaleAnimation(
-      onTap: onTap,
+      onTap: deleting ? onDelete : onTap,
       child: Row(
         children: [
           if (deleting)
@@ -37,7 +50,6 @@ class MessageStartItem extends StatelessWidget {
                 color: context.color.background,
               ),
             ),
-
           Expanded(
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
@@ -48,24 +60,24 @@ class MessageStartItem extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const UserMessageContainer(),
+                  UserMessageContainer(imageUrl: chatRoom.user?.image),
                   const SizedBox(width: 8),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        userName,
+                        userName.isEmpty ? 'Unknown User' : userName,
                         style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: context.color.textStrong),
                       ),
                       Text(
-                        itemName,
+                        chatRoom.type ?? '',
                         style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: context.color.textSub),
                       ),
-                      Text(lastMessage, style: TextStyle(color: context.color.textSoft)),
+                      Text(chatRoom.lastMessage?.content ?? '', style: TextStyle(color: context.color.textSoft)),
                     ],
                   ),
                   const Spacer(),
-                  Text(time, style: TextStyle(color: context.color.textSoft)),
+                  Text(formattedTime, style: TextStyle(color: context.color.textSoft)),
                 ],
               ),
             ),

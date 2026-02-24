@@ -41,7 +41,10 @@ class NavbarItem extends StatelessWidget {
             AnimatedDefaultTextStyle(
               duration: const Duration(milliseconds: 300),
               style: TextStyle(color: targetColor),
-              child: Text(label),
+              child: Text(
+                label,
+                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 10, color: context.color.textSoft),
+              ),
             ),
           ],
         ),

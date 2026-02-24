@@ -1,8 +1,10 @@
 import 'package:elonchi/core/extension/extension.dart';
+import 'package:elonchi/core/network/response_data.dart';
 import 'package:elonchi/core/widgets/button_with_scale.dart';
 import 'package:elonchi/features/my_products/data/product_item_response.dart';
 import 'package:elonchi/features/my_products/presentation/bloc/my_items_bloc/my_items_bloc.dart';
 import 'package:elonchi/features/my_products/presentation/widgets/current_item.dart';
+import 'package:elonchi/features/my_products/presentation/widgets/my_products_shimmer.dart';
 import 'package:elonchi/features/my_products/presentation/widgets/tabs.dart';
 import 'package:elonchi/router/app_routes.dart';
 import 'package:flutter/material.dart';
@@ -40,20 +42,34 @@ class _MyItemsPageState extends State<MyItemsPage> {
               SellTabs(),
               const SizedBox(height: 32),
               Expanded(
-                child: ListView.builder(
-                  itemBuilder: (context, index) => CurrentItem(
-                    onLowerPriceTap: () async {
-                      final data = await context.push<ProductResponse>(
-                        Routes.editItemScreen,
-                        extra: state.items[index],
-                      );
-                      if (data != null) {
-                        bloc.add(UpdateItemEvent(product: data, index: index));
-                      }
-                    },
-                    product: state.items[index],
-                  ),
-                  itemCount: state.items.length,
+                child: AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 300),
+                  child: state.apiStatus == ApiStatus.loading
+                      ? const MyProductsShimmer(key: ValueKey('shimmer'))
+                      : state.items.isEmpty
+                      ? const Center(key: ValueKey('empty'), child: Text('No products yet'))
+                      : RefreshIndicator.adaptive(
+                          key: const ValueKey('list'),
+                          onRefresh: () async {
+                            bloc.add(const GetMyItemsEvent());
+                            await Future.delayed(const Duration(milliseconds: 500));
+                          },
+                          child: ListView.builder(
+                            itemBuilder: (context, index) => CurrentItem(
+                              onLowerPriceTap: () async {
+                                final data = await context.push<ProductResponse>(
+                                  Routes.editItemScreen,
+                                  extra: state.items[index],
+                                );
+                                if (data != null) {
+                                  bloc.add(UpdateItemEvent(product: data, index: index));
+                                }
+                              },
+                              product: state.items[index],
+                            ),
+                            itemCount: state.items.length,
+                          ),
+                        ),
                 ),
               ),
             ],

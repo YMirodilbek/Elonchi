@@ -123,6 +123,7 @@ sealed class PUrls {
   static const String getComplaints = "/api/product/complaint/";
   static const String createComplaint = "/api/product/complaint/";
   static const String getRecentItems = "/api/product/recently/";
+  static const String getRefreshToken = '/api/token/refresh/';
   static String getProductInfo(int id) => "/api/product/product/$id/";
   static String sendMessage(int id) => "/api/chat/message-create/$id/";
   static String getChatMessages(int id) => "/api/chat/message-list/$id/";
