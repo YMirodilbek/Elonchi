@@ -49,8 +49,10 @@ class _CategoriesPageState extends State<CategoriesPage> {
                   const Spacer(),
                   Text(
                     state.isShowingModels
-                        ? 'Модели'
-                        : (state.navigationStack.isNotEmpty ? state.navigationStack.last.title : 'Категории'),
+                        ? 'categories.models'.tr()
+                        : (state.navigationStack.isNotEmpty
+                              ? state.navigationStack.last.title
+                              : 'categories.title'.tr()),
                     style: TextStyle(color: context.color.textStrong, fontSize: 16, fontWeight: FontWeight.w500),
                   ),
                   const SizedBox(width: 20),
@@ -63,7 +65,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
               if (state.isLoading)
                 const Expanded(child: Center(child: CircularProgressIndicator()))
               else if (state.error != null)
-                Expanded(child: Center(child: Text('Error: ${state.error}')))
+                Expanded(child: Center(child: Text("${'categories.error'.tr()}${state.error}")))
               else
                 Expanded(
                   child: ListView.separated(

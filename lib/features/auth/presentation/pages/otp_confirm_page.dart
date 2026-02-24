@@ -65,12 +65,12 @@ class _OtpConfirmPageState extends State<OtpConfirmPage> {
                     Image.asset('assets/images/otp_img.png', height: 80, width: 80),
                     const SizedBox(height: 20),
                     Text(
-                      'Подтверждение номера',
+                      'auth.otp.title'.tr(),
                       style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: context.color.textStrong),
                     ),
                     const SizedBox(height: 5),
                     Text(
-                      'Мы отправим вам SMS с кодом подтверждения ${widget.number}',
+                      '${'auth.otp.sms_sent'.tr()} ${widget.number}',
                       style: TextStyle(color: context.color.textSub),
                     ),
                     const SizedBox(height: 20),
@@ -96,7 +96,7 @@ class _OtpConfirmPageState extends State<OtpConfirmPage> {
                               },
                               child: Center(
                                 child: Text(
-                                  'Отправить новый код',
+                                  'auth.otp.resend'.tr(),
                                   style: TextStyle(
                                     color: context.color.textSub,
                                     fontWeight: FontWeight.w500,

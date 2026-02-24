@@ -71,9 +71,9 @@ class _LikedPageState extends State<LikedPage> {
                         GridView.builder(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
-                            childAspectRatio: 0.8,
+                            childAspectRatio: 0.75,
                             crossAxisSpacing: 8,
                             mainAxisSpacing: 8,
                           ),

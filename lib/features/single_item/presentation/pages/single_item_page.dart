@@ -170,9 +170,9 @@ class _SingleItemPageState extends State<SingleItemPage> {
                           SliverPadding(
                             padding: const EdgeInsets.symmetric(horizontal: 16),
                             sliver: SliverGrid(
-                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
-                                childAspectRatio: 0.8,
+                                childAspectRatio: 0.75,
                                 crossAxisSpacing: 8,
                                 mainAxisSpacing: 8,
                               ),

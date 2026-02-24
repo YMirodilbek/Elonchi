@@ -65,16 +65,13 @@ class _AuthPageState extends State<AuthPage> {
                 Image.asset('assets/images/login.png', height: 80, width: 80),
                 const SizedBox(height: 20),
                 Text(
-                  'Войти',
+                  'auth.login.title'.tr(),
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: context.color.textStrong),
                 ),
                 const SizedBox(height: 5),
-                Text(
-                  'Введите номер телефона. Мы отправим код для подтверждения',
-                  style: TextStyle(color: context.color.textSub),
-                ),
+                Text('auth.login.subtitle'.tr(), style: TextStyle(color: context.color.textSub)),
                 const SizedBox(height: 20),
-                Text('Номер телефона', style: TextStyle(color: context.color.textSoft)),
+                Text('auth.login.phone_label'.tr(), style: TextStyle(color: context.color.textSoft)),
                 PhoneInputs(
                   onChanged: (value) {
                     bloc.add(OnChanged(number: value));
@@ -94,7 +91,7 @@ class _AuthPageState extends State<AuthPage> {
                               bloc.add(const Login());
                             }
                           : null,
-                      text: 'Получить код',
+                      text: 'auth.login.get_code'.tr(),
                     );
                   },
                 ),

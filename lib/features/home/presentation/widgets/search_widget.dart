@@ -19,7 +19,7 @@ class SearchWidget extends StatelessWidget {
           children: [
             SvgPicture.asset(PIcons.homeIcon, height: 24),
             const SizedBox(width: 8),
-            Text('Поиск товаров', style: TextStyle(color: context.color.text400, fontSize: 16)),
+            Text('home.search_products'.tr(), style: TextStyle(color: context.color.text400, fontSize: 16)),
           ],
         ),
       ),

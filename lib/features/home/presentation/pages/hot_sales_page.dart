@@ -74,7 +74,7 @@ class _HotSalesPageState extends State<HotSalesPage> {
                           physics: const NeverScrollableScrollPhysics(),
                           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
-                            childAspectRatio: 0.8,
+                            childAspectRatio: 0.75,
                             crossAxisSpacing: 8,
                             mainAxisSpacing: 8,
                           ),

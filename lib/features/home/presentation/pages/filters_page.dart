@@ -56,7 +56,7 @@ class _FiltersPageState extends State<FiltersPage> {
                   ),
                   const SizedBox(height: 16),
                   FilterItem(
-                    title: state.request.categoryName ?? "Категория",
+                    title: state.request.categoryName ?? "home.filters.category".tr(),
                     iconPath: PIcons.menu2Icon,
                     onTap: () async {
                       final Map<String, List<ModelItem?>?>? data = await triggerBottomSheet(
@@ -76,7 +76,7 @@ class _FiltersPageState extends State<FiltersPage> {
                   ),
                   Container(height: 1, color: Color(0xffE2E8F0)),
                   FilterItem(
-                    title: "Сортировать по",
+                    title: "home.filters.sort".tr(),
                     iconPath: PIcons.arrorDown,
                     onTap: () {
                       triggerBottomSheet(content: const PriceFilterSheet());
@@ -88,7 +88,7 @@ class _FiltersPageState extends State<FiltersPage> {
                   ),
                   const SizedBox(height: 16),
                   FilterItem(
-                    title: state.region.isEmpty ? "Выберите регион" : state.region,
+                    title: state.region.isEmpty ? "home.filters.region".tr() : state.region,
                     iconPath: PIcons.locationIcon,
                     onTap: () async {
                       final data = await triggerBottomSheet<RegionResponse>(
@@ -100,35 +100,35 @@ class _FiltersPageState extends State<FiltersPage> {
                     },
                   ),
                   const SizedBox(height: 16),
-                  Text('Цена, сум', style: TextStyle(color: context.color.textStrong)),
+                  Text('home.filters.price'.tr(), style: TextStyle(color: context.color.textStrong)),
                   const SizedBox(height: 8),
                   Row(
                     children: [
-                      CommonTextfield(hint: "от 5000"),
+                      CommonTextfield(hint: "home.filters.price_from".tr()),
                       const SizedBox(width: 8),
-                      CommonTextfield(hint: "до 15000000"),
+                      CommonTextfield(hint: "home.filters.price_to".tr()),
                     ],
                   ),
                   const SizedBox(height: 16),
-                  Text('Состояние', style: TextStyle(color: context.color.textStrong)),
+                  Text('home.filters.condition'.tr(), style: TextStyle(color: context.color.textStrong)),
                   const SizedBox(height: 8),
                   Row(
                     children: [
-                      CommonTextfield(hint: "Новый"),
+                      CommonTextfield(hint: "home.filters.condition_new".tr()),
                       const SizedBox(width: 8),
-                      CommonTextfield(hint: "Б/у"),
+                      CommonTextfield(hint: "home.filters.condition_used".tr()),
                       const SizedBox(width: 8),
-                      CommonTextfield(hint: "Как новый"),
+                      CommonTextfield(hint: "home.filters.condition_like_new".tr()),
                     ],
                   ),
                   const SizedBox(height: 16),
-                  Text('Тип сделки', style: TextStyle(color: context.color.textStrong)),
+                  Text('home.filters.deal_type'.tr(), style: TextStyle(color: context.color.textStrong)),
                   const SizedBox(height: 8),
                   Row(
                     children: [
-                      CommonTextfield(hint: "Бесплатно"),
+                      CommonTextfield(hint: "home.filters.free".tr()),
                       const SizedBox(width: 8),
-                      CommonTextfield(hint: "Обмен"),
+                      CommonTextfield(hint: "home.filters.exchange".tr()),
                     ],
                   ),
                   const Spacer(),
@@ -136,7 +136,7 @@ class _FiltersPageState extends State<FiltersPage> {
                     onPressed: () {
                       context.pop();
                     },
-                    text: "Показать результаты",
+                    text: "home.filters.show_results".tr(),
                     textStyle: TextStyle(color: context.color.white, fontSize: 16, fontWeight: FontWeight.w500),
                   ),
                 ],

@@ -106,7 +106,7 @@ class _PhoneInputsState extends State<PhoneInputs> {
             inputFormatters: [_phoneFormatter],
             style: const TextStyle(fontSize: 16),
             decoration: InputDecoration(
-              hintText: '00 000 00-00',
+              hintText: 'auth.login.phone_hint'.tr(),
               hintStyle: TextStyle(color: context.color.textSoft, fontSize: 16),
               contentPadding: const EdgeInsets.symmetric(vertical: 14),
               focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: context.color.bgelevation, width: 1)),

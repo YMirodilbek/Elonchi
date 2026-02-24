@@ -1,3 +1,4 @@
+import 'package:elonchi/core/extension/extension.dart';
 import 'package:elonchi/core/network/response_data.dart';
 import 'package:elonchi/core/widgets/bottom_sheet.dart';
 import 'package:elonchi/features/home/presentation/blocs/home_bloc/home_bloc.dart';
@@ -63,7 +64,7 @@ class _HomePageState extends State<HomePage> {
                         bloc.add(ChangeAdressEvent(region: data));
                       }
                     },
-                    adress: state.region?.name ?? "Выберите регион",
+                    adress: state.region?.name ?? "home.select_region".tr(),
                     onLikedTap: () {
                       context.push(Routes.myWishes);
                     },
@@ -132,7 +133,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   const SizedBox(height: 12),
                   if (state.recentProductsApiStatus != ApiStatus.loading && state.recentProducts.isNotEmpty)
-                    Text("Недавные товары", style: TextStyle(fontSize: 16)),
+                    Text("home.recent_products".tr(), style: TextStyle(fontSize: 16)),
                   const SizedBox(height: 8),
                   AnimatedSwitcher(
                     duration: const Duration(milliseconds: 300),
@@ -143,7 +144,7 @@ class _HomePageState extends State<HomePage> {
                             key: const ValueKey('recentProducts'),
                             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
-                              childAspectRatio: 0.8,
+                              childAspectRatio: 0.76,
                               crossAxisSpacing: 8,
                               mainAxisSpacing: 8,
                             ),
