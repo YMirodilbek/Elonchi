@@ -9,7 +9,10 @@ import 'package:elonchi/features/messages/single_message/presentation/widgets/op
 import 'package:elonchi/features/messages/single_message/presentation/widgets/received_message.dart';
 import 'package:elonchi/features/messages/single_message/presentation/widgets/related_item.dart';
 import 'package:elonchi/features/report/presentation/pages/report_sheet.dart';
+import 'package:elonchi/features/messages/single_message/presentation/widgets/message_date_separator.dart';
 import 'package:elonchi/features/messages/single_message/presentation/widgets/sent_message.dart';
+import 'package:elonchi/router/app_routes.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -39,8 +42,11 @@ class _ConversationPageState extends State<ConversationPage> {
         final relatedProduct = state.conversationRequest.product;
         return Scaffold(
           appBar: ConversationAppbar(
+            imageUrl: state.conversationRequest.imageUrl,
             userName: state.conversationRequest.userName,
-            onCallTap: () {},
+            onCallTap: () {
+              bloc.add(const LaunchPhoneNumber());
+            },
             onThreeDotsTap: () async {
               final choice = await triggerBottomSheet<String>(
                 content: OptionsSheet(
@@ -67,23 +73,98 @@ class _ConversationPageState extends State<ConversationPage> {
                 imagePath: relatedProduct.image ?? "",
                 itemName: relatedProduct.title ?? "",
                 itemPrice: "${relatedProduct.price} ${relatedProduct.moneyType}",
-                onTap: () {},
+                onTap: () {
+                  if (state.conversationRequest.previousRoute.isEmpty) {
+                    return;
+                  }
+                  if (state.conversationRequest.previousRoute == 'singleItem') {
+                    context.pop();
+                  } else {
+                    context.push(Routes.singleItemScreen, extra: relatedProduct.id);
+                  }
+                },
               ),
               Expanded(
-                child: ListView.separated(
-                  padding: EdgeInsets.only(left: 16, right: 16, top: 16),
-                  separatorBuilder: (context, index) => const SizedBox(height: 16),
-                  reverse: true,
-                  itemBuilder: (context, index) {
-                    if (index == 0) {
-                      return SizedBox(height: MediaQuery.of(context).viewInsets.bottom + 120);
-                    }
-                    if (index % 2 == 0) {
-                      return ReceivedMessage(time: "12:05", message: "Test");
-                    }
-                    return SentMessage(message: "Test", read: true, time: "12:01");
-                  },
-                  itemCount: 7,
+                child: Stack(
+                  children: [
+                    ListView.separated(
+                      controller: state.scrollController,
+                      padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
+                      separatorBuilder: (context, index) => const SizedBox(height: 16),
+                      reverse: true,
+                      itemBuilder: (context, index) {
+                        if (index == 0) {
+                          return SizedBox(height: MediaQuery.of(context).viewInsets.bottom + 120);
+                        }
+
+                        // Pagination loader at the end
+                        if (state.paginationLoading && index == state.messages.length) {
+                          return const Center(child: CupertinoActivityIndicator(radius: 10));
+                        }
+
+                        final messageIndex = index - 1;
+                        final message = state.messages[messageIndex];
+                        bool showDate = false;
+                        if (messageIndex == state.messages.length - 1) {
+                          showDate = true;
+                        } else {
+                          final nextMessage = state.messages[messageIndex + 1];
+                          final messageDate = DateTime.parse(message.timestamp ?? '');
+                          final nextDate = DateTime.parse(nextMessage.timestamp ?? '');
+                          showDate =
+                              messageDate.day != nextDate.day ||
+                              messageDate.month != nextDate.month ||
+                              messageDate.year != nextDate.year;
+                        }
+                        return Column(
+                          children: [
+                            if (showDate)
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 8),
+                                child: MessageDateSeparator(timestamp: message.timestamp ?? ''),
+                              ),
+                            if (message.i == true)
+                              SentMessage(
+                                message: message.content ?? '',
+                                read: true,
+                                time: _formatTime(message.timestamp),
+                                imageUrl: message.image,
+                              )
+                            else
+                              ReceivedMessage(
+                                message: message.content ?? '',
+                                time: _formatTime(message.timestamp),
+                                imageUrl: message.image,
+                              ),
+                          ],
+                        );
+                      },
+                      itemCount: state.messages.length + 1 + (state.paginationLoading ? 1 : 0),
+                    ),
+                    // Scroll to bottom button
+                    Positioned(
+                      right: 16,
+                      bottom: 16,
+                      child: AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 300),
+                        child: state.showScrollButton
+                            ? GestureDetector(
+                                onTap: () => bloc.add(const ScrollToBottomEvent()),
+                                child: Container(
+                                  width: 40,
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    shape: BoxShape.circle,
+                                    boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 8)],
+                                  ),
+                                  child: const Icon(Icons.keyboard_arrow_down, size: 24),
+                                ),
+                              )
+                            : const SizedBox.shrink(),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -106,5 +187,15 @@ class _ConversationPageState extends State<ConversationPage> {
         );
       },
     );
+  }
+
+  String _formatTime(String? timestamp) {
+    if (timestamp == null) return '';
+    try {
+      final dateTime = DateTime.parse(timestamp);
+      return '${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')}';
+    } catch (e) {
+      return '';
+    }
   }
 }

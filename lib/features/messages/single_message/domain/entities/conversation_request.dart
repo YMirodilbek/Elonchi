@@ -3,17 +3,21 @@ import 'package:elonchi/features/messages/all_messages/domain/repository/all_mas
 
 class ConversationRequest {
   final ProductMessage product;
+  final String previousRoute;
   final String message;
-
+  final String phoneNumber;
+  final String? imageUrl;
   final int userId;
   final String userName;
   final int? chatId; //if chat Id exist, than we dont create a room,
   final SmsType type;
 
   const ConversationRequest({
+    required this.previousRoute,
     required this.product,
+    this.imageUrl,
     required this.message,
-
+    required this.phoneNumber,
     required this.userId,
     required this.type,
     this.chatId,
@@ -21,6 +25,9 @@ class ConversationRequest {
   });
 
   ConversationRequest copyWith({
+    String? previousRoute,
+    String? imageUrl,
+    String? phoneNumber,
     String? message,
     int? itemId,
     int? userId,
@@ -29,6 +36,9 @@ class ConversationRequest {
     SmsType? type,
   }) {
     return ConversationRequest(
+      previousRoute: previousRoute ?? this.previousRoute,
+      imageUrl: imageUrl ?? this.imageUrl,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
       product: product,
       message: message ?? this.message,
       userId: userId ?? this.userId,
@@ -40,6 +50,9 @@ class ConversationRequest {
 
   Map<String, dynamic> toJson() {
     return {
+      'previousRoute': previousRoute,
+      'imageUrl': imageUrl,
+      'phoneNumber': phoneNumber,
       'product': product.toJson(),
       'message': message,
       'userId': userId,
@@ -51,6 +64,9 @@ class ConversationRequest {
 
   factory ConversationRequest.fromJson(Map<String, dynamic> json) {
     return ConversationRequest(
+      previousRoute: json['previousRoute'] as String,
+      imageUrl: json['imageUrl'] as String?,
+      phoneNumber: json['phoneNumber'] as String,
       product: ProductMessage.fromJson(json['product'] as Map<String, dynamic>),
       message: json['message'] as String,
       userId: json['userId'] as int,

@@ -12,15 +12,12 @@ class SendButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WScaleAnimation(
-      onTap: canSend ? onTap : () {},
-      child: Opacity(
-        opacity: canSend ? 1 : 0.5,
-        child: Container(
-          padding: const EdgeInsets.all(11),
-          height: 40,
-          width: 40,
-          child: SvgPicture.asset(PIcons.sendIcon, color: canSend ? context.color.iconStrong : context.color.textSoft),
-        ),
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(11),
+        height: 40,
+        width: 40,
+        child: SvgPicture.asset(PIcons.sendIcon, color: context.color.iconStrong),
       ),
     );
   }

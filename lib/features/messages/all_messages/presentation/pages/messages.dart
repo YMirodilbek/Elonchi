@@ -81,10 +81,13 @@ class _MessagesPageState extends State<MessagesPage> {
                                 deleting: state.deleting,
                                 onTap: () {
                                   final request = ConversationRequest(
+                                    previousRoute: 'messages',
+                                    imageUrl: chatRoom.user?.image,
+                                    phoneNumber: chatRoom.user?.phone ?? '',
                                     product: chatRoom.product ?? ProductMessage(),
                                     chatId: chatRoom.id ?? 0,
                                     type: SmsType.buyer,
-                                    userName: '',
+                                    userName: chatRoom.user?.firstName ?? " ${chatRoom.user?.lastName ?? ""}",
                                     message: '',
                                     userId: 0,
                                   );

@@ -114,6 +114,8 @@ class _SingleItemPageState extends State<SingleItemPage> {
                                     context.push(
                                       Routes.conversationScreen,
                                       extra: ConversationRequest(
+                                        previousRoute: 'singleItem',
+                                        phoneNumber: state.product?.phoneNumber ?? '',
                                         type: SmsType.buyer,
                                         userName: state.product?.contactName ?? '',
                                         message: '',
@@ -203,6 +205,8 @@ class _SingleItemPageState extends State<SingleItemPage> {
                           context.push(
                             Routes.conversationScreen,
                             extra: ConversationRequest(
+                              previousRoute: 'singleItem',
+                              phoneNumber: state.product?.phoneNumber ?? '',
                               type: SmsType.buyer,
                               userName: state.product?.contactName ?? '',
                               message: value,

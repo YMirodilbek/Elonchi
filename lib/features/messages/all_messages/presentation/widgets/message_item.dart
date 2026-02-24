@@ -70,8 +70,8 @@ class MessageStartItem extends StatelessWidget {
                         style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: context.color.textStrong),
                       ),
                       Text(
-                        chatRoom.type ?? '',
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: context.color.textSub),
+                        chatRoom.product?.title ?? '',
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: context.color.textSub),
                       ),
                       Text(chatRoom.lastMessage?.content ?? '', style: TextStyle(color: context.color.textSoft)),
                     ],

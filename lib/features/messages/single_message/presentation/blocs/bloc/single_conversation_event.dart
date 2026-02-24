@@ -49,3 +49,32 @@ final class DeleteImageEvent extends SingleConversationEvent {
   @override
   List<Object> get props => [index];
 }
+
+final class LaunchPhoneNumber extends SingleConversationEvent {
+  const LaunchPhoneNumber();
+
+  @override
+  List<Object> get props => [];
+}
+
+final class LoadMoreMessagesEvent extends SingleConversationEvent {
+  const LoadMoreMessagesEvent();
+
+  @override
+  List<Object> get props => [];
+}
+
+final class ScrollPositionChangedEvent extends SingleConversationEvent {
+  final double offset;
+  const ScrollPositionChangedEvent(this.offset);
+
+  @override
+  List<Object> get props => [offset];
+}
+
+final class ScrollToBottomEvent extends SingleConversationEvent {
+  const ScrollToBottomEvent();
+
+  @override
+  List<Object> get props => [];
+}
