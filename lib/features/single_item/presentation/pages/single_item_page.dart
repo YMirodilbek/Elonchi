@@ -182,6 +182,8 @@ class _SingleItemPageState extends State<SingleItemPage> {
                                     ? product.image!.first.image ?? "assets/images/item_1.png"
                                     : "assets/images/item_1.png";
                                 return ProductItem(
+                                  regionName: product.region?.name ?? "",
+                                  createdAt: product.createdAt,
                                   itemId: product.id ?? 0,
                                   onLikedTap: () {
                                     if (state.likeRelatedProductsApiStatus == ApiStatus.loading) return;

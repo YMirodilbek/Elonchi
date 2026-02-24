@@ -1,11 +1,14 @@
 import 'package:elonchi/constants/constants.dart';
 import 'package:elonchi/core/extension/extension.dart';
+import 'package:elonchi/core/network/response_data.dart';
 import 'package:elonchi/core/widgets/scale_animation.dart';
 import 'package:elonchi/features/home/presentation/blocs/liked_bloc/like_bloc.dart';
 import 'package:elonchi/features/home/presentation/widgets/empty_state.dart';
+import 'package:elonchi/features/home/presentation/widgets/product_grid_shimmer.dart';
+import 'package:elonchi/features/home/presentation/widgets/product_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 class LikedPage extends StatefulWidget {
@@ -39,17 +42,63 @@ class _LikedPageState extends State<LikedPage> {
           style: TextStyle(color: context.color.textStrong, fontSize: 16, fontWeight: FontWeight.w500),
         ),
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [
-          const LikedEmptyState(),
-          const SizedBox(height: 24),
-          Text(
-            'Рекомендуем',
-            style: TextStyle(fontWeight: FontWeight.w500, color: context.color.textStrong, fontSize: 16),
-          ),
-          const SizedBox(height: 8),
-        ],
+      body: BlocBuilder<LikeBloc, LikeState>(
+        builder: (context, state) {
+          return RefreshIndicator.adaptive(
+            onRefresh: () async {
+              bloc.add(const GetLikedProductsEvent());
+              await Future.delayed(const Duration(milliseconds: 300));
+            },
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 300),
+              child: state.apiStatus == ApiStatus.loading
+                  ? ProductGridShimmer(key: const ValueKey('likedProductsShimmer'), itemCount: 4)
+                  : state.products.isEmpty
+                  ? ListView(
+                      key: const ValueKey('emptyState'),
+                      padding: const EdgeInsets.all(16),
+                      children: const [
+                        LikedEmptyState(),
+                        SizedBox(height: 24),
+                        Text('Рекомендуем', style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16)),
+                        SizedBox(height: 8),
+                      ],
+                    )
+                  : ListView(
+                      key: const ValueKey('productsList'),
+                      padding: const EdgeInsets.all(16),
+                      children: [
+                        GridView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 0.8,
+                            crossAxisSpacing: 8,
+                            mainAxisSpacing: 8,
+                          ),
+                          itemCount: state.products.length,
+                          itemBuilder: (context, index) {
+                            final product = state.products[index];
+                            return ProductItem(
+                              itemId: product.id ?? 0,
+                              onLikedTap: () {
+                                bloc.add(ToggleLikeEvent(product.id ?? 0));
+                              },
+                              productImagePath: product.image?.first.image ?? '',
+                              title: product.title ?? '',
+                              description: product.description ?? '',
+                              liked: product.iLike ?? true,
+                              createdAt: product.createdAt,
+                              regionName: product.region?.name ?? 'Unknown',
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+            ),
+          );
+        },
       ),
     );
   }

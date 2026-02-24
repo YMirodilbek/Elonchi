@@ -7,8 +7,8 @@ import 'package:elonchi/features/home/domain/entities/get_product_request.dart';
 
 abstract class HomeRepo {
   Future<ResponseData<void>> likeItem(int itemId);
-  Future<ResponseData<void>> getLikedItems();
-  Future<ResponseData<void>> getWatchingItems();
+  Future<ResponseData<LikedItemsResponse>> getLikedItems();
+  Future<ResponseData<WatchingItemsResponse>> getWatchingItems();
   Future<ResponseData<void>> watchItem(int itemId);
   Future<ResponseData<void>> deleteWatchingItem(int itemId);
   Future<ResponseData<List<BannerDataResponse>>> getBannerData();
@@ -37,8 +37,12 @@ class HomeRepoImpl extends HomeRepo {
   }
 
   @override
-  Future<ResponseData<void>> getLikedItems() {
-    return requestManager.request(requestType: RequestType.get, path: PUrls.getLikedItems);
+  Future<ResponseData<LikedItemsResponse>> getLikedItems() {
+    return requestManager.request(
+      requestType: RequestType.get,
+      path: PUrls.getLikedItems,
+      dataParser: (jsonData) => LikedItemsResponse.fromJson(jsonData),
+    );
   }
 
   @override
@@ -52,8 +56,12 @@ class HomeRepoImpl extends HomeRepo {
   }
 
   @override
-  Future<ResponseData<void>> getWatchingItems() {
-    return requestManager.request(requestType: RequestType.get, path: PUrls.getWatchingItems);
+  Future<ResponseData<WatchingItemsResponse>> getWatchingItems() {
+    return requestManager.request(
+      requestType: RequestType.get,
+      path: PUrls.getWatchingItems,
+      dataParser: (jsonData) => WatchingItemsResponse.fromJson(jsonData),
+    );
   }
 
   @override

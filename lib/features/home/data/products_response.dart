@@ -2,13 +2,14 @@ class ProductsResponsePaginated {
   final List<Product>? products;
   final int? count;
   final String? next;
+
   const ProductsResponsePaginated({this.products, this.count, this.next});
 
   factory ProductsResponsePaginated.fromJson(Map<String, dynamic> json) {
     return ProductsResponsePaginated(
       count: json['count'] as int?,
       next: json['next'] as String?,
-      products: (json['results'] as List?)?.map((e) => Product.fromJson(e)).toList(),
+      products: (json['results'] as List?)?.map((e) => Product.fromJson(e as Map<String, dynamic>)).toList(),
     );
   }
 
@@ -43,7 +44,7 @@ class Product {
   final DateTime? createdAt;
   final double? lat;
   final double? lng;
-  final int? region;
+  final Region? region;
   final int? category;
   final int? user;
   final bool? iLike;
@@ -103,7 +104,7 @@ class Product {
       createdAt: json['created_at'] != null ? DateTime.tryParse(json['created_at']) : null,
       lat: json['lat'] != null ? double.tryParse(json['lat'].toString()) : null,
       lng: json['lan'] != null ? double.tryParse(json['lan'].toString()) : null,
-      region: json['region'] is Map ? (json['region'] as Map)['id'] as int? : json['region'] as int?,
+      region: json['region'] != null ? Region.fromJson(json['region'] as Map<String, dynamic>) : null,
       category: json['category'] is Map ? (json['category'] as Map)['id'] as int? : json['category'] as int?,
       user: json['user'] as int?,
       iLike: json['i_like'] as bool?,
@@ -134,7 +135,7 @@ class Product {
     DateTime? createdAt,
     double? lat,
     double? lng,
-    int? region,
+    Region? region,
     int? category,
     int? user,
     bool? iLike,
@@ -196,6 +197,101 @@ class ProductImageResponse {
       image: image ?? this.image,
       uploadedAt: uploadedAt ?? this.uploadedAt,
       user: user ?? this.user,
+    );
+  }
+}
+
+class Region {
+  final int? id;
+  final String? name;
+
+  const Region({this.id, this.name});
+
+  factory Region.fromJson(Map<String, dynamic> json) {
+    return Region(id: json['id'] as int?, name: json['name'] as String?);
+  }
+
+  Map<String, dynamic> toJson() {
+    return {'id': id, 'name': name};
+  }
+
+  Region copyWith({int? id, String? name}) {
+    return Region(id: id ?? this.id, name: name ?? this.name);
+  }
+}
+
+class WatchingItemsResponse {
+  final int? count;
+  final String? next;
+  final String? previous;
+  final List<WatchingItem>? results;
+
+  const WatchingItemsResponse({this.count, this.next, this.previous, this.results});
+
+  factory WatchingItemsResponse.fromJson(Map<String, dynamic> json) {
+    return WatchingItemsResponse(
+      count: json['count'] as int?,
+      next: json['next'] as String?,
+      previous: json['previous'] as String?,
+      results: (json['results'] as List<dynamic>?)
+          ?.map((e) => WatchingItem.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+  }
+}
+
+class WatchingItem {
+  final int? id;
+  final int? user;
+  final Product? product;
+  final String? lastPrice;
+  final DateTime? createdAt;
+
+  const WatchingItem({this.id, this.user, this.product, this.lastPrice, this.createdAt});
+
+  factory WatchingItem.fromJson(Map<String, dynamic> json) {
+    return WatchingItem(
+      id: json['id'] as int?,
+      user: json['user'] as int?,
+      product: json['product'] != null ? Product.fromJson(json['product'] as Map<String, dynamic>) : null,
+      lastPrice: json['last_price'] as String?,
+      createdAt: json['created_at'] != null ? DateTime.tryParse(json['created_at']) : null,
+    );
+  }
+}
+
+class LikedItemsResponse {
+  final int? count;
+  final String? next;
+  final String? previous;
+  final List<LikedItem>? results;
+
+  const LikedItemsResponse({this.count, this.next, this.previous, this.results});
+
+  factory LikedItemsResponse.fromJson(Map<String, dynamic> json) {
+    return LikedItemsResponse(
+      count: json['count'] as int?,
+      next: json['next'] as String?,
+      previous: json['previous'] as String?,
+      results: (json['results'] as List<dynamic>?)?.map((e) => LikedItem.fromJson(e as Map<String, dynamic>)).toList(),
+    );
+  }
+}
+
+class LikedItem {
+  final int? id;
+  final int? user;
+  final Product? product;
+  final DateTime? createdAt;
+
+  const LikedItem({this.id, this.user, this.product, this.createdAt});
+
+  factory LikedItem.fromJson(Map<String, dynamic> json) {
+    return LikedItem(
+      id: json['id'] as int?,
+      user: json['user'] as int?,
+      product: json['product'] != null ? Product.fromJson(json['product'] as Map<String, dynamic>) : null,
+      createdAt: json['created_at'] != null ? DateTime.tryParse(json['created_at']) : null,
     );
   }
 }

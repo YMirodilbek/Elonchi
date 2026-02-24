@@ -10,3 +10,11 @@ final class GetWatchingProductsEvent extends WatchingEvent {
   @override
   List<Object> get props => [];
 }
+
+final class ToggleWatchingEvent extends WatchingEvent {
+  final int productId;
+  const ToggleWatchingEvent(this.productId);
+
+  @override
+  List<Object> get props => [productId];
+}
