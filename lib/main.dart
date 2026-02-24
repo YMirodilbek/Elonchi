@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:elonchi/app.dart';
 import 'package:elonchi/core/models/language_model.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/date_symbols.dart';
@@ -9,6 +10,7 @@ import 'injector_container.dart' as di;
 DateSymbols? symbols = dateTimeSymbolMap()["uz"];
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   await EasyLocalization.ensureInitialized();
   await di.init();
   await initializeDateFormatting(di.localSource.locale);

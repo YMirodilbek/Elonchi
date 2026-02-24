@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:elonchi/features/auth/data/login/login_response.dart';
+import 'package:elonchi/injector_container.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -54,7 +55,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
     emit(state.copyWith(welcomeStatus: ApiStatus.loading));
 
-    final result = await authRepository.login(LoginRequest(phoneNumber: fullPhoneNumber, fcmToken: "fmc_token"));
+    final result = await authRepository.login(
+      LoginRequest(phoneNumber: fullPhoneNumber, fcmToken: localSource.fcmToken),
+    );
     if (result.ok) {
       // Store OTP session info
       final otpExpiryTime = DateTime.now().add(Duration(minutes: 2));
@@ -65,7 +68,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           welcomeStatus: ApiStatus.success,
           lastOtpPhoneNumber: fullPhoneNumber,
           otpExpiryTime: otpExpiryTime,
-          remainingOtpSeconds: 120, // 2 minutes in seconds
+          remainingOtpSeconds: 120,
         ),
       );
 

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:elonchi/core/extension/extension.dart';
 import 'package:elonchi/core/widgets/scale_animation.dart';
 import 'package:flutter/material.dart';
@@ -15,10 +16,8 @@ class CategoryItem extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            height: 70,
-            width: 70,
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: context.color.bgelevation),
-            child: Image.asset(imagePath),
+            child: CachedNetworkImage(imageUrl: imagePath),
           ),
           const SizedBox(height: 2),
           Text(title, style: TextStyle(fontSize: 8, fontWeight: FontWeight.w500)),

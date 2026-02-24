@@ -9,7 +9,15 @@ import 'package:elonchi/features/auth/presentation/blocs/login_bloc/login_bloc.d
 import 'package:elonchi/features/auth/presentation/blocs/otp_bloc/otp_bloc.dart';
 import 'package:elonchi/features/categories/domain/categories_repo.dart';
 import 'package:elonchi/features/categories/presentation/blocs/bloc/category_bloc.dart';
-import 'package:elonchi/features/messages/all_massages/presentation/blocs/all_messages_bloc/all_messages_bloc.dart';
+import 'package:elonchi/features/home/domain/repository/home_repo.dart';
+import 'package:elonchi/features/home/presentation/blocs/filters_bloc/filters_bloc.dart';
+import 'package:elonchi/features/home/presentation/blocs/home_bloc/home_bloc.dart';
+import 'package:elonchi/features/home/presentation/blocs/liked_bloc/like_bloc.dart';
+import 'package:elonchi/features/home/presentation/blocs/search_bloc/search_bloc.dart';
+import 'package:elonchi/features/home/presentation/blocs/watching_bloc/watching_bloc.dart';
+import 'package:elonchi/features/messages/all_messages/domain/repository/all_massages_repo.dart';
+import 'package:elonchi/features/messages/all_messages/presentation/blocs/all_messages_bloc/all_messages_bloc.dart';
+import 'package:elonchi/features/messages/single_message/presentation/blocs/bloc/single_conversation_bloc.dart';
 import 'package:elonchi/features/my_products/domain/repository/my_items_repo.dart';
 import 'package:elonchi/features/my_products/presentation/bloc/edit_item_bloc/edit_item_bloc.dart';
 import 'package:elonchi/features/my_products/presentation/bloc/my_items_bloc/my_items_bloc.dart';
@@ -20,6 +28,10 @@ import 'package:elonchi/features/regions/domain/regions_repo.dart';
 import 'package:elonchi/features/regions/presentation/bloc/regions_bloc.dart';
 import 'package:elonchi/features/my_products/domain/repository/create_item_repo.dart';
 import 'package:elonchi/features/my_products/presentation/bloc/add_bloc/add_item_bloc.dart';
+import 'package:elonchi/features/report/domain/report_repo.dart';
+import 'package:elonchi/features/report/presentation/bloc/bloc/report_bloc.dart';
+import 'package:elonchi/features/single_item/domain/repository/single_repo.dart';
+import 'package:elonchi/features/single_item/presentation/blocs/bloc/single_bloc.dart';
 import 'package:elonchi/router/app_routes.dart';
 
 import 'package:get_it/get_it.dart';
@@ -34,6 +46,9 @@ late Box<dynamic> _box;
 
 final NetworkInfo networkInfo = sl<NetworkInfo>();
 final LocalSource localSource = sl<LocalSource>();
+
+// Flag to prevent infinite refresh loops
+bool _isRefreshing = false;
 
 Future<void> init() async {
   // hive
@@ -54,16 +69,28 @@ Future<void> init() async {
     ..registerLazySingleton<CategoriesRepo>(() => CategoriesRepoImpl(sl()))
     ..registerLazySingleton<RegionsRepo>(() => RegionsRepoImpl(sl()))
     ..registerLazySingleton<MyItemsRepo>(() => MyItemsRepoImpl(sl()))
+    ..registerLazySingleton<SingleItemRepo>(() => SingleItemRepoImpl(sl()))
+    ..registerLazySingleton<HomeRepo>(() => HomeRepoImpl(sl()))
+    ..registerLazySingleton<ReportRepo>(() => ReportRepoImpl(sl()))
+    ..registerLazySingleton<MessagesRepo>(() => MessagesRepoImpl(sl()))
+    ..registerFactory(() => ReportBloc(sl<ReportRepo>()))
+    ..registerFactory(() => SingleConversationBloc(sl<MessagesRepo>()))
+    ..registerFactory(() => LikeBloc(sl<HomeRepo>()))
+    ..registerFactory(() => WatchingBloc(sl<HomeRepo>()))
+    ..registerFactory(() => SearchBloc(sl<HomeRepo>()))
+    ..registerFactory(() => SingleBloc(sl<SingleItemRepo>()))
     ..registerFactory(() => LoginBloc(authRepository: sl<AuthRepository>()))
     ..registerFactory(() => MyItemsBloc(sl<MyItemsRepo>()))
+    ..registerFactory(() => HomeBloc(sl<HomeRepo>(), sl<CategoriesRepo>()))
     ..registerFactory(() => AddItemBloc(sl<CreateItemRepo>()))
+    ..registerFactory(() => FiltersBloc())
     ..registerFactory(() => RegionsBloc(sl<RegionsRepo>()))
     ..registerFactory(() => EditItemBloc(sl<CreateItemRepo>()))
     ..registerFactory(() => CategoryBloc(categoriesRepo: sl<CategoriesRepo>()))
     ..registerFactory(() => OtpBloc(authRepository: sl<AuthRepository>(), localSource: sl<LocalSource>()))
     ..registerFactory(() => ProfileEditBloc(reporisitory: sl<ProfileRepository>()))
     ..registerLazySingleton(() => ProfileBloc(reporisitory: sl<ProfileRepository>()))
-    ..registerFactory(() => AllMessagesBloc());
+    ..registerFactory(() => AllMessagesBloc(sl<MessagesRepo>()));
 
   sl<Dio>().options = BaseOptions(
     contentType: "application/json",
@@ -100,11 +127,55 @@ Future<void> init() async {
         return handler.next(response);
       },
       onError: (error, handler) async {
-        if (error.response?.statusCode == 401 && localSource.isUserLoggedIn) {
-          await localSource.clearUserData();
-          sl<Dio>().options.headers.remove("Authorization");
-          rootNavigatorKey.currentContext?.go(Routes.home);
+        // Handle 401 errors with token refresh
+        if (error.response?.statusCode == 401 && localSource.isUserLoggedIn && !_isRefreshing) {
+          _isRefreshing = true; // Set flag to prevent loop
+
+          try {
+            // Try to refresh the token
+            final authRepo = sl<AuthRepository>();
+            final refreshResult = await authRepo.refreshToken();
+
+            if (refreshResult.ok && refreshResult.data != null) {
+              // Token refresh successful
+              final newAccessToken = refreshResult.data!;
+
+              // Update stored token
+              await localSource.setAccessToken(newAccessToken);
+
+              // Update Dio headers with new token
+              sl<Dio>().options.headers["Authorization"] = "Bearer $newAccessToken";
+
+              // Retry the original request with new token
+              final requestOptions = error.requestOptions;
+              requestOptions.headers["Authorization"] = "Bearer $newAccessToken";
+
+              _isRefreshing = false; // Reset flag
+
+              try {
+                final response = await sl<Dio>().fetch(requestOptions);
+                return handler.resolve(response);
+              } catch (e) {
+                return handler.next(error);
+              }
+            } else {
+              // Refresh token failed or expired - logout user
+              _isRefreshing = false; // Reset flag
+              await localSource.clearUserData();
+              sl<Dio>().options.headers.remove("Authorization");
+              rootNavigatorKey.currentContext?.go(Routes.home);
+              return handler.next(error);
+            }
+          } catch (e) {
+            // Error during refresh - logout user
+            _isRefreshing = false; // Reset flag
+            await localSource.clearUserData();
+            sl<Dio>().options.headers.remove("Authorization");
+            rootNavigatorKey.currentContext?.go(Routes.home);
+            return handler.next(error);
+          }
         }
+
         return handler.next(error);
       },
     ),

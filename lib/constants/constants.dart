@@ -66,6 +66,7 @@ sealed class PIcons {
   static const logOutIcon = "assets/icons/logout-01.svg";
   static const deleteImgIcon = "assets/icons/delete_img.svg";
   static const selectedIcon = "assets/icons/selected.svg";
+  static const likedFilledIcon = "assets/icons/favourite_filled.svg";
 }
 
 sealed class PKeys {
@@ -110,6 +111,24 @@ sealed class PUrls {
   static const String getCategories = '/api/product/get-category/';
   static const String getRegions = '/api/product/get-region/';
   static const String getMyProducts = '/api/product/product/my_product/';
+  static const String likeProduct = '/api/product/like/';
+  static const String getLikedItems = '/api/product/like/';
+  static const String getWatchingItems = '/api/product/pricewatch/';
+  static const String postWatchItem = '/api/product/pricewatch/';
+  static const String getBanners = '/api/banners/';
+  static const String getProduct = 'api/product/product/';
+  static const String getSearchProducts = '/api/product/product/search/';
+  static const String createRoom = "/api/chat/chat-crete/";
+  static const String getChatList = "/api/chat/chat-list/";
+  static const String getComplaints = "/api/product/complaint/";
+  static const String createComplaint = "/api/product/complaint/";
+  static const String getRecentItems = "/api/product/recently/";
+  static const String getRefreshToken = '/api/token/refresh/';
+  static String getProductInfo(int id) => "/api/product/product/$id/";
+  static String sendMessage(int id) => "/api/chat/message-create/$id/";
+  static String getChatMessages(int id) => "/api/chat/message-list/$id/";
+  static String deleteChat(int id) => '/api/chat/chat-delete/$id/';
+  static String deleteWatchItem(int id) => '/api/product/pricewatch/$id/';
   static String editProduct(int id) => '/api/product/product/$id/';
   static String getSubCategories(int id) => '/api/product/get-sub-category/$id/';
 }

@@ -23,12 +23,7 @@ class UserInfo extends StatelessWidget {
             backgroundColor: context.color.background,
             child: imagePath.isNotEmpty
                 ? ClipOval(
-                    child: CachedNetworkImage(
-                      imageUrl: "${PConstants.baseUrl}$imagePath",
-                      width: 64,
-                      height: 64,
-                      fit: BoxFit.cover,
-                    ),
+                    child: CachedNetworkImage(imageUrl: imagePath, width: 64, height: 64, fit: BoxFit.cover),
                   )
                 : selectedImgIndex != null
                 ? Image.asset('assets/images/img$selectedImgIndex.png', width: 64, height: 64, fit: BoxFit.cover)

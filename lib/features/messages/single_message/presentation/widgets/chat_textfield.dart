@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:elonchi/constants/constants.dart';
 import 'package:elonchi/core/extension/extension.dart';
 import 'package:elonchi/core/widgets/scale_animation.dart';
@@ -6,6 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ChatInputField extends StatefulWidget {
+  final File? imageFile;
+  final VoidCallback onImageAddTap;
+  final VoidCallback? onImageRemoveTap;
   final String hint;
   final bool enabled;
   final VoidCallback onSend;
@@ -15,6 +20,9 @@ class ChatInputField extends StatefulWidget {
     super.key,
     this.controller,
     this.focusNode,
+    this.imageFile,
+    required this.onImageAddTap,
+    this.onImageRemoveTap,
     required this.onSend,
     required this.enabled,
     required this.hint,
@@ -110,57 +118,105 @@ class _ChatInputFieldState extends State<ChatInputField> {
         padding: const EdgeInsets.only(right: 4, left: 12, bottom: 6),
         decoration: BoxDecoration(color: context.color.bgelevation, borderRadius: BorderRadius.circular(20)),
         margin: const EdgeInsets.all(16),
-        constraints: const BoxConstraints(maxHeight: 140),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            WScaleAnimation(
-              onTap: () {},
-              child: Container(
-                padding: const EdgeInsets.all(10),
-                height: 40,
-                width: 40,
-                child: SvgPicture.asset(PIcons.imageAddIcon),
-              ),
-            ),
-            Expanded(
-              child: SingleChildScrollView(
-                controller: _scrollController,
-                child: TextField(
-                  enabled: widget.enabled,
-                  focusNode: widget.focusNode,
-                  controller: widget.controller,
-                  maxLines: null,
-                  minLines: 1,
-                  style: const TextStyle(fontSize: 14),
-                  decoration: InputDecoration(
-                    hintText: widget.hint,
-                    hintStyle: TextStyle(fontSize: 14, color: context.color.textSoft),
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 0),
+            // Image preview
+            if (widget.imageFile != null)
+              Padding(
+                padding: const EdgeInsets.only(top: 12),
+                child: SizedBox(
+                  width: 60,
+                  height: 60,
+                  child: Stack(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: Image.file(widget.imageFile!, width: 60, height: 60, fit: BoxFit.cover),
+                      ),
+                      Positioned.fill(
+                        child: Center(
+                          child: GestureDetector(
+                            onTap: widget.onImageRemoveTap,
+                            child: Container(
+                              width: 24,
+                              height: 24,
+                              decoration: BoxDecoration(
+                                color: Colors.black.withValues(alpha: 0.6),
+                                shape: BoxShape.circle,
+                              ),
+                              child: const Icon(Icons.close, color: Colors.white, size: 16),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
-            ),
-            SendButton(onTap: widget.onSend, canSend: widget.controller?.text.trim().isNotEmpty == true),
-            if (_isScrollable)
-              Container(
-                width: 3,
-                height: 120,
-                margin: const EdgeInsets.only(left: 6, right: 1, bottom: 7, top: 2),
-                child: Stack(
-                  children: [
-                    Positioned(
-                      top: _scrollThumbPosition,
-                      child: Container(
-                        width: 3,
-                        height: _scrollThumbHeight,
-                        decoration: BoxDecoration(color: Color(0xffA8A8A8), borderRadius: BorderRadius.circular(1.5)),
+            // Text input row
+            ConstrainedBox(
+              constraints: const BoxConstraints(maxHeight: 140),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  WScaleAnimation(
+                    onTap: widget.onImageAddTap,
+                    child: Container(
+                      padding: const EdgeInsets.all(10),
+                      height: 40,
+                      width: 40,
+                      child: SvgPicture.asset(PIcons.imageAddIcon),
+                    ),
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      controller: _scrollController,
+                      child: TextField(
+                        onChanged: (value) {
+                          setState(() {});
+                        },
+                        enabled: widget.enabled,
+                        focusNode: widget.focusNode,
+                        controller: widget.controller,
+                        maxLines: null,
+                        minLines: 1,
+                        style: const TextStyle(fontSize: 14),
+                        decoration: InputDecoration(
+                          hintText: widget.hint,
+                          hintStyle: TextStyle(fontSize: 14, color: context.color.textSoft),
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 0),
+                        ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                  SendButton(onTap: widget.onSend, canSend: widget.controller?.text.trim().isNotEmpty == true),
+                  if (_isScrollable)
+                    Container(
+                      width: 3,
+                      height: 120,
+                      margin: const EdgeInsets.only(left: 6, right: 1, bottom: 7, top: 2),
+                      child: Stack(
+                        children: [
+                          Positioned(
+                            top: _scrollThumbPosition,
+                            child: Container(
+                              width: 3,
+                              height: _scrollThumbHeight,
+                              decoration: BoxDecoration(
+                                color: Color(0xffA8A8A8),
+                                borderRadius: BorderRadius.circular(1.5),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                ],
               ),
+            ),
           ],
         ),
       ),

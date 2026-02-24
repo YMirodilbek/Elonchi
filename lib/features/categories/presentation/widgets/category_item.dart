@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:elonchi/constants/constants.dart';
 import 'package:elonchi/core/extension/extension.dart';
 import 'package:elonchi/core/widgets/scale_animation.dart';
@@ -23,7 +24,7 @@ class CategorySelectItem extends StatelessWidget {
               height: 40,
               width: 40,
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: context.color.background),
-              child: Image.asset('assets/images/all_categories.png'),
+              child: CachedNetworkImage(imageUrl: categoryResponse.img ?? ''),
             ),
             const SizedBox(width: 8),
             Text(categoryResponse.name ?? '', style: TextStyle(color: context.color.textStrong)),

@@ -1,3 +1,22 @@
+class RegionResponse {
+  final int? id;
+  final String? name;
+
+  const RegionResponse({this.id, this.name});
+
+  factory RegionResponse.fromJson(Map<String, dynamic> json) {
+    return RegionResponse(id: json['id'] as int?, name: json['name'] as String?);
+  }
+
+  Map<String, dynamic> toJson() {
+    return {'id': id, 'name': name};
+  }
+
+  RegionResponse copyWith({int? id, String? name}) {
+    return RegionResponse(id: id ?? this.id, name: name ?? this.name);
+  }
+}
+
 class ProductResponse {
   final int? id;
   final List<ProductImageResponse>? image;
@@ -20,7 +39,7 @@ class ProductResponse {
   final DateTime? createdAt;
   final double? lat;
   final double? lng;
-  final int? region;
+  final RegionResponse? region;
   final int? category;
   final int? user;
 
@@ -74,9 +93,63 @@ class ProductResponse {
       createdAt: json['created_at'] != null ? DateTime.tryParse(json['created_at']) : null,
       lat: json['lat'] != null ? double.tryParse(json['lat'].toString()) : null,
       lng: json['lan'] != null ? double.tryParse(json['lan'].toString()) : null,
-      region: json['region'] as int?,
-      category: json['category'] as int?,
+      region: json['region'] is Map ? RegionResponse.fromJson(json['region']) : null,
+      category: json['category'] is Map ? (json['category'] as Map)['id'] as int? : json['category'] as int?,
       user: json['user'] as int?,
+    );
+  }
+
+  ProductResponse copyWith({
+    int? id,
+    List<ProductImageResponse>? image,
+    dynamic model,
+    String? title,
+    String? sold,
+    String? price,
+    String? moneyType,
+    bool? trade,
+    bool? exchange,
+    bool? dostafca,
+    String? address,
+    String? phoneNumber,
+    String? description,
+    String? contactName,
+    String? condition,
+    bool? isActive,
+    bool? isStatus,
+    int? viewsCount,
+    DateTime? createdAt,
+    double? lat,
+    double? lng,
+    RegionResponse? region,
+    int? category,
+    int? user,
+  }) {
+    return ProductResponse(
+      id: id ?? this.id,
+      image: image ?? this.image,
+      model: model ?? this.model,
+      title: title ?? this.title,
+      sold: sold ?? this.sold,
+      price: price ?? this.price,
+      moneyType: moneyType ?? this.moneyType,
+      trade: trade ?? this.trade,
+      exchange: exchange ?? this.exchange,
+      dostafca: dostafca ?? this.dostafca,
+      address: address ?? this.address,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+      description: description ?? this.description,
+      contactName: contactName ?? this.contactName,
+      condition: condition ?? this.condition,
+      isActive: isActive ?? this.isActive,
+      isStatus: isStatus ?? this.isStatus,
+      viewsCount: viewsCount ?? this.viewsCount,
+      createdAt: createdAt ?? this.createdAt,
+      lat: lat ?? this.lat,
+      lng: lng ?? this.lng,
+      region: region ?? this.region,
+      category: category ?? this.category,
+      user: user ?? this.user,
     );
   }
 }
