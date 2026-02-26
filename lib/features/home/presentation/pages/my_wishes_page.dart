@@ -38,7 +38,7 @@ class _LikedPageState extends State<LikedPage> {
           child: Padding(padding: const EdgeInsets.all(11.0), child: SvgPicture.asset(PIcons.arrowLeftIcon)),
         ),
         title: Text(
-          'Мои желания',
+          "liked.title".tr(),
           style: TextStyle(color: context.color.textStrong, fontSize: 16, fontWeight: FontWeight.w500),
         ),
       ),
@@ -57,11 +57,11 @@ class _LikedPageState extends State<LikedPage> {
                   ? ListView(
                       key: const ValueKey('emptyState'),
                       padding: const EdgeInsets.all(16),
-                      children: const [
-                        LikedEmptyState(),
-                        SizedBox(height: 24),
-                        Text('Рекомендуем', style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16)),
-                        SizedBox(height: 8),
+                      children: [
+                        const LikedEmptyState(),
+                        const SizedBox(height: 24),
+                        Text("home.recommended".tr(), style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16)),
+                        const SizedBox(height: 8),
                       ],
                     )
                   : ListView(

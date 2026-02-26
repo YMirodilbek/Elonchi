@@ -88,7 +88,7 @@ class _FiltersPageState extends State<FiltersPage> {
                   ),
                   const SizedBox(height: 16),
                   FilterItem(
-                    title: state.region.isEmpty ? "home.filters.region".tr() : state.region,
+                    title: state.region.isEmpty ? "home.select_region".tr() : state.region,
                     iconPath: PIcons.locationIcon,
                     onTap: () async {
                       final data = await triggerBottomSheet<RegionResponse>(
@@ -100,7 +100,7 @@ class _FiltersPageState extends State<FiltersPage> {
                     },
                   ),
                   const SizedBox(height: 16),
-                  Text('home.filters.price'.tr(), style: TextStyle(color: context.color.textStrong)),
+                  Text('filter.price'.tr(), style: TextStyle(color: context.color.textStrong)),
                   const SizedBox(height: 8),
                   Row(
                     children: [
@@ -110,25 +110,25 @@ class _FiltersPageState extends State<FiltersPage> {
                     ],
                   ),
                   const SizedBox(height: 16),
-                  Text('home.filters.condition'.tr(), style: TextStyle(color: context.color.textStrong)),
+                  Text('filter.condition'.tr(), style: TextStyle(color: context.color.textStrong)),
                   const SizedBox(height: 8),
                   Row(
                     children: [
-                      CommonTextfield(hint: "home.filters.condition_new".tr()),
+                      CommonTextfield(hint: "filter.condition.new".tr()),
                       const SizedBox(width: 8),
-                      CommonTextfield(hint: "home.filters.condition_used".tr()),
+                      CommonTextfield(hint: "filter.used".tr()),
                       const SizedBox(width: 8),
-                      CommonTextfield(hint: "home.filters.condition_like_new".tr()),
+                      CommonTextfield(hint: "filter.condition.like_new".tr()),
                     ],
                   ),
                   const SizedBox(height: 16),
-                  Text('home.filters.deal_type'.tr(), style: TextStyle(color: context.color.textStrong)),
+                  Text('filter.deal_type'.tr(), style: TextStyle(color: context.color.textStrong)),
                   const SizedBox(height: 8),
                   Row(
                     children: [
-                      CommonTextfield(hint: "home.filters.free".tr()),
+                      CommonTextfield(hint: "filter.deal_type.free".tr()),
                       const SizedBox(width: 8),
-                      CommonTextfield(hint: "home.filters.exchange".tr()),
+                      CommonTextfield(hint: "filter.deal_type.exchange".tr()),
                     ],
                   ),
                   const Spacer(),
@@ -136,7 +136,7 @@ class _FiltersPageState extends State<FiltersPage> {
                     onPressed: () {
                       context.pop();
                     },
-                    text: "home.filters.show_results".tr(),
+                    text: "filter.show.results".tr(),
                     textStyle: TextStyle(color: context.color.white, fontSize: 16, fontWeight: FontWeight.w500),
                   ),
                 ],

@@ -121,7 +121,7 @@ class _HomePageState extends State<HomePage> {
                                     extra: {"region": state.region, "category": category},
                                   );
                                 },
-                                title: category?.name ?? "Категория",
+                                title: category?.name ?? "home.filters.category".tr(),
                                 imagePath: category?.img ?? "",
                               );
                             },
@@ -154,8 +154,8 @@ class _HomePageState extends State<HomePage> {
                             itemBuilder: (context, index) {
                               final product = state.recentProducts[index];
                               final imageUrl = (product.image?.isNotEmpty ?? false)
-                                  ? product.image!.first.image ?? "assets/images/item_1.png"
-                                  : "assets/images/item_1.png";
+                                  ? product.image!.first.image ?? ""
+                                  : "";
                               return ProductItem(
                                 regionName: product.region?.name ?? "",
                                 createdAt: product.createdAt,
@@ -165,9 +165,9 @@ class _HomePageState extends State<HomePage> {
                                   bloc.add(ToggleLikeEvent(product.id ?? 0));
                                 },
                                 productImagePath: imageUrl,
-                                title: product.price ?? "N/A",
+                                title: product.price ?? "-",
                                 liked: product.iLike ?? false,
-                                description: product.title ?? "N/A",
+                                description: product.title ?? "-",
                               );
                             },
                           )

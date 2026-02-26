@@ -39,7 +39,7 @@ class _HotSalesPageState extends State<HotSalesPage> {
           child: Padding(padding: const EdgeInsets.all(11.0), child: SvgPicture.asset(PIcons.arrowLeftIcon)),
         ),
         title: Text(
-          'Отслеживать цену',
+          "watching.title".tr(),
           style: TextStyle(color: context.color.textStrong, fontSize: 16, fontWeight: FontWeight.w500),
         ),
       ),
@@ -58,11 +58,14 @@ class _HotSalesPageState extends State<HotSalesPage> {
                   ? ListView(
                       key: const ValueKey('emptyState'),
                       padding: const EdgeInsets.all(16),
-                      children: const [
-                        SalesEmptyState(),
-                        SizedBox(height: 24),
-                        Text('Рекомендуем', style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16)),
-                        SizedBox(height: 8),
+                      children: [
+                        const SalesEmptyState(),
+                        const SizedBox(height: 24),
+                        Text(
+                          "home.recommended".tr(),
+                          style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+                        ),
+                        const SizedBox(height: 8),
                       ],
                     )
                   : ListView(

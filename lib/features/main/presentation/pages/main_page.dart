@@ -48,11 +48,10 @@ class _MainPageState extends State<MainPage> {
             children: [
               Expanded(
                 child: NavbarItem(
-                  label: 'Поиск',
+                  label: "nav.search".tr(),
                   iconPath: PIcons.homeIcon,
                   active: widget.navigationShell.currentIndex == 0,
                   onTap: () {
-                    // AppMetrica.reportEvent('Home Button Clicked');
                     widget.navigationShell.goBranch(0);
                   },
                 ),
@@ -60,21 +59,19 @@ class _MainPageState extends State<MainPage> {
               Expanded(
                 child: NavbarItem(
                   iconPath: PIcons.messageIcon,
-                  label: 'Продать',
+                  label: "nav.sell".tr(),
                   active: widget.navigationShell.currentIndex == 1,
                   onTap: () {
-                    // AppMetrica.reportEvent('Home Button Clicked');
                     widget.navigationShell.goBranch(1);
                   },
                 ),
               ),
               Expanded(
                 child: NavbarItem(
-                  label: 'Сообщения',
+                  label: "nav.messages".tr(),
                   iconPath: PIcons.sellIcon,
                   active: widget.navigationShell.currentIndex == 2,
                   onTap: () {
-                    // AppMetrica.reportEvent('Home Button Clicked');
                     widget.navigationShell.goBranch(2);
                   },
                 ),
@@ -82,10 +79,9 @@ class _MainPageState extends State<MainPage> {
               Expanded(
                 child: NavbarItem(
                   iconPath: localSource.isUserLoggedIn ? PIcons.profileIcon : PIcons.profileUnAuth,
-                  label: localSource.isUserLoggedIn ? "Профиль" : 'Войти',
+                  label: localSource.isUserLoggedIn ? "nav.profile".tr() : "nav.login".tr(),
                   active: widget.navigationShell.currentIndex == 3,
                   onTap: () {
-                    // AppMetrica.reportEvent('Home Button Clicked');
                     widget.navigationShell.goBranch(3);
                   },
                 ),

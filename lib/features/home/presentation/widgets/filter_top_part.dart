@@ -20,13 +20,13 @@ class FilterTopPart extends StatelessWidget {
         const Spacer(),
         const SizedBox(width: 30),
         Text(
-          'Фильтр',
+          "filter.title".tr(),
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: context.color.textStrong),
         ),
         const Spacer(),
         WScaleAnimation(
           onTap: onResetTap,
-          child: Text('Сбросить', style: TextStyle(color: context.color.textSoft)),
+          child: Text("filter.clear".tr(), style: TextStyle(color: context.color.textSoft)),
         ),
       ],
     );

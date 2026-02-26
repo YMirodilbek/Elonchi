@@ -13,10 +13,10 @@ class SalesEmptyState extends StatelessWidget {
           const SizedBox(height: 16),
           Image.asset(PIcons.salesImg, height: 98),
           const SizedBox(height: 8),
-          Text("Следите за выгодой", style: TextStyle(color: context.color.textStrong, fontSize: 16)),
+          Text("home.watch.product".tr(), style: TextStyle(color: context.color.textStrong, fontSize: 16)),
           const SizedBox(height: 8),
           Text(
-            "Мы сообщим вам, если продавец снизит цену  или обновит условия сделки",
+            "watch.empty.title".tr(),
             textAlign: TextAlign.center,
             style: TextStyle(color: context.color.textSub),
           ),

@@ -20,7 +20,7 @@ class SearchSelectedCategories extends StatelessWidget {
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(16), color: context.color.textStrong),
             child: Row(
               children: [
-                Text(categoryName ?? 'Все категории', style: TextStyle(color: context.color.background)),
+                Text(categoryName ?? "home.all_categories".tr(), style: TextStyle(color: context.color.background)),
                 const SizedBox(width: 8),
                 SvgPicture.asset(PIcons.menuIcon, color: context.color.background),
               ],

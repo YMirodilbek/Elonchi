@@ -12,7 +12,7 @@ class PriceFilterSheet extends StatelessWidget {
         children: [
           Row(
             children: [
-              Text('По умолчанию', style: TextStyle(color: context.color.textStrong)),
+              Text("filter.default".tr(), style: TextStyle(color: context.color.textStrong)),
               const Spacer(),
               CustomRadio(active: true),
             ],
@@ -20,7 +20,7 @@ class PriceFilterSheet extends StatelessWidget {
           const SizedBox(height: 21),
           Row(
             children: [
-              Text('Сначала новые', style: TextStyle(color: context.color.textStrong)),
+              Text("filter.newer".tr(), style: TextStyle(color: context.color.textStrong)),
               const Spacer(),
               CustomRadio(active: false),
             ],
@@ -28,7 +28,7 @@ class PriceFilterSheet extends StatelessWidget {
           const SizedBox(height: 21),
           Row(
             children: [
-              Text('Дешевле', style: TextStyle(color: context.color.textStrong)),
+              Text("filter.cheaper".tr(), style: TextStyle(color: context.color.textStrong)),
               const Spacer(),
               CustomRadio(active: false),
             ],
@@ -36,7 +36,7 @@ class PriceFilterSheet extends StatelessWidget {
           const SizedBox(height: 21),
           Row(
             children: [
-              Text('Дороже', style: TextStyle(color: context.color.textStrong)),
+              Text("filter.expensive".tr(), style: TextStyle(color: context.color.textStrong)),
               const Spacer(),
               CustomRadio(active: false),
             ],
@@ -44,7 +44,7 @@ class PriceFilterSheet extends StatelessWidget {
           const SizedBox(height: 21),
           Row(
             children: [
-              Text('Популярные', style: TextStyle(color: context.color.textStrong)),
+              Text("filter.popular".tr(), style: TextStyle(color: context.color.textStrong)),
               const Spacer(),
               CustomRadio(active: false),
             ],

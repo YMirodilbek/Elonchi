@@ -120,11 +120,14 @@ class _SearchPageState extends State<SearchPage> {
                         SvgPicture.asset(PIcons.locationIcon),
                         const SizedBox(width: 4),
                         Text(
-                          state.region?.name ?? 'Выберите регион',
+                          state.region?.name ?? "home.select_region".tr(),
                           style: TextStyle(color: context.color.textSub, fontWeight: FontWeight.w500),
                         ),
                         const Spacer(),
-                        Text('Найдено (${state.products.length})', style: TextStyle(color: context.color.textSoft)),
+                        Text(
+                          '${"home.found".tr()}(${state.products.length})',
+                          style: TextStyle(color: context.color.textSoft),
+                        ),
                       ],
                     ),
                   ),
@@ -137,7 +140,7 @@ class _SearchPageState extends State<SearchPage> {
                           : state.products.isEmpty
                           ? Center(
                               key: const ValueKey('empty'),
-                              child: Text('Товаров не найдено', style: TextStyle(color: context.color.textSoft)),
+                              child: Text("home.not_found".tr(), style: TextStyle(color: context.color.textSoft)),
                             )
                           : GridView.builder(
                               controller: _scrollController,
