@@ -91,7 +91,6 @@ class _MessagesPageState extends State<MessagesPage> {
                                     message: '',
                                     userId: 0,
                                   );
-
                                   context.push(Routes.conversationScreen, extra: request);
                                 },
                                 onDelete: () async {

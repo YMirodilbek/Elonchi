@@ -15,7 +15,7 @@ class MessagesAppbar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         const SizedBox(width: 16),
         Text(
-          "Сообщения",
+          "nav.messages".tr(),
           style: TextStyle(color: context.color.textStrong, fontSize: 20, fontWeight: FontWeight.w600),
         ),
         const Spacer(),

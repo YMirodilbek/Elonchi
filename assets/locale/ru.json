@@ -51,5 +51,7 @@
     "watching.title": "Отслеживать цену",
     "home.watch.product": "Следите за выгодой",
     "watch.empty.title": "Мы сообщим вам, если продавец снизит цену  или обновит условия сделки",
+    "messages.buy": "Покупаю",
+    "messages.sell": "Продаю",
     "liked.title": "Мои желания"
 }

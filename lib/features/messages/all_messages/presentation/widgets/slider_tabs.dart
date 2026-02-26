@@ -22,7 +22,7 @@ class SliderTabs extends StatelessWidget {
           0: Container(
             margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 12),
             child: Text(
-              "Покупаю",
+              "messages.buy".tr(),
               style: value == 0
                   ? const TextStyle(fontWeight: FontWeight.w500, fontSize: 14, color: Colors.white)
                   : TextStyle(fontWeight: FontWeight.w500, fontSize: 14),
@@ -34,7 +34,7 @@ class SliderTabs extends StatelessWidget {
               children: [
                 const Spacer(),
                 Text(
-                  "Продаю",
+                  "messages.sell".tr(),
                   style: value == 1
                       ? const TextStyle(fontWeight: FontWeight.w500, fontSize: 14, color: Colors.white)
                       : TextStyle(fontWeight: FontWeight.w500, fontSize: 14),

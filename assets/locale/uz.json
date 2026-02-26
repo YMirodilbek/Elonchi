@@ -50,5 +50,7 @@
     "filter.newer": "Birinchi yangiroq",
     "nav.login": "Kirish",
     "watching.title": "Narx Kuzatuvi",
-    "liked.title": "Yoqtirganlar"
+    "liked.title": "Yoqtirganlar",
+    "messages.buy": "Sotib olish",
+    "messages.sell": "Sotish"
 }
