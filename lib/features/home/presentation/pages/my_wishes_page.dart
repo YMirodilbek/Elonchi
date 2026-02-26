@@ -35,7 +35,10 @@ class _LikedPageState extends State<LikedPage> {
           onTap: () {
             context.pop();
           },
-          child: Padding(padding: const EdgeInsets.all(11.0), child: SvgPicture.asset(PIcons.arrowLeftIcon)),
+          child: Padding(
+            padding: const EdgeInsets.all(11.0),
+            child: SvgPicture.asset(PIcons.arrowLeftIcon, color: context.color.iconStrong),
+          ),
         ),
         title: Text(
           "liked.title".tr(),
