@@ -32,7 +32,7 @@ class _MyItemsPageState extends State<MyItemsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Продать', style: TextStyle(color: context.color.textStrong, fontSize: 20)),
+        title: Text("nav.sell".tr(), style: TextStyle(color: context.color.textStrong, fontSize: 20)),
         centerTitle: false,
       ),
       body: BlocBuilder<MyItemsBloc, MyItemsState>(
@@ -91,7 +91,7 @@ class _MyItemsPageState extends State<MyItemsPage> {
               Icon(Icons.add, color: context.color.white),
               const SizedBox(width: 8),
               Text(
-                'Разместить товар',
+                "sell.place_product".tr(),
                 style: TextStyle(color: context.color.white, fontSize: 14, fontWeight: FontWeight.w500),
               ),
             ],

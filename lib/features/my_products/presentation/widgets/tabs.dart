@@ -1,3 +1,4 @@
+import 'package:elonchi/core/extension/extension.dart';
 import 'package:elonchi/features/my_products/presentation/widgets/tab_item.dart';
 import 'package:flutter/material.dart';
 
@@ -12,10 +13,10 @@ class SellTabs extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         children: [
           const SizedBox(width: 16),
-          TabItem(title: 'Активные', active: true),
-          TabItem(title: 'На проверке', active: false),
-          TabItem(title: 'Черновики', active: false),
-          TabItem(title: 'Архив', active: false),
+          TabItem(title: "sell.active".tr(), active: true),
+          TabItem(title: "sell.on_review".tr(), active: false),
+          TabItem(title: "sell.drafts".tr(), active: false),
+          TabItem(title: "sell.archive".tr(), active: false),
         ],
       ),
     );

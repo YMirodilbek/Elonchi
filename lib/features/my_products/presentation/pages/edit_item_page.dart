@@ -71,7 +71,7 @@ class _EditItemPageState extends State<EditItemPage> {
                           onTap: () {
                             context.pop();
                           },
-                          child: Text('Закрыть', style: TextStyle(color: context.color.textSoft)),
+                          child: Text("common.close", style: TextStyle(color: context.color.textSoft)),
                         ),
                       ],
                     ),
