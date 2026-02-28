@@ -22,7 +22,7 @@ class NameInput extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Ваше имя', style: TextStyle(color: context.color.textSoft, fontSize: 12)),
+                Text("profile.your_name".tr(), style: TextStyle(color: context.color.textSoft, fontSize: 12)),
                 TextField(
                   onChanged: onChanged,
                   controller: controller,

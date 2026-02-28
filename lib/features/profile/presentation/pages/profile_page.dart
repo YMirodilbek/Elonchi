@@ -59,20 +59,20 @@ class _ProfilePageState extends State<ProfilePage> {
                 const SizedBox(height: 20),
                 UserInfo(userModel: state.userModel, selectedImgIndex: localSource.selectedPhotoIndex),
                 const SizedBox(height: 12),
-                ProfileItem(title: 'Мои объявления', iconPath: PIcons.myAnnoucementscon, onTap: () {}),
+                ProfileItem(title: "profile.my_ads".tr(), iconPath: PIcons.myAnnoucementscon, onTap: () {}),
                 const SizedBox(height: 12),
                 ProfileItem(
-                  title: "Мои желания",
+                  title: "profile.my_wishlist".tr(),
                   iconPath: PIcons.favouriteProfileIcon,
                   onTap: () {
                     context.push(Routes.myWishes);
                   },
                 ),
                 const SizedBox(height: 16),
-                Text("pool.create.settings".tr(), style: TextStyle(fontSize: 16)),
+                Text("profile.settings".tr(), style: TextStyle(fontSize: 16)),
                 const SizedBox(height: 8),
                 ProfileItem(
-                  title: "theme.title".tr(),
+                  title: "profile.theme".tr(),
                   iconPath: PIcons.themeIcon,
                   onTap: () {
                     triggerBottomSheet(content: ThemeSheet());
@@ -81,7 +81,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 Container(height: 1, color: Color(0xffE2E8F0)),
                 ProfileItem(
-                  title: "Язык",
+                  title: "profile.language".tr(),
                   iconPath: PIcons.languageSquareIcon,
                   onTap: () {
                     triggerBottomSheet(content: LanguageSheet());
@@ -92,10 +92,10 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                Text("Информация".tr(), style: TextStyle(fontSize: 16)),
+                Text("profile.information".tr(), style: TextStyle(fontSize: 16)),
                 const SizedBox(height: 8),
                 ProfileItem(
-                  title: "О платформе",
+                  title: "profile.about_platform".tr(),
                   iconPath: PIcons.infoIcon,
                   onTap: () {
                     triggerBottomSheet(content: const PlatformInfoSheet());
@@ -104,7 +104,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 Container(height: 1, color: Color(0xffE2E8F0)),
                 ProfileItem(
-                  title: "Поддержка",
+                  title: "profile.support".tr(),
                   iconPath: PIcons.supportIcon,
                   onTap: () {
                     triggerBottomSheet(content: const SupportSheet());
@@ -138,7 +138,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         children: [
                           SvgPicture.asset(PIcons.logOutIcon, color: context.color.errorColor),
                           const SizedBox(width: 8),
-                          Text('Выйти', style: TextStyle(color: context.color.errorColor)),
+                          Text("profile.logout".tr(), style: TextStyle(color: context.color.errorColor)),
                         ],
                       ),
                     ),

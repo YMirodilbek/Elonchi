@@ -58,7 +58,7 @@ class TopInfoPart extends StatelessWidget {
             children: [
               Text(userModel.firstName ?? '', style: TextStyle(color: context.color.textStrong)),
               const SizedBox(height: 4),
-              Text('Профель создань 14.01.2026', style: TextStyle(color: context.color.textSoft, fontSize: 12)),
+              Text("profile.created".tr(), style: TextStyle(color: context.color.textSoft, fontSize: 12)),
             ],
           ),
         ],

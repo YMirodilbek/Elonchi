@@ -32,7 +32,7 @@ class UserInfo extends StatelessWidget {
           const SizedBox(height: 8),
           (userModel.firstName == null || userModel.firstName!.isEmpty)
               ? Text(
-                  "Напишите свой имя",
+                  "profile.enter_name".tr(),
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: context.color.base),
                 )
               : Text(
@@ -41,7 +41,7 @@ class UserInfo extends StatelessWidget {
                 ),
           const SizedBox(height: 4),
           // here
-          Text("Профель создань -- -- ----", style: TextStyle(color: context.color.text400, fontSize: 12)),
+          Text("profile.created".tr(), style: TextStyle(color: context.color.text400, fontSize: 12)),
         ],
       ),
     );

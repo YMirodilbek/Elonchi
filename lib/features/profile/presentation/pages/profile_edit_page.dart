@@ -45,7 +45,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
           child: Padding(padding: const EdgeInsets.all(11.0), child: SvgPicture.asset(PIcons.arrowLeftIcon)),
         ),
         title: Text(
-          'Мой профиль',
+          "nav.profile".tr(),
           style: TextStyle(color: context.color.textStrong, fontSize: 16, fontWeight: FontWeight.w500),
         ),
       ),
@@ -95,7 +95,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                           : () {
                               bloc.add(EditProfileEvent(state.userModel));
                             },
-                      text: 'Сохранить',
+                      text: 'save'.tr(),
                       textStyle: (state.userModel.firstName == null || state.userModel.firstName!.trim().isEmpty)
                           ? null
                           : TextStyle(color: context.color.white, fontSize: 16, fontWeight: FontWeight.w500),
@@ -103,7 +103,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                     const SizedBox(height: 16),
                     ButtonWithScale(
                       onPressed: () {},
-                      text: 'Удалить аккаунт',
+                      text: "profile.delete_account".tr(),
                       color: Color(0xffFFDBDC),
                       textStyle: TextStyle(color: context.color.errorColor, fontSize: 16, fontWeight: FontWeight.w500),
                     ),

@@ -15,11 +15,11 @@ class ThemeSheet extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Тема оформления',
+          "settings.theme".tr(),
           style: TextStyle(fontWeight: FontWeight.w500, color: context.color.textStrong, fontSize: 16),
         ),
         const SizedBox(height: 4),
-        Text('Выберите, как будет выглядеть приложение'),
+        Text("settings.choose_theme".tr()),
         const SizedBox(height: 20),
         WScaleAnimation(
           onTap: () {
@@ -45,12 +45,12 @@ class ThemeSheet extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Светлая", style: TextStyle(fontSize: 16, color: context.color.textStrong)),
+                    Text("theme.light".tr(), style: TextStyle(fontSize: 16, color: context.color.textStrong)),
                     const SizedBox(height: 2),
                     SizedBox(
                       width: 240,
                       child: Text(
-                        'Светлый интерфейс с максимальной читаемостью',
+                        "theme.light_desc".tr(),
                         style: TextStyle(fontSize: 12, color: context.color.textSoft),
                       ),
                     ),
@@ -85,12 +85,12 @@ class ThemeSheet extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Тёмная", style: TextStyle(fontSize: 16, color: context.color.textStrong)),
+                    Text("theme.dark".tr(), style: TextStyle(fontSize: 16, color: context.color.textStrong)),
                     const SizedBox(height: 2),
                     SizedBox(
                       width: 240,
                       child: Text(
-                        'Светлый интерфейс с максимальной читаемостью',
+                        "theme.dark_desc".tr(),
                         style: TextStyle(fontSize: 12, color: context.color.textSoft),
                       ),
                     ),

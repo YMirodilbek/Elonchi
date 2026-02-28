@@ -11,7 +11,7 @@ class LoginButton extends StatelessWidget {
     return ButtonWithScale(
       onPressed: onTap,
       horizontalMargin: 16,
-      text: "Войти в систему",
+      text: "auth.login_system".tr(),
       color: context.color.base,
       textStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: context.color.white),
     );

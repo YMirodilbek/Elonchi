@@ -15,7 +15,7 @@ class PhoneInput extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Телефон номер', style: TextStyle(color: context.color.textSoft, fontSize: 12)),
+          Text("profile.phone_number".tr(), style: TextStyle(color: context.color.textSoft, fontSize: 12)),
           const SizedBox(height: 4),
           Text(
             phoneNumber,

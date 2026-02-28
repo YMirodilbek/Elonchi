@@ -13,11 +13,11 @@ class LanguageSheet extends StatelessWidget {
         Image.asset(PIcons.choseLangImg, height: 65),
         const SizedBox(height: 12),
         Text(
-          'Язык приложения',
+          "settings.app_language".tr(),
           style: TextStyle(color: context.color.textStrong, fontSize: 20, fontWeight: FontWeight.w600),
         ),
         const SizedBox(height: 4),
-        Text('Выберите удобный язык интерфейса.', style: TextStyle(color: context.color.textSub)),
+        Text("settings.choose_language".tr(), style: TextStyle(color: context.color.textSub)),
         const SizedBox(height: 20),
         LanguageItem(
           color: context.color.background,

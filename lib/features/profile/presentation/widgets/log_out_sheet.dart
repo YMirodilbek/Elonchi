@@ -13,12 +13,12 @@ class LogOutSheet extends StatelessWidget {
         Image.asset('assets/images/log_out_img.png', height: 66),
         const SizedBox(height: 12),
         Text(
-          'Выйти из аккаунта?',
+          "auth.logout_confirm".tr(),
           style: TextStyle(color: context.color.textStrong, fontSize: 20, fontWeight: FontWeight.w600),
         ),
         const SizedBox(height: 12),
         Text(
-          'Вы сможете войти снова в любое время',
+          "auth.logout_subtitle".tr(),
           style: TextStyle(color: context.color.textSub, fontSize: 14, fontWeight: FontWeight.w400),
         ),
         const SizedBox(height: 20),
@@ -27,7 +27,7 @@ class LogOutSheet extends StatelessWidget {
             Expanded(
               child: ButtonWithScale(
                 textStyle: TextStyle(color: context.color.white),
-                text: 'Выйти',
+                text: "profile.logout".tr(),
                 onPressed: () {
                   context.pop(true);
                 },
@@ -38,7 +38,7 @@ class LogOutSheet extends StatelessWidget {
             Expanded(
               child: ButtonWithScale(
                 textStyle: TextStyle(color: context.color.textSoft),
-                text: 'Назад',
+                text: "common.back".tr(),
                 onPressed: () {
                   context.pop();
                 },

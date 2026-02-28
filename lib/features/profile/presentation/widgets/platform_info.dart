@@ -14,18 +14,18 @@ class PlatformInfoSheet extends StatelessWidget {
         Image.asset(PIcons.platformInfoImg, height: 65),
         const SizedBox(height: 12),
         Text(
-          'О платформе',
+          "about.title".tr(),
           style: TextStyle(color: context.color.textStrong, fontSize: 20, fontWeight: FontWeight.w600),
         ),
         const SizedBox(height: 4),
         Text(
           textAlign: TextAlign.center,
-          'Платформа предназначена для безопасной и удобной торговли сырьём, пряжей и текстильной продукцией между покупателями и продавцами.  Мы помогаем находить надёжных партнёров, публиковать товары и напрямую связываться для обсуждения условий сделки. ',
+          "about.description".tr(),
           style: TextStyle(color: context.color.textSub),
         ),
         const SizedBox(height: 20),
         ButtonWithScale(
-          text: "Закрыть",
+          text: "common.close".tr(),
           onPressed: () {
             context.pop();
           },
