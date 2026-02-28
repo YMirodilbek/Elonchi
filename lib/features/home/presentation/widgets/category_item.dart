@@ -17,7 +17,19 @@ class CategoryItem extends StatelessWidget {
         children: [
           Container(
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: context.color.bgelevation),
-            child: CachedNetworkImage(imageUrl: imagePath),
+            child: CachedNetworkImage(
+              imageUrl: imagePath,
+              memCacheHeight: 150,
+              memCacheWidth: 150,
+              maxHeightDiskCache: 300,
+              maxWidthDiskCache: 300,
+              fadeInDuration: Duration.zero,
+              fadeOutDuration: Duration.zero,
+              placeholderFadeInDuration: Duration.zero,
+              placeholder: (context, url) => const SizedBox.shrink(),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
+              fit: BoxFit.cover,
+            ),
           ),
           const SizedBox(height: 2),
           Text(title, style: TextStyle(fontSize: 8, fontWeight: FontWeight.w500)),

@@ -53,6 +53,7 @@ class _HomePageState extends State<HomePage> {
                 await Future.delayed(const Duration(milliseconds: 500));
               },
               child: ListView(
+                cacheExtent: 1000,
                 padding: const EdgeInsets.all(16),
                 children: [
                   TopDetailsHome(
@@ -106,7 +107,6 @@ class _HomePageState extends State<HomePage> {
                         ? CategoryShimmer(key: const ValueKey('categoryShimmer'))
                         : state.categories.isNotEmpty
                         ? GridView.builder(
-                            key: const ValueKey('categories'),
                             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 5,
                               childAspectRatio: 0.65,

@@ -13,6 +13,7 @@ import 'package:elonchi/features/home/presentation/pages/filters_page.dart';
 import 'package:elonchi/features/home/presentation/pages/hot_sales_page.dart';
 import 'package:elonchi/features/home/presentation/pages/my_wishes_page.dart';
 import 'package:elonchi/features/home/presentation/pages/search_page.dart';
+import 'package:elonchi/features/map/presentation/pages/map_page.dart';
 import 'package:elonchi/features/messages/all_messages/presentation/blocs/all_messages_bloc/all_messages_bloc.dart';
 import 'package:elonchi/features/messages/all_messages/presentation/pages/messages.dart';
 import 'package:elonchi/features/messages/single_message/domain/entities/conversation_request.dart';
@@ -150,6 +151,12 @@ final GoRouter router = GoRouter(
         create: (context) => sl<SingleBloc>(),
         child: SingleItemPage(itemId: state.extra as int),
       ),
+    ),
+    GoRoute(
+      path: Routes.mapScreen,
+      name: Routes.mapScreen,
+      parentNavigatorKey: rootNavigatorKey,
+      builder: (_, state) => const MapPage(),
     ),
     GoRoute(
       path: Routes.authScreen,

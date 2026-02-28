@@ -40,7 +40,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
   void _onLogin(Login event, Emitter<LoginState> emit) async {
-    final fullPhoneNumber = "${state.countryCode} ${state.number.trim()}";
+    final fullPhoneNumber = "${state.countryCode}${state.number.trim()}";
 
     // Check if same number and OTP is still valid
     if (_isSameNumberAndOtpValid(fullPhoneNumber)) {

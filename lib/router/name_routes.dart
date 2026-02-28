@@ -22,4 +22,5 @@ sealed class Routes {
   static const String editProfileScreen = '/edit_profile_page';
   static const String successItemAddedScreen = '/success_item_added_page';
   static const String editItemScreen = "/edit_item_page";
+  static const String mapScreen = "/map_page";
 }
